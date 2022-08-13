@@ -1,0 +1,37 @@
+*{
+    margin: 0 0;
+    padding: 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.barra-navegacion{
+    background-color: rgba(255, 255, 255, 0.61);
+    position: fixed;
+}
+.contenedor{
+    /* border: 1px solid #000; */
+    width: 90%;
+    margin: 0 auto;
+    padding: 1%;
+}
+float-contenedor{
+    position: relative;
+}
+.img-responsive{
+    width: 100%;
+}
+.logo{
+    width: 30%;
+    float: left;
+}
+.letras{
+   position:relative;
+   display: flex;
+   flex-direction: row-reverse;
+}
+.barra_informacion{
+    background-color: #1D71B8;
+    color: white;
+    text-align: left;
+    padding: 20px;
+}
+
