@@ -3,13 +3,13 @@
 }
 .contenedor{
     /* border: 1px solid #000; */
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     padding: 1.5% 2%;
     display: inline-flex;
     justify-content: center;
 }
-float-contenedor{
+.float-contenedor{
     position: relative;
 }
 .img-responsive{
@@ -23,7 +23,7 @@ float-contenedor{
     text-align: center;
 }
 .inicio_aplicacion{
-    padding: 5% 0;
+    padding: 4% 0;
 }
 .service-items{
     width: 18%;
@@ -39,3 +39,64 @@ float-contenedor{
 .service-items:hover{
     transform: scale(1.05) translateY(-0.5em);
 }
+
+@media only screen and (max-width: 912px) {
+    .service-items{
+        width: 50%;
+    }
+    .float-contenedor{
+        position:relative;
+    }
+    .contenedor{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  }
+  @media only screen and (max-width: 1024px) {
+    .service-items{
+        width: 30%;
+    }
+    .float-contenedor{
+        position:relative;
+    }
+    .contenedor{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  }
+  @media only screen and (max-width: 1280px) {
+    .service-items{
+        width: 30%;
+    }
+    .float-contenedor{
+        position:relative;
+    }
+    .contenedor{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  }
+@media only screen and (max-width: 768px) {
+    .service-items{
+        width: 50%;
+    }
+    .float-contenedor{
+        position:relative;
+    }
+    .contenedor{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  }

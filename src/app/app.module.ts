@@ -10,6 +10,11 @@ import { SearcherComponent } from './searcher/searcher.component';
 import { ScheduleSelectionComponent } from './schedule-selection/schedule-selection.component';
 import { CourseSelectionComponent } from './course-selection/course-selection.component';
 import { EnrollmentFormComponent } from './enrollment-form/enrollment-form.component';
+import { LoginComponent } from './admin/login/login.component';
+import { SidebarComponentComponent } from './admin/sidebar-component/sidebar-component.component';
+import { StudentComponentComponent } from './admin/student-component/student-component.component';
+import { TeacherComponentComponent } from './admin/teacher-component/teacher-component.component';
+import { CourseComponentComponent } from './admin/course-component/course-component.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,11 @@ import { EnrollmentFormComponent } from './enrollment-form/enrollment-form.compo
     ScheduleSelectionComponent,
     CourseSelectionComponent,
     EnrollmentFormComponent,
+    LoginComponent,
+    SidebarComponentComponent,
+    StudentComponentComponent,
+    TeacherComponentComponent,
+    CourseComponentComponent,
   ],
   imports: [
     BrowserModule,

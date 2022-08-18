@@ -18,7 +18,6 @@
     padding: 20px;
     margin-top: auto;
     
-
 }
 .direccion{
     width: 40%;
@@ -47,3 +46,36 @@
     clear: both;
     float: none;
 }
+@media only screen and (max-width: 768px) {
+    .footer{
+        margin-top: auto;
+        min-width: 100%;
+        bottom: 0;
+    }
+
+    .redes{
+        float: left;
+        width: 100%;
+        margin-bottom: 1%;
+        
+    }
+    .direccion{
+        width: 100%;
+        float:left;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size:small;
+    }
+    .contenedor{
+        /* border: 1px solid #000; */
+        width: 100%;
+        margin: 0 auto;
+        padding: 1%;
+    }
+    .text-derecha{
+        text-align: center;
+        text-justify: auto;  
+    }
+
+  }
