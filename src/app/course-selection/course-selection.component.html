@@ -1,3 +1,4 @@
+<app-header-component></app-header-component>
 <section class="course">
     <div class="letras">
         <h1 class="titulo">Matriculación</h1>
@@ -16,25 +17,16 @@
               <thead class="table-primary">
                 <tr>
                   <th>Cursos</th>
-                  <th>Cantidad de Cupos</th>
+                  <th>Cupos</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Paralelo A</td>
-                  <td>Doe</td>
-                  <td><a href="/enrollment"><button type="button" class="btn btn-outline-primary">Matricularme</button></a></td>
-                </tr>
-                <tr>
-                  <td>Paralelo B</td>
-                  <td>Moe</td>
-                  <td><button type="button" class="btn btn-outline-primary">Matricularme</button></td>
-                </tr>
-                <tr>
-                  <td>Paralelo C</td>
-                  <td>Dooley</td>
-                  <td><button type="button" class="btn btn-outline-primary">Matricularme</button></td>
+                <tr *ngFor="let course of course.data">
+                  <td>{{"Paralelo" + ' ' + course.name}}</td>
+                  <td>{{course.Students.length + "/" + course.maxStudents}}</td>
+                  <td *ngIf="course.Students.length < course.maxStudents "><a [name]="course.id" (click)="enroll($event)" type="submit" id="button_matriculacion" class="btn btn-outline-primary">Matricularme</a></td>
+                  <td *ngIf="course.Students.length == course.maxStudents "><p class="text-danger">No hay cupos disponibles</p></td>
                 </tr>
               </tbody>
             </table>
@@ -44,4 +36,5 @@
     <div class="limpieza"></div>
 </div>
 </section>
+<app-footer-component></app-footer-component>
 

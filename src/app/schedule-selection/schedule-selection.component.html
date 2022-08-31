@@ -1,3 +1,4 @@
+<app-header-component></app-header-component>
 <section class="searcher">
     <div class="letras">
         <h1 class="titulo">Matriculación</h1>
@@ -5,36 +6,29 @@
     <br>
     <div class="letras indicaciones">
         <h3>Detalles y Recomendaciones</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere doloremque perspiciatis a itaque facilis eius asperiores praesentium voluptate aperiam dicta eaque nemo velit, quam enim labore doloribus sunt est quibusdam!</p>
+        <p class="text-danger">¡Lea con atención!</p>
+        <p>Bienvenidos a la plataforma de Matriculación de catequesis que la Parroquia Santiago Apóstol de Machachi pone a dispocisión de la 
+           comunidad con la finalidad de realizar un proceso rápido y automatizado. Sigamos los siguientes pasos: <br> 1. A continuación debe elegir el horario  
+           de acuerdo al nivel al que se desea inscribir, estos son: <br>
+        </p>
+        <h6 class="text-danger">Iniciación, Reconciliación, Eucaristía, Año Bíblico, RPB(Renovación de Promesas Bautismales), y Confirmación </h6>
     </div>
     <div class="contenedor">
     <br>
     <div class="formulario">
-        <form action="/course_selection">
-        <h6>Seleccione el Nivel al cual se desea Matricular</h6>
+        <form>
+        <h5>Seleccione el Nivel al cual se desea Matricular</h5>
         <br>
-        <select class="form-select form-select-lg mb-2" aria-label="Default select example">
-            <option value="1">Iniciación</option>
-            <option value="2">Reconciliación</option>
-            <option value="3">Eucaristía</option>
-            <option value="4">Año Bíblico</option>
-            <option value="5">Renovación de Promesas Bautismales</option>
-            <option value="6">Confirmación</option>
-          </select>
-        <br>
-        <h6>Seleccione el Horario al cual se desea Matricular</h6>
-        <br>
-        <select class="form-select form-select-lg mb-2" aria-label="Default select example">
-            <option value="1">Viernes 15h00-17h00</option>
-            <option value="2">Sábado 8h00-10h00</option>
-            <option value="3">Sábado 10h00-12h00</option>
-            <option value="4">Sábado 12h00-14h00</option>
-            <option value="5">Sábado 14h00-16h00</option>
+        <select class="form-select form-select-lg mb-2"  aria-label="Default select example" [(ngModel)]="opcionSeleccionada" name="Shedule_selection" (change)="capturar()" selected="selected">
+            <option *ngFor="let shedule of shedules.data" [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
         </select>
         <br>
-          <button type="submit" class="btn btn-primary">Consultar cupos disponibles</button>
+        <a  type="submit"  [name]="this.verSeleccion" (click)="consult_courses($event)" class="btn btn-outline-primary">Consultar cupos disponibles</a>
+          <!-- <button type="submit" class="btn btn-primary">Consultar cupos disponibles</button> -->
         </form>
     </div>
     <div class="limpieza"></div>
+    
 </div>
 </section>
+<app-footer-component></app-footer-component>

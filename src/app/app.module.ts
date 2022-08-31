@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,9 @@ import { SidebarComponentComponent } from './admin/sidebar-component/sidebar-com
 import { StudentComponentComponent } from './admin/student-component/student-component.component';
 import { TeacherComponentComponent } from './admin/teacher-component/teacher-component.component';
 import { CourseComponentComponent } from './admin/course-component/course-component.component';
+import { AdminComponent } from './admin/admin.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -31,10 +35,14 @@ import { CourseComponentComponent } from './admin/course-component/course-compon
     StudentComponentComponent,
     TeacherComponentComponent,
     CourseComponentComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
