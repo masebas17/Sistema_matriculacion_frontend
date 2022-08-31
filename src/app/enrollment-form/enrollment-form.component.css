@@ -1,19 +1,19 @@
 *{
     font-family: Arial, Helvetica, sans-serif;
 }
-.searcher{
-    padding: 3% 8% 3% 8%;
+.Formulario{
+    padding: 3% 8% 2% 8%;
 }
 .contenedor{
     /* border: 1px solid #000; */
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    padding: 1%;
-    display: inline-flex;
+    padding: 4% 10%;
+    display: flex;
     align-content: center;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
+    align-items: stretch;
 }
 .titulo{
     text-align:left;
@@ -30,12 +30,12 @@
     border-radius: 15px;
     padding: 10px;
  }
- .formulario{
-    padding: 0 10%;
+ /* .formulario{
+    padding: 10%;
     width: 70%;
     margin: 10px;
     color: #6096BA;
- }
+ } */
  .limpieza{
     clear: both;
     float: none;
@@ -43,6 +43,10 @@
 .botones{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
 }
+.btn{
+    padding: 0.5% 6%;
+    margin: 0 2% 0 2%;
+}
+
 
