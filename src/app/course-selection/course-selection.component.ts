@@ -40,6 +40,7 @@ export class CourseSelectionComponent implements OnInit {
 
   enroll(event: any){
     console.log(event.target.name)
+    localStorage.setItem("en", event.target.name)
     this._router.navigate(['/enrollment', event.target.name])
     
   }

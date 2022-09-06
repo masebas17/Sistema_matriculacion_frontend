@@ -6,7 +6,7 @@ export interface LevelResponse {
 }
 
 export interface datalevel {
-    id: number,
+    id?: number,
     name: string 
 }
 
@@ -22,7 +22,7 @@ export interface datashedule {
     weekDay: string,
     startTime: number,
     endTime: number,
-    level: [datalevel]
+    level: datalevel
 }
 
 export interface course{
@@ -60,5 +60,15 @@ export interface dataStudent{
     email?: string,
     baptized?: false,
     disability?: null,
-    courseId?: number
+    courseId?: number,
+    Course?: dataCourse
+}
+
+export interface dataCourse{
+    id: number,
+    name: string,
+    maxStudents: number,
+    ScheduleId: number,
+    TeacherId: null,
+    Schedule: datashedule
 }

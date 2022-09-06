@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { datalevel, datashedule, LevelResponse } from '../shared/interfaces';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-schedule-selection',
@@ -16,8 +16,9 @@ export class ScheduleSelectionComponent implements OnInit {
   levels: any;
   shedules: any;
   datos_select: any;
-  opcionSeleccionada: number = 1;
-  verSeleccion: number= 1;
+  opcionSeleccionada: number = 0;
+  verSeleccion: number = 0;
+  
   
 
   constructor(private _apiService:ApiService,
@@ -26,7 +27,6 @@ export class ScheduleSelectionComponent implements OnInit {
     this.levels = {};
     this.shedules = {};
     this.datos_select ={};
-
    }
 
   
@@ -40,6 +40,7 @@ export class ScheduleSelectionComponent implements OnInit {
     this._apiService.getlevel().subscribe((resp: datalevel[])  =>{
       console.log(resp),
       this.levels = resp;
+      console.log(this.levels.data.name)
    })
   }
 
@@ -52,10 +53,14 @@ export class ScheduleSelectionComponent implements OnInit {
 
   consult_courses(event: any){
     if(this.verSeleccion != 0){
+      localStorage.setItem("cs", event.target.name)
       this._router.navigate(['/course_selection', event.target.name]) 
     }
     else{
-      alert("Debe escoger un nivel del Menú")
+      Swal.fire({
+        icon: 'error',
+        text: 'Debe seleccionar un horario',
+      })
     }
   }
 
@@ -63,9 +68,5 @@ export class ScheduleSelectionComponent implements OnInit {
     this.verSeleccion = this.opcionSeleccionada
     console.log(this.verSeleccion)
   }
-
-
- 
-
 
 }

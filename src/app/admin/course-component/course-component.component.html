@@ -1,1 +1,35 @@
-<p>course-component works!</p>
+<section class="Formulario">
+    <div class="letras">
+        <h1 class="titulo">Generación de listados</h1>
+    </div>
+    <br>
+    <div class="contenedor">
+    <form [formGroup]="Form" >
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="">Escoger el Horario y nivel:</label>
+                <select class="form-select" aria-label="Default select example" formControlName="level_schedule" [ngClass]="{'is-invalid':Form.get('level_schedule')?.errors && Form.get('level_schedule')?.touched}">
+                    <option value="7"> Inciación</option>
+                </select>
+                <div *ngIf="Form.get('age')?.errors">
+                    <div class="text-danger" *ngIf="Form.get('level_schedule')?.hasError('required') && Form.get('level_schedule')?.touched">Debe escoger un Horario</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label for="">Escoger el paralelo:</label>
+                <select class="form-select" aria-label="Default select example" formControlName="course" [ngClass]="{'is-invalid':Form.get('course')?.errors && Form.get('course')?.touched}">
+                    <option value="7">7 años </option>
+                </select>
+                <div *ngIf="Form.get('age')?.errors">
+                    <div class="text-danger" *ngIf="Form.get('course')?.hasError('required') && Form.get('course')?.touched">Debe escoger un paralelo</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="botones">
+                <button  type="submit" class="btn btn-success">Listado</button>
+            </div>
+            </div>
+        </div>
+    </form>
+</div> 
+</section>

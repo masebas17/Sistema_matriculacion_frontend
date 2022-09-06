@@ -17,7 +17,10 @@ import { StudentComponentComponent } from './admin/student-component/student-com
 import { TeacherComponentComponent } from './admin/teacher-component/teacher-component.component';
 import { CourseComponentComponent } from './admin/course-component/course-component.component';
 import { AdminComponent } from './admin/admin.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VoucherComponentComponent } from './voucher-component/voucher-component.component';
+import { HttpRequestInterceptor } from './interceptors/http-loading.interceptor';
 
 
 @NgModule({
@@ -36,15 +39,21 @@ import { HttpClientModule } from '@angular/common/http';
     TeacherComponentComponent,
     CourseComponentComponent,
     AdminComponent,
+    VoucherComponentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpRequestInterceptor,
+    multi: true,
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

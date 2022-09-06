@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-course-component',
@@ -9,7 +10,16 @@ export class CourseComponentComponent implements OnInit {
 
   constructor() { }
 
+  Form = new FormGroup(
+    {
+      level_Shedule: new FormControl('', Validators.required),
+      course: new FormControl('', Validators.required)
+    }
+  )
+
   ngOnInit(): void {
   }
+
+
 
 }
