@@ -1,21 +1,27 @@
 <app-header-component></app-header-component>
 <section class="searcher">
     <div class="letras">
-        <h1 class="titulo">Consultas</h1>
+        <h1 class="titulo">Consultar Datos de Matrículación del Estudiante</h1>
     </div>
     <div class="contenedor">
     <br>
     <div class="formulario">
-        <form action="/home">
-            <p>Ingrese su Número de Cédula para realizar una nueva consulta</p>
+        <form [formGroup]="Form" (ngSubmit)="consultar()">
             <div class="mb-5 mt-5">
-              <input type="number" class="form-control" id="input_consulta" placeholder="Ingrese el Número de Cédula" name="num_cedula">
-            </div>
-            <button type="submit" class="btn btn-primary">Consultar datos</button>
-            <a href="/home"><button type="submit" class="btn btn-danger btn-xs" >Salir</button></a>
+                <label>Ingrese su Número de Cédula para realizar una nueva consulta</label><br><br>
+                <input type="text" class="form-control" formControlName="identityNumber" id="numcedula" placeholder="Ingrese el Número de Cédula" name="identityNumber" [ngClass]="{'is-invalid':Form.get('identityNumber')?.errors && Form.get('identityNumber')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
+                <div *ngIf="Form.get('identityNumber')?.errors">
+                    <div class="text-danger" *ngIf="Form.get('identityNumber')?.hasError('required') && Form.get('identityNumber')?.touched">Ingrese un número de cédula válido</div>
+                    <div class="text-danger" *ngIf="Form.get('identityNumber')?.hasError('maxLength')">Se debe llenar 10 dígitos</div>
+                    <div class="text-danger" *ngIf="Form.get('identityNumber')?.hasError('minLength')">Se debe llenar 10 dígitos</div>
+                </div>
+            <button [disabled]="Form.invalid" type="submit" class="btn btn-success">Consultar</button>
+            <a href="/home" class="btn btn-danger">Cancelar</a>
+        </div>
         </form>
     </div>
     <div class="limpieza"></div>
 </div>
 </section>
+<!-- modal Content -->
 <app-footer-component></app-footer-component>

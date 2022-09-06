@@ -12,16 +12,21 @@ import { StudentComponentComponent } from './admin/student-component/student-com
 import { TeacherComponentComponent } from './admin/teacher-component/teacher-component.component';
 import { CourseComponentComponent } from './admin/course-component/course-component.component';
 import { AdminComponent } from './admin/admin.component';
+import { VoucherComponentComponent } from './voucher-component/voucher-component.component';
+import { AuthGuard } from './guards/auth.guard';
+import { CourseSelectionGuard } from './guards/course-selection.guard';
+import { EnrollmentGuard } from './guards/enrollment.guard';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home',             component: MainMenuComponent },
     { path: 'searcher',         component: SearcherComponent },
     { path: 'shedule_selection', component: ScheduleSelectionComponent },
-    { path: 'course_selection/:id', component: CourseSelectionComponent },
-    { path: 'enrollment/:id',       component: EnrollmentFormComponent },
+    { path: 'course_selection/:id',canActivate: [CourseSelectionGuard] ,component: CourseSelectionComponent },
+    { path: 'enrollment/:id',canActivate: [EnrollmentGuard],component: EnrollmentFormComponent },
+    { path: 'voucher',       component: VoucherComponentComponent },
     {path: 'login', component:LoginComponent},
-    { path: 'admin', component: AdminComponent,
+    { path: 'admin', canActivate: [AuthGuard], component: AdminComponent,
     children:[
       {path: 'student', component:StudentComponentComponent},
       {path: 'teacher', component:TeacherComponentComponent},

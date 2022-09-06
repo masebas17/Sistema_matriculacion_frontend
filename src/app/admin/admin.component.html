@@ -1,2 +1,27 @@
-<app-sidebar-component></app-sidebar-component>
 
+<div class="topnav" id="myTopnav">
+  <a href="#home" class="active">Home</a>
+  <a href="/admin/course">Listados</a>
+  <a href="#contact">Contact</a>
+  <a (click)="logout()">Cerrar Sesión</a>
+  <a href="javascript:void(0);" class="icon" (click)="myFunction()">
+    ☰
+  </a>
+</div>
+
+<div style="padding-left:16px">
+  <router-outlet></router-outlet>
+</div> 
+
+<!-- <div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">×</a>
+  <a href="#">Revisar Listas</a>
+  <a href="#">Información Estudiantes</a>
+  <a href="#">Profesores</a>
+  <a href="#">Cerrar Sesión</a>
+</div>
+
+<div id="main">
+  <button class="openbtn" (click)="openNav()">☰ Menú</button>  
+  <router-outlet></router-outlet>
+</div>  -->

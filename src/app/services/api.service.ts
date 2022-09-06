@@ -21,15 +21,25 @@ export class ApiService {
   }
 
   getShedule(): Observable<datashedule[]>{
-    return this.http.get<datashedule[]>(`${this.apiUrl}/api/schedules`)
+    const currentDate: Date = new Date();
+    return this.http.post<datashedule[]>(`${this.apiUrl}/api/schedules/enrollment`, {currentDate})
   }
 
   getCourses(id: any): Observable<datacourses[]>{
     return this.http.get<datacourses[]>(`${this.apiUrl}/api/courses/schedule/`+ id)
   }
+  getcourse(): Observable<datacourses[]>{
+    return this.http.get<datacourses[]>(`${this.apiUrl}/api/courses`)
+  }
 
-  enrollemnt(Student: dataStudent): Observable<dataStudent[]>{
-    return this.http.post<dataStudent[]>(`${this.apiUrl}/api/students`, Student) 
+  getStudent(id: any): Observable<dataStudent[]>{
+    return this.http.get<dataStudent[]>(`${this.apiUrl}/api/students/`+ id)
+  }
+
+ 
+  async enrollemnt(Student: dataStudent){
+    const resp: any = await this.http.post(`${this.apiUrl}/api/students`, Student).toPromise() 
+    return resp
   }
 
 }
