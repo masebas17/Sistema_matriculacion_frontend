@@ -78,13 +78,19 @@ export class EnrollmentFormComponent implements OnInit {
     console.log(this.student)
 
     const resp = await this._apiService.enrollemnt(this.student)
+    if(resp === undefined){
+      const myTimeout = setTimeout(() => {
+        this.router.navigate(['/home'])
+      }, 6000);
+      myTimeout;
+    }
 
-    console.log(resp.data)
+    console.log(resp)
     this.datos_of_students = resp.data;
 
     console.log(this.datos_of_students)
 
-
+    
     if (resp) {
 
       const myTimeout = setTimeout(() => {
