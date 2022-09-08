@@ -8,8 +8,18 @@ background: #eee;
 .h-custom {
 height: calc(100% - 73px);
 }
+.btn_salir{
+    margin: 4%;
+}
+.logo{
+    margin-left: 15%;
+    margin-right: 15%;
+}
 @media (max-width: 450px) {
 .h-custom {
 height: 100%;
+}
+.logo{
+    margin: 10%;
 }
 }

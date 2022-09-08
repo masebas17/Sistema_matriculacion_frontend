@@ -10,11 +10,17 @@ import { datacourses, datalevel, datashedule, dataStudent, LevelResponse, Studen
   providedIn: 'root'
 })
 export class ApiService {
+  token: any = null;
 
   constructor(private http: HttpClient) { }
 
   userUrl = 'https://sistema-matriculacion.herokuapp.com';
   apiUrl = 'https://sistema-matriculacion.herokuapp.com';
+
+
+  getToken() {
+    this.token = localStorage.getItem('jwt') || null;
+  }
 
   getlevel(): Observable<datalevel[]> {
     return this.http.get<datalevel[]>(`${this.apiUrl}/api/levels`)
@@ -42,4 +48,33 @@ export class ApiService {
     return resp
   }
 
+
+
+  async getschedules_from_admin() {
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const response: any = await this.http
+      .get(`${this.apiUrl}/api/schedules/all`, options)
+      .toPromise();
+    //Guarda el token en el local storage al iniciar sesion correctamente
+    return response;
+  }
+
+  async getcourses_from_admin(id: any) {
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const response: any = await this.http
+      .get(`${this.apiUrl}/api/courses/schedule/` + id + '/count', options)
+      .toPromise();
+    //Guarda el token en el local storage al iniciar sesion correctamente
+    return response;
+  }
+
+  async enrollemnt_admin(Student: dataStudent){
+    const resp: any = await this.http.post(`${this.apiUrl}/api/students`, Student).toPromise() 
+    return resp
+  }
+  
 }

@@ -1,27 +1,36 @@
 
+<section class="navbar">
+  <div class="contenedor">
+      <div class="logo">
+          <a href="/admin">
+          <img
+          width="200"
+          alt="logo parroquia"
+          src="../assets/images/header-component/logo_parroquia.png" class="img-responsive"
+          />
+          </a>
+      </div>
+      <div class="spacer"></div>
+      <div class="letras">
+          <img
+          width="400"
+          alt="letras parroquia"
+          src="../assets/images/header-component/letras_parroquia.png"  class="img-responsive"
+          />
+      </div>
+  </div>
+</section>
 <div class="topnav" id="myTopnav">
-  <a href="#home" class="active">Home</a>
-  <a href="/admin/course">Listados</a>
-  <a href="#contact">Contact</a>
-  <a (click)="logout()">Cerrar Sesión</a>
+  <a href="/admin" class="active">Home</a>
+  <!-- <a href="/admin/course">Listados</a> -->
+  <a href="/admin/student">Inscripción estudiante</a>
+  <a class=" cerrar-sesion btn btn-danger" (click)="logout()">Cerrar Sesión</a>
   <a href="javascript:void(0);" class="icon" (click)="myFunction()">
     ☰
   </a>
 </div>
 
-<div style="padding-left:16px">
+<div style="padding-bottom:16px">
   <router-outlet></router-outlet>
 </div> 
 
-<!-- <div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">×</a>
-  <a href="#">Revisar Listas</a>
-  <a href="#">Información Estudiantes</a>
-  <a href="#">Profesores</a>
-  <a href="#">Cerrar Sesión</a>
-</div>
-
-<div id="main">
-  <button class="openbtn" (click)="openNav()">☰ Menú</button>  
-  <router-outlet></router-outlet>
-</div>  -->
