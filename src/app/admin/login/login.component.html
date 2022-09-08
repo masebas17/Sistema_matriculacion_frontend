@@ -6,6 +6,8 @@
             class="img-fluid" alt="Sample image">
         </div>
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <img class="img-fluid logo" src="./assets/images/header-component/logo_parroquia.png" alt="logo parroquial" width="300">
+        <h2 >Sistema de Gestión de Catequesis</h2>
           <form [formGroup]="userForm" (ngSubmit)="iniciar_sesion(userForm.value)">
             <!-- Email input -->
             <div class="form-outline mb-4">
@@ -25,6 +27,9 @@
             <div class="text-center text-lg-start mt-4 pt-2">
               <button type="submit" class="btn btn-primary btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;" [disabled]="userForm.invalid">Login</button>
+              
+              <a href="/home" class=" btn_salir btn btn-outline-danger btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Salir</a>
             </div>
           </form>
         </div>
