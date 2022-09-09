@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import{ HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { datacourses, datalevel, datashedule, dataStudent, LevelResponse, Students } from '../shared/interfaces';
+import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, LevelResponse, Students } from '../shared/interfaces';
 
 
 
@@ -48,6 +48,17 @@ export class ApiService {
     return resp
   }
 
+  async getCoursesbyid(id: any){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const response: any = await this.http
+      .get(`${this.apiUrl}/api/courses/schedule/` + id , options)
+      .toPromise();
+    //Guarda el token en el local storage al iniciar sesion correctamente
+    return response;
+  }
+
 
 
   async getschedules_from_admin() {
@@ -74,6 +85,14 @@ export class ApiService {
 
   async enrollemnt_admin(Student: dataStudent){
     const resp: any = await this.http.post(`${this.apiUrl}/api/students`, Student).toPromise() 
+    return resp
+  }
+
+  async enrollemnt_Teacher_admin(teacher: dataTeacher){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const resp: any = await this.http.post(`${this.apiUrl}/api/teachers`, teacher, options).toPromise() 
     return resp
   }
   

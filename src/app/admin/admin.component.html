@@ -21,10 +21,20 @@
   </div>
 </section>
 <div class="topnav" id="myTopnav">
-  <a href="/admin" class="active">Home</a>
+  <a href="/admin" class="active"><fa-icon [icon]="faHome"></fa-icon> Home</a>
   <!-- <a href="/admin/course">Listados</a> -->
   <a href="/admin/student">Inscripción estudiante</a>
-  <a class=" cerrar-sesion btn btn-danger" (click)="logout()">Cerrar Sesión</a>
+  <a href="/admin/teacher">Ingreso Catequistas</a>
+  <!-- <div class="dropdown">
+    <a class="dropbtn">Cursos <fa-icon [icon]="faChevronDown"></fa-icon></a>
+    <div class="dropdown-content">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+  </div> 
+  <a href="">Cursos</a> -->
+  <a class=" cerrar-sesion btn btn-danger" (click)="logout()"> <fa-icon [icon]="faRightToBracket"></fa-icon>  Cerrar Sesión</a>
   <a href="javascript:void(0);" class="icon" (click)="myFunction()">
     ☰
   </a>

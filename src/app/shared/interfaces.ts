@@ -72,3 +72,10 @@ export interface dataCourse{
     TeacherId: null,
     Schedule: datashedule
 }
+
+export interface dataTeacher{
+    id: number,
+    lastName: string,
+    name: string,
+    phone: number
+}
