@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { dataStudent } from 'src/app/shared/interfaces';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course-component',
@@ -17,7 +18,7 @@ export class CourseComponentComponent implements OnInit {
   verSeleccion_curso: number = 0;
   shedules: any;
   courses: any;
-  students: any;
+  students: Array<dataStudent>;
   courseId: any;
 
   constructor(
@@ -56,6 +57,11 @@ export class CourseComponentComponent implements OnInit {
   }
 
   listado(){
-   
+    const filtercourse = this.courses.filter(
+      (course) => this.verSeleccion_curso === course.id
+    );
+
+    this.students = filtercourse[0].Students
   }
-}
+  }
+
