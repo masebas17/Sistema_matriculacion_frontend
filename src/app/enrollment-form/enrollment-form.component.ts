@@ -54,14 +54,6 @@ export class EnrollmentFormComponent implements OnInit {
     }
   )
 
-  // Reactive form del login
-  signupForm2 = new FormGroup({
-    identityNumber: new FormControl(' ',
-      [Validators.required, Validators.maxLength(10), Validators.minLength(10)]
-    ),
-    pwd: new FormControl('', Validators.required),
-  });
-
 
 
   ngOnInit() {

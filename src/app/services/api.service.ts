@@ -41,6 +41,9 @@ export class ApiService {
   getStudent(id: any): Observable<dataStudent[]>{
     return this.http.get<dataStudent[]>(`${this.apiUrl}/api/students/`+ id)
   }
+  
+
+ 
 
  
   async enrollemnt(Student: dataStudent){
@@ -95,5 +98,25 @@ export class ApiService {
     const resp: any = await this.http.post(`${this.apiUrl}/api/teachers`, teacher, options).toPromise() 
     return resp
   }
+
+  async delete_student(id: any){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.delete(`${this.apiUrl}/api/students/${id}`, options).toPromise() 
+    return resp
+  }
+
+  async edit_student(id: any, Student: dataStudent){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.put(`${this.apiUrl}/api/students/${id}`, Student, options).toPromise() 
+    return resp
+  }
+
+
+
+  
   
 }

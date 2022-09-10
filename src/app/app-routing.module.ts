@@ -16,6 +16,7 @@ import { VoucherComponentComponent } from './voucher-component/voucher-component
 import { AuthGuard } from './guards/auth.guard';
 import { CourseSelectionGuard } from './guards/course-selection.guard';
 import { EnrollmentGuard } from './guards/enrollment.guard';
+import { EditStudentComponent } from './admin/edit-student/edit-student.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,7 +31,8 @@ const routes: Routes = [
     children:[
       {path: 'student', component:StudentComponentComponent},
       {path: 'teacher', component:TeacherComponentComponent},
-      {path: 'course', component:CourseComponentComponent}
+      {path: 'course', component:CourseComponentComponent},
+      {path: 'edit-student', component:EditStudentComponent}
     ]
     }
   

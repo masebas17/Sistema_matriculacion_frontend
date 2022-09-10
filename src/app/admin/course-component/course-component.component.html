@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-4">
                 <label for="">Escoger el paralelo:</label>
-                <select class="form-select" aria-label="Default select example" name="course" [(ngModel)]="seleccion_curso" (change)="capturar_curso()" >
+                <select class="form-select" aria-label="Default select example" name="course" [(ngModel)]="seleccion_curso"  (ngModelChange)="capturar_curso()">
                     <option  *ngFor="let course_selection of courses"  [ngValue]="course_selection.id">{{"Paralelo" + ' ' + course_selection.name}}</option>
                 </select>
             </div>
@@ -30,6 +30,7 @@
     <table class="table table-bordered" >
       <thead>
         <tr>
+          <th scope="col">Ord</th>
           <th>N.Cédula</th>
           <th>Apellidos</th>
           <th>Nombres</th>
@@ -37,10 +38,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of courses.Students">
+        <tr *ngFor="let student of students; let item = index">
+          <th scope="row">{{item+1}}</th>
           <td>{{student.identityNumber}}</td>
-          <td>{{student.lastName}}</td>
-          <td>{{student.name}}</td>
+          <td>{{student.lastName | uppercase}}</td>
+          <td>{{student.name | uppercase}}</td>
           <td>{{student.age}}</td>
         </tr>
       </tbody>

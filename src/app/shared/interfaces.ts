@@ -58,7 +58,7 @@ export interface dataStudent{
     address?: string,
     phone1?: number,
     email?: string,
-    baptized?: false,
+    baptized?: null,
     disability?: null,
     courseId?: number,
     Course?: dataCourse
