@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-4">
                 <label for="">Escoger el paralelo:</label>
-                <select class="form-select" aria-label="Default select example" name="course" [(ngModel)]="seleccion_curso" (change)="capturar_curso()" >
+                <select class="form-select" aria-label="Default select example" name="course" [(ngModel)]="seleccion_curso"  (ngModelChange)="capturar_curso()">
                     <option  *ngFor="let course_selection of courses"  [ngValue]="course_selection.id">{{"Paralelo" + ' ' + course_selection.name}}</option>
                 </select>
             </div>

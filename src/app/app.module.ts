@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VoucherComponentComponent } from './voucher-component/voucher-component.component';
 import { HttpRequestInterceptor } from './interceptors/http-loading.interceptor';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EditStudentComponent } from './admin/edit-student/edit-student.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CourseComponentComponent,
     AdminComponent,
     VoucherComponentComponent,
+    EditStudentComponent,
   ],
   imports: [
     BrowserModule,

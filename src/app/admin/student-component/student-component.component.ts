@@ -80,6 +80,7 @@ export class StudentComponentComponent implements OnInit {
     const resp = await this._apiService.getcourses_from_admin(this.verSeleccion)
     console.log(resp)
     this.courses = resp.data
+    this.seleccion_curso = 0;
   }
 
   async enroll_student(values: any){
