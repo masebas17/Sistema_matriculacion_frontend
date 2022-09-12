@@ -54,7 +54,8 @@ export class SearcherComponent implements OnInit {
               'nombre:' + ' ' + resp.data.lastName + ' ' +resp.data.name +'<br>' +
               'Nivel:' + ' '+ resp.data.Course.Schedule.Level.name +'<br>' +
               'Horario:' + ' ' + resp.data.Course.Schedule.weekDay + ' ' + resp.data.Course.Schedule.startTime + ' ' + '-'+ ' ' + resp.data.Course.Schedule.endTime + '<br>' +
-              'Paralelo:' + ' ' + resp.data.Course.name,
+              'Paralelo:' + ' ' + resp.data.Course.name +
+              'Catequista:' + ' ' + 'No asignado',
           }).then((result) => {
             if (result.isConfirmed) {
               this.createPDF()

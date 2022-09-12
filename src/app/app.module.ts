@@ -23,6 +23,7 @@ import { VoucherComponentComponent } from './voucher-component/voucher-component
 import { HttpRequestInterceptor } from './interceptors/http-loading.interceptor';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditStudentComponent } from './admin/edit-student/edit-student.component';
+import { EditCourseComponent } from './admin/edit-course/edit-course.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { EditStudentComponent } from './admin/edit-student/edit-student.componen
     AdminComponent,
     VoucherComponentComponent,
     EditStudentComponent,
+    EditCourseComponent,
   ],
   imports: [
     BrowserModule,

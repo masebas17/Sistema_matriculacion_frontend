@@ -22,10 +22,10 @@
     </form>  
     <br> <br> <br>    
     <form [formGroup]="Formstudent" (ngSubmit)="edit_student(Formstudent.value)" >
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-sm-4">
                 <label for="">Ingrese el Número de Cédula:</label>
-                <input type="text" class="form-control" formControlName="identity" placeholder="Ingrese el Número de Cédula del alumno" name="" [ngClass]="{'is-invalid':Formstudent.get('identity')?.errors && Formstudent.get('identity')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
+                <input type="text" class="form-control" formControlName="identityNumber" placeholder="Ingrese el Número de Cédula del alumno" name="" [ngClass]="{'is-invalid':Formstudent.get('identity')?.errors && Formstudent.get('identity')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
                 <div *ngIf="Formstudent.get('identity')?.errors">
                     <div class="text-danger" *ngIf="Formstudent.get('identity')?.hasError('required') && Formstudent.get('identity')?.touched">Ingrese un número de cédula válido</div>
                     <div class="text-danger" *ngIf="Formstudent.get('identity')?.hasError('maxLength')">Se debe llenar 10 dígitos</div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <br> -->
+        <br>
         <div class="row">
             <div class="col-sm-4">
                 <label for="">Apellidos:</label>

@@ -38,7 +38,7 @@ export class EditStudentComponent implements OnInit {
 
   Formstudent = new FormGroup(
     {
-      identity: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
+      identityNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
       lastName: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
       age: new FormControl('', Validators.required),
@@ -85,7 +85,7 @@ editar(){
 
   this.Formstudent.setValue({
 
-      identity: this.student.identityNumber,
+      identityNumber: this.student.identityNumber,
       lastName: this.student.lastName,
       name: this.student.name,
       age: this.student.age,
