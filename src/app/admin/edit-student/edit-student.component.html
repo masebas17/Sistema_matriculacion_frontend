@@ -22,10 +22,10 @@
     </form>  
     <br> <br> <br>    
     <form [formGroup]="Formstudent" (ngSubmit)="edit_student(Formstudent.value)" >
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-sm-4">
-                <label for="">Ingrese el Número de Cédula:</label>
-                <input type="text" class="form-control" formControlName="identity" placeholder="Ingrese el Número de Cédula del alumno" name="" [ngClass]="{'is-invalid':Formstudent.get('identity')?.errors && Formstudent.get('identity')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
+                <label for="">Número de Cédula:</label>
+                <input type="text" class="form-control" formControlName="identityNumber" placeholder="Ingrese el Número de Cédula del alumno" name="" [ngClass]="{'is-invalid':Formstudent.get('identity')?.errors && Formstudent.get('identity')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
                 <div *ngIf="Formstudent.get('identity')?.errors">
                     <div class="text-danger" *ngIf="Formstudent.get('identity')?.hasError('required') && Formstudent.get('identity')?.touched">Ingrese un número de cédula válido</div>
                     <div class="text-danger" *ngIf="Formstudent.get('identity')?.hasError('maxLength')">Se debe llenar 10 dígitos</div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <br> -->
+        <br>
         <div class="row">
             <div class="col-sm-4">
                 <label for="">Apellidos:</label>
@@ -142,9 +142,58 @@
     <br>
     <div class="row">
         <div class="col-sm-9">
-            <button class="btn btn-danger" (click)="delete()">Eliminar Estudiante</button>         
+            <button class="btn btn-danger" (click)="delete()">Eliminar Estudiante</button> 
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="capturar_level_curso()">
+                Cambiar de curso
+            </button>        
             <a type="reset" href="/admin" class="btn btn-secondary">Cancelar</a>
         </div>
     </div>
     </div> 
 </section>
+
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cambio de Nivel y Paralelo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-6">
+                   <label>Nivel Actual:  </label><br><label id="Text_level" textWrap="true" class="text-danger"><strong></strong></label>
+                </div>
+                <div class="col-sm-6">
+                    <label>Paralelo Actual:  </label><br><label id="Text_curso" textWrap="true" class="text-danger"><strong></strong></label>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="">Escoger el nuevo Nivel:</label>
+                    <select class="form-select" aria-label="Default select example" name="Level" [(ngModel)]="opcionSeleccionada" (change)="capturar()">
+                        <option *ngFor="let shedule of shedules.data" [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label for="">Escoger el nuevo curso:</label>
+                    <select class="form-select" aria-label="Default select example" name="course" [(ngModel)]="seleccion_curso" (change)="capturar_curso()">
+                        <ng-container *ngFor="let course_selection of courses">
+                        <option  *ngIf="course_selection.count < course_selection.maxStudents"  [ngValue]="course_selection.id">{{"Paralelo" + ' ' + course_selection.name}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="edit_course()" data-bs-dismiss="modal">Guardar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>

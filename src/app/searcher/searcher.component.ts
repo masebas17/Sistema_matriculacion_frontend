@@ -51,10 +51,11 @@ export class SearcherComponent implements OnInit {
             cancelButtonColor: 'red',
             html:
               'Cédula de identidad:' + ' '+ resp.data.identityNumber + '<br>' +
-              'nombre:' + ' ' + resp.data.lastName + ' ' +resp.data.name +'<br>' +
+              'Nombre:' + ' ' + resp.data.lastName + ' ' +resp.data.name +'<br>' +
               'Nivel:' + ' '+ resp.data.Course.Schedule.Level.name +'<br>' +
               'Horario:' + ' ' + resp.data.Course.Schedule.weekDay + ' ' + resp.data.Course.Schedule.startTime + ' ' + '-'+ ' ' + resp.data.Course.Schedule.endTime + '<br>' +
-              'Paralelo:' + ' ' + resp.data.Course.name,
+              'Paralelo:' + ' ' + resp.data.Course.name + '<br>' +
+              'Catequista:' + ' ' + 'No asignado',
           }).then((result) => {
             if (result.isConfirmed) {
               this.createPDF()
