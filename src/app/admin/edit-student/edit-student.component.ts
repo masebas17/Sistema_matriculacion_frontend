@@ -119,7 +119,7 @@ async getcourses(){
       icon: 'success',
       title: 'Cambio de Curso',
       text: 'Se ha guardado los datos del nuevo curso',
-      timer: 4000,
+      timer: 2000,
       confirmButtonColor: '#1D71B8',
       showConfirmButton: false
     })
