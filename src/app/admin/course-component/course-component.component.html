@@ -8,7 +8,7 @@
             <div class="col-sm-4">
                 <label for="">Escoger el Nivel:</label>
                 <select class="form-select" aria-label="Default select example" name="Level" [(ngModel)]="opcionSeleccionada" (change)="capturar()" >
-                    <option *ngFor="let shedule of shedules.data" [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
+                    <option *ngFor="let shedule of shedules.data"  [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
                 </select>
             </div>
             <div class="col-sm-4">
@@ -17,17 +17,39 @@
                     <option  *ngFor="let course_selection of courses"  [ngValue]="course_selection.id">{{"Paralelo" + ' ' + course_selection.name}}</option>
                 </select>
             </div>
-            <div class="col-sm-3">
+            <div class="row">
+            <div class="col-sm-5">
                 <div class="botones">
-                <button class="btn btn-success" (click)="listado()">Generar listado</button>
+                <button class="btn btn-success" (click)="listado()">Generar listado</button> 
+                <button class="btn btn-primary" (click)="print()"><fa-icon [icon]="faprint" ></fa-icon> Imprimir lista</button>         
             </div>
             </div>
         </div>
+        </div>
 </div> 
-<div class="container mt-3">
+<div class="container mt-3" id="lista_del_curso">
     <h2>Listado de Curso</h2>
-    <p> </p>            
-    <table class="table table-bordered" >
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nivel</th>
+          <th>Horario</th>
+          <th>Paralelo</th>
+          <th>Catequista</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="text-danger" id="Text_level" ></th>
+          <th id = "Text_Schedule"></th>
+          <th id="Text_course"></th>
+          <th id="Text_Teacher"></th>
+        </tr>
+      </tbody>
+    </table>
+    
+             
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th scope="col">Ord</th>
@@ -35,6 +57,7 @@
           <th>Apellidos</th>
           <th>Nombres</th>
           <th>Edad</th>
+          <th>Observaciones</th>
         </tr>
       </thead>
       <tbody>
@@ -44,6 +67,7 @@
           <td>{{student.lastName | uppercase}}</td>
           <td>{{student.name | uppercase}}</td>
           <td>{{student.age}}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
