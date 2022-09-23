@@ -24,6 +24,8 @@ import { HttpRequestInterceptor } from './interceptors/http-loading.interceptor'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditStudentComponent } from './admin/edit-student/edit-student.component';
 import { EditCourseComponent } from './admin/edit-course/edit-course.component';
+import { SiNoPipe } from './shared/si-no.pipe';
+import { AsignatedPipe } from './shared/asignated.pipe';
 
 
 @NgModule({
@@ -45,6 +47,8 @@ import { EditCourseComponent } from './admin/edit-course/edit-course.component';
     VoucherComponentComponent,
     EditStudentComponent,
     EditCourseComponent,
+    SiNoPipe,
+    AsignatedPipe,
   ],
   imports: [
     BrowserModule,

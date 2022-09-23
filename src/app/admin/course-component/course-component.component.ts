@@ -9,6 +9,7 @@ import { dataStudent } from 'src/app/shared/interfaces';
 import Swal from 'sweetalert2';
 import printJS from 'print-js'
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import { AsignatedPipe } from 'src/app/shared/asignated.pipe';
 
 
 @Component({
@@ -75,7 +76,6 @@ export class CourseComponentComponent implements OnInit {
       (Schedule) => this.verSeleccion === Schedule.Level.id
     );
    
-  
 
     this.students = filtercourse[0].Students
 
@@ -95,6 +95,7 @@ export class CourseComponentComponent implements OnInit {
         
       })
       }
+
       document.getElementById('Text_Schedule').innerHTML =(filtershedule[0].weekDay + ' ' + '( '+ filtershedule[0].startTime +' - '+ filtershedule[0].endTime + ' )')
       document.getElementById('Text_level').innerHTML = filtershedule[0].Level.name
       document.getElementById('Text_course').innerHTML = filtercourse[0].name
@@ -122,15 +123,16 @@ export class CourseComponentComponent implements OnInit {
 
   print(){
     if(this.students){
-    printJS({ printable: 'lista_del_curso', type: 'html', documentTitle: 'Sistema de Gestión de Catequesis - Generación de listas', targetStyles: ['*'], scanStyles: true,
-    header: '<h2 class="custom">Parroquia Eclesiástica Santiago Apóstol de Machachi <br>Catequesis 2022-2023</h2><hr>',
-    style: '.custom { color: red; justify-content: center }'  
+    printJS({ printable: 'lista_del_curso', type: 'html', documentTitle: 'Sistema de Gestión de Catequesis - Generación de listas', targetStyles: ['*'],
+    header: '<h2 class="custom">Parroquia Eclesiástica Santiago Apóstol de Machachi <br>Catequesis 2022-2023</h2><hr><br>',
+    style: '.custom { color: black;}', font_size: '9pt', honorMarginPadding: true, font: 'Arial', ignoreElements: ["table-responsive"]
   })
     }
     else{
       Swal.fire({
         icon: 'error',
         text: 'Debe generar primero la lista',
+        confirmButtonColor: '#1D71B8'
       })
     }
   }

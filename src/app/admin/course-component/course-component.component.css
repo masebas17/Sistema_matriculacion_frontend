@@ -45,5 +45,17 @@
 }
 .btn{
     padding: 4% 6%;
-    margin: 0 2% 0 2%;
+    margin: 0 2% ;
 }
+
+@media only screen and (max-width: 912px) {
+    .botones{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 5%;
+    }
+    .btn{
+        margin-top: 5%;
+    }
+  }
