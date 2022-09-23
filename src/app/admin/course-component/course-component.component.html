@@ -53,6 +53,7 @@
       <thead class="table-secondary">
         <tr class = "text-center">
           <th scope="col">Ord</th>
+          <th id="num_cedula">Cédula</th>
           <th>Apellidos</th>
           <th>Nombres</th>
           <th>Edad</th>
@@ -63,6 +64,7 @@
       <tbody>
         <tr *ngFor="let student of students; let item = index">
           <th scope="row" class = "text-center">{{item+1}}</th>
+          <th class = "text-center" id="num_cedula">{{student.identityNumber}}</th>
           <td>{{student.lastName | uppercase}}</td>
           <td>{{student.name | uppercase}}</td>
           <td class = "text-center">{{student.age}}</td>
