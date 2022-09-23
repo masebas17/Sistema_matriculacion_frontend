@@ -28,10 +28,10 @@
         </div>
 </div> 
 <div class="container mt-3" id="lista_del_curso">
-    <h2>Listado de Curso</h2>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+        <tr class = "text-center">
           <th>Nivel</th>
           <th>Horario</th>
           <th>Paralelo</th>
@@ -39,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class = "text-center">
           <th class="text-danger" id="Text_level" ></th>
           <th id = "Text_Schedule"></th>
           <th id="Text_course"></th>
@@ -47,29 +47,31 @@
         </tr>
       </tbody>
     </table>
-    
-             
-    <table class="table table-bordered">
-      <thead>
-        <tr>
+  </div>
+  <div class="table-responsive">    
+    <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+        <tr class = "text-center">
           <th scope="col">Ord</th>
-          <th>N.Cédula</th>
           <th>Apellidos</th>
           <th>Nombres</th>
           <th>Edad</th>
+          <th>Discapacidad</th>
           <th>Observaciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let student of students; let item = index">
-          <th scope="row">{{item+1}}</th>
-          <td>{{student.identityNumber}}</td>
+          <th scope="row" class = "text-center">{{item+1}}</th>
           <td>{{student.lastName | uppercase}}</td>
           <td>{{student.name | uppercase}}</td>
-          <td>{{student.age}}</td>
-          <td></td>
+          <td class = "text-center">{{student.age}}</td>
+          <td class = "text-center">
+            {{student.disability | siNo}}</td>
+            <td> </td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>    
 </section>
