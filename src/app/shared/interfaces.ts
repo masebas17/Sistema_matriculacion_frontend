@@ -61,7 +61,8 @@ export interface dataStudent{
     baptized?: null,
     disability?: null,
     courseId?: number,
-    Course?: dataCourse
+    Course?: dataCourse,
+    payment?: string
 }
 
 export interface dataCourse{
