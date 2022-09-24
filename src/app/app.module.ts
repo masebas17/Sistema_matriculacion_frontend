@@ -26,6 +26,7 @@ import { EditStudentComponent } from './admin/edit-student/edit-student.componen
 import { EditCourseComponent } from './admin/edit-course/edit-course.component';
 import { SiNoPipe } from './shared/si-no.pipe';
 import { AsignatedPipe } from './shared/asignated.pipe';
+import { PayComponent } from './admin/pay/pay.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { AsignatedPipe } from './shared/asignated.pipe';
     EditCourseComponent,
     SiNoPipe,
     AsignatedPipe,
+    PayComponent,
   ],
   imports: [
     BrowserModule,

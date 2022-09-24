@@ -58,22 +58,59 @@
           <th>Nombres</th>
           <th>Edad</th>
           <th>Discapacidad</th>
+          <th>Recibo de Pago</th>
+          <th id="status">Status</th>
           <th>Observaciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let student of students; let item = index">
-          <th scope="row" class = "text-center">{{item+1}}</th>
-          <th class = "text-center" id="num_cedula">{{student.identityNumber}}</th>
+          <td scope="row" class = "text-center">{{item+1}}</td>
+          <td class = "text-center" id="num_cedula">{{student.identityNumber}}</td>
           <td>{{student.lastName | uppercase}}</td>
           <td>{{student.name | uppercase}}</td>
           <td class = "text-center">{{student.age}}</td>
-          <td class = "text-center">
-            {{student.disability | siNo}}</td>
-            <td> </td>
+          <td class = "text-center">{{student.disability | siNo}}</td>
+          <td class = "text-center">{{student.payment}}</td>
+          <td class="text-center" id="status">{{student.payment | asignated}} </td>
+          <td></td>
+          <!-- <td *ngIf="student.payment != null"><button type="button" class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar Recibo</button></td>
+          <td *ngIf="student.payment == null"><button type="button" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ingresar Recibo</button></td> -->
         </tr>
       </tbody>
     </table>
   </div>
 </div>    
 </section>
+
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registro de Recibo de pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form [formGroup]="Formpay"> 
+          <div class="row">
+              <div class="col-sm-12">
+                  <input type="text" class="form-control" formControlName="pay" placeholder="Ingrese el número de recibo" name="" [ngClass]="{'is-invalid':Formpay.get('pay')?.errors && Formpay.get('pay')?.touched}">
+                  <div *ngIf="Formpay.get('pay')?.errors">
+                  <div class="text-danger" *ngIf="Formpay.get('pay')?.hasError('required') && Formpay.get('pay')?.touched">Se requiere el ingreso de los nombres</div>
+              </div>
+              </div>
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-sm-6">
+                  <button type="submit" button [disabled]="Formpay.invalid" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+              </div>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+

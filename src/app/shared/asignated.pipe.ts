@@ -7,7 +7,10 @@ export class AsignatedPipe implements PipeTransform {
 
   transform(value: any, ...args: any[]): any {
     if(value === null){
-      return 'No Asignado';
+      return 'No pagado';
+    }
+    else{
+      return 'Pagado';
     }
   }
 
