@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { faArrowDownUpAcrossLine } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -8,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class MainMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
     Swal.fire({
@@ -19,6 +21,19 @@ export class MainMenuComponent implements OnInit {
       imageAlt: 'Custom image',
       showCloseButton: true,
       showConfirmButton: false
+    })
+  }
+
+  anunce(){
+    Swal.fire({
+      icon: 'info',
+      title: '¡Culminaron los días de Matriculación!',
+      text: 'Acerquese al Despacho Parroquial, si se desea realizar algún proceso referente a la Matriculación',
+      confirmButtonColor: '#1D71B8'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/home'])
+      }
     })
   }
 
