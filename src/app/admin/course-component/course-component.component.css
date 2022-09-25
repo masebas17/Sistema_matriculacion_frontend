@@ -15,6 +15,14 @@
     justify-content: flex-end;
     align-items: stretch;
 }
+
+.contenedor-table{
+    width: 100%;
+    align-content: center;
+    margin: 0 auto;
+    align-items: baseline;
+    padding: 0 5%;
+}
 .titulo{
     text-align:left;
     color: #6096BA;
@@ -46,6 +54,9 @@
 .btn{
     padding: 4% 6%;
     margin: 0 2% ;
+}
+.actions{
+    font-size: revert;
 }
 
 @media only screen and (max-width: 912px) {

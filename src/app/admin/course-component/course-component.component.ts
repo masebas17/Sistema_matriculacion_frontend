@@ -8,8 +8,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { dataStudent } from 'src/app/shared/interfaces';
 import Swal from 'sweetalert2';
 import printJS from 'print-js'
-import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faPrint, faMoneyCheckDollar} from '@fortawesome/free-solid-svg-icons';
 import { AsignatedPipe } from 'src/app/shared/asignated.pipe';
+import { find } from 'rxjs';
 
 
 @Component({
@@ -28,6 +29,10 @@ export class CourseComponentComponent implements OnInit {
   courseId: any;
   Schedule_data: any;
   faprint = faPrint;
+  faMoneyCheckDollar =faMoneyCheckDollar;
+  studentId: any;
+  data_courses: any;
+  data_student: dataStudent = {};
 
   constructor(
     private _apiService: ApiService,
@@ -70,7 +75,8 @@ export class CourseComponentComponent implements OnInit {
   async getcourses(){
     const resp = await this._apiService.getCoursesbyid(this.verSeleccion)
     this.courses = resp.data
-    console.log(this.courses)
+    this.data_courses = resp
+    console.log(this.data_courses)
     this.seleccion_curso = 0;
   }
 
@@ -132,7 +138,7 @@ export class CourseComponentComponent implements OnInit {
     if(this.students){
     printJS({ printable: 'lista_del_curso', type: 'html', documentTitle: 'Sistema de Gestión de Catequesis - Generación de listas', targetStyles: ['*'],
     header: '<h2 class="custom">Parroquia Eclesiástica Santiago Apóstol de Machachi <br>Catequesis 2022-2023</h2><hr><br>',
-    style: '.custom { color: black;}', font_size: '9pt', honorMarginPadding: true, font: 'Arial', ignoreElements: ["table-responsive", "num_cedula", "status"]
+    style: '.custom { color: black;}', font_size: '9pt', honorMarginPadding: true, font: 'Arial', ignoreElements: ["table-responsive", "num_cedula", "btn-edit-voucher", "btn-creater-voucher", "actions"]
   })
     }
     else{
@@ -144,7 +150,49 @@ export class CourseComponentComponent implements OnInit {
     }
   }
 
+  edit(event: any){
+    console.log(event.target.name)
+    this.studentId =  parseInt(event.target.name)
+
+    const findStudents = this.students.find(
+      (Student) => Student.id  === this.studentId
+    );
+
+    console.log(findStudents)
+   this.data_student = findStudents
+
+   if(this.data_student.payment){
+    this.Formpay.setValue({
+      pay: this.data_student.payment
+    })
+   }
+  }
+
+
+   async registrar_recibo(){
+
+    if(this.data_student)
+      this.data_student.payment= this.Formpay.get('pay').value
+      console.log(this.data_student.payment)
+      const resp = await this._apiService.edit_student(this.studentId, this.data_student)
+      console.log(resp)
+  
+      if(resp){
+        await Swal.fire({
+          icon: 'success',
+          title: 'Se realizaron los cambios con éxito',
+          confirmButtonColor: '#1D71B8'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            this.reset_form()
+          }
+      })
+    }
  
   }
-  
 
+  reset_form(){
+    this.Formpay.reset()
+  }
+  
+}
