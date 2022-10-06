@@ -1,1 +1,94 @@
-<p>edit-course works!</p>
+<section class="Formulario">
+    <div class="letras">
+        <h1 class="titulo">Edición de Datos por Curso</h1>
+    </div>
+    <br>
+    <div class="contenedor">
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="">Escoger el Nivel:</label>
+                <select class="form-select" aria-label="Default select example" name="Level" [(ngModel)]="opcionSeleccionada" (change)="capturar()" >
+                    <option *ngFor="let shedule of shedules.data"  [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <div class="botones">
+                <button class="btn btn-success" (click)="getcourses()">Consultar paralelos</button>      
+            </div>
+        </div>
+        </div>
+</div> 
+<div class="contenedor-table">
+<div class="row">
+    <div class="col-md-6">
+  <div class="table-responsive">    
+    <table class="table table-bordered">
+      <thead class="table-secondary" id="miTablaPersonalizada">
+        <tr class = "text-center">
+          <!-- <th scope="col">Ord</th> -->
+          <th id="num_cedula">Nombre del Curso</th>
+          <th id="actions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses; let item = index">
+          <!-- <td scope="row" class = "text-center">{{item+1}}</td> -->
+          <td class = "text-center" id="num_cedula">{{'PARALELO' + ' ' + course.name}}</td>
+          <td class = "text-center">
+            <div class="row">
+                <div class="col-sm-10">
+                    <button type="button" class="btn btn-primary actions" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="course.id" (click)="edit()" > <fa-icon [icon]="faEdit"></fa-icon></button>
+                    <button type="button" class="btn btn-danger actions" type="button"  [name]="course.id" > <fa-icon [icon]="faTrash"></fa-icon></button>
+                </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</div>  
+</section>
+
+
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edición de Datos de Curso</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="FormCourse"> 
+            <div class="row">
+                <label for="">Cupo Máximo</label>
+                <div class="col-sm-4">
+                    <input  type="number" class="form-control" formControlName="maxStudents" onKeyDown="if(this.value.length==2) return false;"  value="30"  min="30" max="50" maxlength="2" [ngClass]="{'is-invalid':FormCourse.get('maxStudents')?.errors && FormCourse.get('maxStudents')?.touched}">
+                </div>
+                <div *ngIf="FormCourse.get('maxStudents')?.errors">
+                    <div class="text-danger" *ngIf="FormCourse.get('maxStudents')?.hasError('required') && FormCourse.get('maxStudents')?.touched">Se requiere un numero de cupo máximo para este curso</div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="">Asignar un Catequista</label>
+                    <select class="form-select" aria-label="Default select example" name="Level" [(ngModel)]="opcionSeleccionada" (change)="capturar()" >
+                        <option *ngFor="let shedule of shedules.data"  [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
+                    </select>
+                </div>
+                </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="submit" button [disabled]="FormCourse.invalid" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>
+                </div>
+            </div>
+            </form>
+        </div>
+      </div>
+</div>
+  

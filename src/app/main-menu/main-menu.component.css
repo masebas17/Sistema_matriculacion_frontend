@@ -9,11 +9,13 @@
     display: inline-flex;
     justify-content: center;
 }
+
 .float-contenedor{
     position: relative;
 }
 .img-responsive{
     width: 100%;
+
 }
 .limpieza{
     clear: both;
@@ -23,7 +25,7 @@
     text-align: center;
 }
 .inicio_aplicacion{
-    padding: 4% 0;
+    width: 100%;
 }
 .service-items{
     width: 18%;
@@ -38,6 +40,14 @@
 }
 .service-items:hover{
     transform: scale(1.05) translateY(-0.5em);
+}
+
+.container-photos{
+    margin: 10%;
+}
+
+.carousel-inner{
+    height: 600px;
 }
 
 @media only screen and (max-width: 912px) {
@@ -82,6 +92,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    .carousel-inner{
+        height: 100%;
     }
 
   }

@@ -18,6 +18,13 @@ import { CourseSelectionGuard } from './guards/course-selection.guard';
 import { EnrollmentGuard } from './guards/enrollment.guard';
 import { EditStudentComponent } from './admin/edit-student/edit-student.component';
 import { PayComponent } from './admin/pay/pay.component';
+import { EditCourseComponent } from './admin/edit-course/edit-course.component';
+import { SupervisorComponent } from './supervisor/supervisor.component';
+import { ListCoursesComponent } from './supervisor/list-courses/list-courses.component';
+import { EditTeacherComponent } from './supervisor/edit-teacher/edit-teacher.component';
+import { MyCoursesComponent } from './supervisor/my-courses/my-courses.component';
+import { TeacherFormComponent } from './teacher-form/teacher-form.component';
+import { TeacherFormGuard } from './guards/teacher-form.guard';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,13 +35,24 @@ const routes: Routes = [
     { path: 'enrollment/:id',canActivate: [EnrollmentGuard],component: EnrollmentFormComponent },
     { path: 'voucher',       component: VoucherComponentComponent },
     {path: 'login', component:LoginComponent},
+    {path: 'sidebar', component:SidebarComponentComponent},
+    {path: 'teacher-form',canActivate: [TeacherFormGuard], component:TeacherFormComponent},
     { path: 'admin', canActivate: [AuthGuard], component: AdminComponent,
     children:[
       {path: 'student', component:StudentComponentComponent},
       {path: 'teacher', component:TeacherComponentComponent},
       {path: 'course', component:CourseComponentComponent},
       {path: 'edit-student', component:EditStudentComponent},
-      {path: 'pay', component:PayComponent}
+      {path: 'pay', component:PayComponent},
+      {path: 'edit-course', component: EditCourseComponent}
+    ]
+  },
+    { path: 'supervisor', canActivate: [AuthGuard], component: SupervisorComponent,
+    children:[
+      {path: 'list-courses', component:ListCoursesComponent},
+      {path: 'edit-teacher', component:EditTeacherComponent},
+      {path: 'mycourses', component:MyCoursesComponent},
+      {path: 'edit-course', component: EditCourseComponent}
     ]
     }
   
