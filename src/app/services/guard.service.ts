@@ -30,4 +30,15 @@ export class GuardService {
       return false;
     }
   }
+
+  validatelogteacher(): boolean {
+    const lt = localStorage.getItem('lgc');
+    if (lt) {
+      return true;
+    } else {
+      this.router.navigate(['/home'])
+      localStorage.clear()
+      return false;
+    }
+  }
 }

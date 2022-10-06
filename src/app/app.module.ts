@@ -27,6 +27,11 @@ import { EditCourseComponent } from './admin/edit-course/edit-course.component';
 import { SiNoPipe } from './shared/si-no.pipe';
 import { AsignatedPipe } from './shared/asignated.pipe';
 import { PayComponent } from './admin/pay/pay.component';
+import { SupervisorComponent } from './supervisor/supervisor.component';
+import { ListCoursesComponent } from './supervisor/list-courses/list-courses.component';
+import { EditTeacherComponent } from './supervisor/edit-teacher/edit-teacher.component';
+import { MyCoursesComponent } from './supervisor/my-courses/my-courses.component';
+import { TeacherFormComponent } from './teacher-form/teacher-form.component';
 
 
 @NgModule({
@@ -51,6 +56,11 @@ import { PayComponent } from './admin/pay/pay.component';
     SiNoPipe,
     AsignatedPipe,
     PayComponent,
+    SupervisorComponent,
+    ListCoursesComponent,
+    EditTeacherComponent,
+    MyCoursesComponent,
+    TeacherFormComponent,
   ],
   imports: [
     BrowserModule,
