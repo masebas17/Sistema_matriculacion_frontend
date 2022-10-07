@@ -75,7 +75,7 @@
           <td class = "text-center">{{student.payment}}</td>
           <!-- <td class="text-center" id="status">{{student.payment | asignated}} </td> -->
           <td class="text-center" id="btn-edit-voucher" *ngIf="student.payment != null"><button type="button" class="btn btn-warning actions" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="student.id" (click)="edit($event)">Editar Recibo</button></td>
-          <td class="text-center" id="btn-creater-voucher"*ngIf="student.payment == null"><button type="button" class="btn btn-primary actions" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="student.id" (click)="edit($event)"> Ingresar Recibo </button></td>
+          <td class="text-center" id="btn-creater-voucher"*ngIf="student.payment == null"><button type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="student.id" (click)="edit($event)">Ingreso Recibo</button></td>
         </tr>
       </tbody>
     </table>
