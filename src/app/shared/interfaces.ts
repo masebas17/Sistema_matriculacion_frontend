@@ -76,7 +76,13 @@ export interface dataCourse{
 
 export interface dataTeacher{
     id: number,
-    lastName: string,
     name: string,
-    phone: number
+    lastName: string,
+    phone: number,
+    identityNumber: number,
+    email: string,
+    address: string,
+    maritalStatus: string,
+    username: string,
+    password: string
 }

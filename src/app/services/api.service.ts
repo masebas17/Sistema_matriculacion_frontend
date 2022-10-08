@@ -99,6 +99,14 @@ export class ApiService {
     return resp
   }
 
+  async enrollemnt_Teacher(teacher: dataTeacher){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const resp: any = await this.http.post(`${this.apiUrl}/api/teachers`, teacher).toPromise() 
+    return resp
+  }
+
   async delete_student(id: any){
     const options = {
       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
