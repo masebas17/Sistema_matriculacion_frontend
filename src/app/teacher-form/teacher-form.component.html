@@ -1,1 +1,122 @@
-<button  type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="logout()">Cerrar Sesión</button>
+<app-header-component></app-header-component>
+<section class="Formulario">
+    <div class="letras">
+        <h1 class="titulo">Registro de Datos de Catequistas</h1>
+    </div>
+    <br>
+    <div class="contenedor">
+    <form [formGroup]="TeacherForm" >
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="">Número de Cédula:</label>
+                <input type="text" class="form-control" formControlName="identityNumber" placeholder="Ingrese el Número de Cédula" name="" [ngClass]="{'is-invalid':TeacherForm.get('identityNumber')?.errors && TeacherForm.get('identityNumber')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
+                <div *ngIf="TeacherForm.get('identityNumber')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('identityNumber')?.hasError('required') && TeacherForm.get('identityNumber')?.touched">Ingrese un número de cédula válido</div>
+                    <div class="text-danger" *ngIf="TeacherForm.get('identityNumber')?.hasError('maxLength')">Se debe llenar 10 dígitos</div>
+                    <div class="text-danger" *ngIf="TeacherForm.get('identityNumber')?.hasError('minLength')">Se debe llenar 10 dígitos</div>
+                </div>
+            <div class="col">
+            </div>
+        </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="">Apellidos:</label>
+                <input type="text" class="form-control" formControlName="lastName" placeholder="Ingrese dos apellidos" name="" [ngClass]="{'is-invalid':TeacherForm.get('lastName')?.errors && TeacherForm.get('lastName')?.touched}">
+                <div *ngIf="TeacherForm.get('lastName')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('lastName')?.hasError('required') && TeacherForm.get('lastName')?.touched">Se requiere el ingreso de los Apellidos</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label for="">Nombres:</label>
+                <input type="text" class="form-control" formControlName="name" placeholder="Ingrese dos nombres" name="" [ngClass]="{'is-invalid':TeacherForm.get('name')?.errors && TeacherForm.get('name')?.touched}">
+                <div *ngIf="TeacherForm.get('name')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('name')?.hasError('required') && TeacherForm.get('name')?.touched">Se requiere el ingreso de los nombres</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="">Teléfono de Contacto:</label>
+                <input type="text" class="form-control" formControlName="phone" placeholder="Ingrese un numero de telefono de contacto" name="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" minlength="10" [ngClass]="{'is-invalid':TeacherForm.get('phone')?.errors && TeacherForm.get('phone')?.touched}">
+                <div *ngIf="TeacherForm.get('phone')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('phone')?.hasError('required') && TeacherForm.get('phone')?.touched">Ingrese un número de contacto válido</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label for="">Correo Electrónico:</label>
+                <input type="email" class="form-control" formControlName="email" placeholder="Ingrese un correo electrónico" name="" [ngClass]="{'is-invalid':TeacherForm.get('email')?.errors && TeacherForm.get('email')?.touched}">
+                <div *ngIf="TeacherForm.get('email')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('email')?.hasError('email') && TeacherForm.get('email')?.touched">Ingrese un correo válido</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+                <label for="">Dirección: (Ciudad, Barrio, Calle Principal y Calle Secundaria)</label>
+                <input type="text" class="form-control" formControlName="address" placeholder="Ingrese la dirección completa de donde vive" name="" [ngClass]="{'is-invalid':TeacherForm.get('address')?.errors && TeacherForm.get('address')?.touched}">
+                <div *ngIf="TeacherForm.get('address')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('address')?.hasError('required') && TeacherForm.get('address')?.touched">Se requiere el ingreso de una dirección (Ciudad, Barrio-ciudadela, Calle Principal y Calle Secundaria)</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4 form-check">
+                <label for="">Estado Civil:</label><br>
+                <select class="form-select" aria-label="Default select example" formControlName="maritalStatus" [ngClass]="{'is-invalid': TeacherForm.get('maritalStatus')?.errors && TeacherForm.get('maritalStatus')?.touched}">
+                    <option value="Soltero">Soltero</option>
+                    <option value="Casado">Casado</option>
+                </select>
+                <div *ngIf="TeacherForm.get('maritalStatus')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('maritalStatus')?.hasError('required') && TeacherForm.get('maritalStatus')?.touched">Escoja una opción</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <h4>Registro de un Usuario y Contraseña</h4>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="">Usuario:</label>
+                <input type="text" class="form-control" formControlName="username" placeholder="Ingrese un nombre de Usuario" name="" [ngClass]="{'is-invalid':TeacherForm.get('username')?.errors && TeacherForm.get('username')?.touched}">
+                <div *ngIf="TeacherForm.get('username')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('username')?.hasError('required') && TeacherForm.get('username')?.touched">Se requiere el ingreso de un Usuario</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="">Contraseña: </label>
+                <input type="password" class="form-control" formControlName="password" placeholder="Ingrese una Contraseña" name="" [ngClass]="{'is-invalid':TeacherForm.get('password')?.errors && TeacherForm.get('password')?.touched}" minlength="8" maxlength="16" >
+                <div *ngIf="TeacherForm.get('password')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('password')?.hasError('required') && TeacherForm.get('password').touched">Se requiere el ingreso de una contraseña de minimo 8 caracteres</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label for="">Repetir Contraseña: </label>
+                <input type="password" class="form-control" formControlName="Confirmpassword" placeholder="Repita la Contraseña"  name="" [ngClass]="{'is-invalid':TeacherForm.get('Confirmpassword')?.errors && TeacherForm.get('Confirmpassword')?.touched}" minlength="8" maxlength="16">
+                 <div *ngIf="TeacherForm.get('password').value !== TeacherForm.get('Confirmpassword').value" class="text-danger">Las Contraseñas no coinciden</div>
+                <!-- <div class="text-danger" *ngIf="TeacherForm.get('Confirmpassword')?.hasError('MustMatch') && TeacherForm.get('Confirmpassword')?.touched">Las Contraseñas no coinciden</div>  -->
+            </div>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="botones">
+            <button [disabled]="TeacherForm.invalid" type="submit" class="btn btn-success" (click)="registrar(TeacherForm.value)">Registrarse</button>
+            <a href="/home" class="btn btn-danger">Cancelar</a>
+            <!-- <button type="reset" class="btn btn-danger">Salir</button> -->
+            </div>
+        </div>
+       
+    </form>
+</div> 
+</section>
+<app-footer-component></app-footer-component>
+
