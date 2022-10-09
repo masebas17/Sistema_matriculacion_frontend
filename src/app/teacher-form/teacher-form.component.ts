@@ -107,18 +107,18 @@ export class TeacherFormComponent implements OnInit {
     {
 			text: [
         'Yo' + ' '+ this.data_teacher_value.lastName +' '+ this.data_teacher_value.name + ' '+'con C.I.' +' ' + this.data_teacher_value.identityNumber+ ' '+ 'al ser catequista de esta Parroquia Eclesiástica Santiago Apóstol de Machachi, ',
-				{text: 'me comprometo: \n\n', fontSize: 12, bold: true},
+				{text: 'me comprometo a: \n\n', fontSize: 12, bold: true},
 			],
       margin: [10, 20]
 		},
 		{
 			ul: [
-				'A ser portavoz del mensaje de Jesús y expresarlo en cada uno de los encuentros con alegría, jovialidad, dinamismo, cordialidad, en el aula con cada uno de los catequizandos que tendré a cargo.',
-				'A realizar mi labor como catequista con responsabilidad, teniendo en cuenta que he sido llamado a este servicio, por voluntad propia con el ánimo de seguir construyendo el Reino de Dios por medio de la enseñanza que imparto a los niños y niñas de la Catequesis Parroquial.',
-				'A participar de todas las actividades organizadas por la Parroquia con la finalidad de seguir construyendo fraternidad y unión en el grupo de Catequistas a parte de que ayudarán en mi formación espiritual como personal.',
-        'A preparar cada una de las clases y encuentros con anterioridad, revisar los temas, libros, preparar dinámicas y no improvisar las clases, realizar actividades que promuevan el aprendizaje de los catequizandos y despierte en ellos el interés de seguir aprendiendo.',
-        'A No faltar a las clases o avisar con tiempo bajo alguna circunstancia que se presente de fuerza mayor y limiten mi posibilidad de cumplir con la labor semanal de la Catequesis, teniendo en cuenta que al asumir este encargo tengo sobre mi a un número de chicos y chicas por lo cual no debo descuidar en la responsabilidad que me ha sido encomendada.',
-        'A participar de la Santa Misa, confesarme, comulgar, cumplir con los preceptos y festividades de nuestra Iglesia para así ser también ejemplo y testimonio de Fe, como catequista para los niños, padres de familia y demás hermanos en la Fe.'
+				'Ser portavoz del mensaje de Jesús y expresarlo en cada uno de los encuentros con alegría, jovialidad, dinamismo, cordialidad, en el aula con cada uno de los catequizandos que tendré a cargo.',
+				'Realizar mi labor como catequista con responsabilidad, teniendo en cuenta que he sido llamado a este servicio por voluntad propia, libre, voluntariamente, sin ninguna remuneración y ningún fin lucrativo; con el ánimo de seguir construyendo el Reino de Dios por medio de la enseñanza que imparto a los niños y niñas de la Catequesis Parroquial; afirmando que no padezco ningún trastorno físico o psicológico que me impida ejercer mi labor como catequista.',
+				'Participar de todas las actividades organizadas por la Parroquia con la finalidad de seguir construyendo fraternidad y unión en el grupo de Catequistas.',
+        'Preparar cada una de las clases y encuentros con anterioridad, revisar los temas, libros, preparar dinámicas y no improvisar las clases, realizar actividades que promuevan el aprendizaje de los catequizandos y despierte en ellos el interés de seguir aprendiendo.',
+        'No faltar a las clases o avisar con tiempo bajo alguna circunstancia que se presente de fuerza mayor y limiten mi posibilidad de cumplir con la labor semanal de la Catequesis, teniendo en cuenta que al asumir este encargo tengo sobre mi a un número de niños y niñas por lo cual no debo descuidar en la responsabilidad que me ha sido encomendada.',
+        'Participar de la Santa Misa, confesarme, comulgar, cumplir con los preceptos y festividades de nuestra Iglesia para así ser también ejemplo como catequista para los niños, padres de familia y demás hermanos en la Fe.'
 			],
       alignment: 'justify',
       margin: [50, 0, 35, 0],
