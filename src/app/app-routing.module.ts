@@ -25,6 +25,7 @@ import { EditTeacherComponent } from './supervisor/edit-teacher/edit-teacher.com
 import { MyCoursesComponent } from './supervisor/my-courses/my-courses.component';
 import { TeacherFormComponent } from './teacher-form/teacher-form.component';
 import { TeacherFormGuard } from './guards/teacher-form.guard';
+import { SupervisorGuard } from './guards/supervisor.guard';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -47,7 +48,7 @@ const routes: Routes = [
       {path: 'edit-course', component: EditCourseComponent}
     ]
   },
-    { path: 'supervisor', canActivate: [AuthGuard], component: SupervisorComponent,
+    { path: 'supervisor', canActivate: [SupervisorGuard], component: SupervisorComponent,
     children:[
       {path: 'list-courses', component:ListCoursesComponent},
       {path: 'edit-teacher', component:EditTeacherComponent},

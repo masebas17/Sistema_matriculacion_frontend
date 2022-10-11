@@ -86,3 +86,10 @@ export interface dataTeacher{
     username: string,
     password: string
 }
+
+export interface editCourses {
+    name: string,
+    maxStudents: number, 
+    teacherId: number,
+    scheduleId: number
+}

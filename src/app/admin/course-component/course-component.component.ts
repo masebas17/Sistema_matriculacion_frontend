@@ -11,6 +11,7 @@ import printJS from 'print-js'
 import { faPrint, faMoneyCheckDollar} from '@fortawesome/free-solid-svg-icons';
 import { AsignatedPipe } from 'src/app/shared/asignated.pipe';
 import { find } from 'rxjs';
+import { TeacherComponentComponent } from '../teacher-component/teacher-component.component';
 
 
 @Component({
@@ -112,8 +113,12 @@ export class CourseComponentComponent implements OnInit {
       document.getElementById('Text_Schedule').innerHTML =(filtershedule[0].weekDay + ' ' + '( '+ filtershedule[0].startTime +' - '+ filtershedule[0].endTime + ' )')
       document.getElementById('Text_level').innerHTML = filtershedule[0].Level.name
       document.getElementById('Text_course').innerHTML = filtercourse[0].name
-      document.getElementById('Text_Teacher').innerHTML = filtercourse[0].Teacher
-     
+      if(filtercourse[0].Teacher != null){
+      document.getElementById('Text_Teacher').innerHTML = (filtercourse[0].Teacher.lastName + ' ' + filtercourse[0].Teacher.name).toUpperCase() 
+      }
+      else{
+        document.getElementById('Text_Teacher').innerHTML = 'No asignado'
+      }
   }
 
 
@@ -123,13 +128,14 @@ export class CourseComponentComponent implements OnInit {
       type: 'json',
       properties: [
         {field:'identityNumber', displayName: 'Cédula'},
-        {field: 'lastName', displayName: 'Apellidos', targetStyles: ['*']}, 
+        {field: 'lastName', displayName: 'Apellidos', targetStyles: [UpperCasePipe]}, 
         {field:'name', displayName: 'Nombres'},
         {field:'age', displayName:'Edad'},
         {field:'null', displayName: 'Observaciones'}
       ],
-      header: '<h3 class="custom-h3">My custom header</h3>',
-      style: '.custom-h3 { color: red; }'
+      header: '<h2 class="custom">Parroquia Eclesiástica Santiago Apóstol de Machachi <br>Catequesis 2022-2023</h2><hr><br>',
+      // style: '.custom-h3 { color: red; }'
+      style: '.custom { color: black;}', font_size: '9pt', honorMarginPadding: true,
       })
 
   }

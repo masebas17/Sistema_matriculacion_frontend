@@ -110,7 +110,7 @@
         <div class="row">
             <div class="botones">
             <button [disabled]="TeacherForm.invalid" type="submit" class="btn btn-success" (click)="registrar(TeacherForm.value)">Registrarse</button>
-            <a href="/home" class="btn btn-danger">Cancelar</a>
+            <a class="btn btn-danger" (click)="logout()">Cancelar</a>
             <!-- <button type="reset" class="btn btn-danger">Salir</button> -->
             </div>
         </div>
