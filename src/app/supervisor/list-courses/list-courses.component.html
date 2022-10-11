@@ -58,8 +58,9 @@
           <th>Apellidos</th>
           <th>Nombres</th>
           <th>Edad</th>
+          <th>Contacto</th>
           <th>Discapacidad</th>
-          <th>N° Recibo</th>
+          <th>Status</th>
           <!-- <th id="status">Status</th> -->
         </tr>
       </thead>
@@ -70,9 +71,10 @@
           <td>{{student.lastName | uppercase}}</td>
           <td>{{student.name | uppercase}}</td>
           <td class = "text-center">{{student.age}}</td>
+          <td class="text-center">{{student.phone1}}</td>
           <td class = "text-center">{{student.disability | siNo}}</td>
-          <td class = "text-center">{{student.payment}}</td>
-          <!-- <td class="text-center" id="status">{{student.payment | asignated}} </td>  -->
+          <!-- <td class = "text-center">{{student.payment}}</td> -->
+          <td class="text-center" id="status">{{student.payment | asignated}} </td> 
         </tr>
       </tbody>
     </table>
