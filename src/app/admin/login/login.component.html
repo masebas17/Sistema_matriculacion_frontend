@@ -1,13 +1,15 @@
 <section class="vh-100">
     <div class="container-fluid h-custom">
       <div class=" body-login row d-flex justify-content-center align-items-center h-100">
-        <div class="col-md-9 col-lg-6 col-xl-5">
+        <div class="imagen-principal col-md-9 col-lg-6 col-xl-5">
           <a href="/home"><img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"  class="img-fluid" alt="Sample image"></a>
 
         </div>
-        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <div class=" principal col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <div class="titulos">
             <img class="img-fluid logo" src="./assets/images/header-component/logo_parroquia.png" alt="logo parroquial" width="300">
-        <h2 >Sistema de Gestión de Catequesis</h2>
+            <h2 >Sistema de Gestión de Catequesis</h2>
+          </div>
           <form [formGroup]="userForm" (ngSubmit)="iniciar_sesion(userForm.value)">
             <!-- Email input -->
             <div class="form-outline mb-4">

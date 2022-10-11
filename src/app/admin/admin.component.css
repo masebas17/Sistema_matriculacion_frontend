@@ -112,7 +112,7 @@ body {
 
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
     float: right;
@@ -120,7 +120,7 @@ body {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 690px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -136,14 +136,14 @@ body {
       width: 100%;
   }
   .logo{
-      width: 100%;
+      width: 30%;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       padding: 10px;
   }
   .letras{
-      width: 100%;
+      width: 70%;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
   }
 }
