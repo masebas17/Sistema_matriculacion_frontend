@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import{ HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, LevelResponse, Students } from '../shared/interfaces';
+import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, editCourses, LevelResponse, Students } from '../shared/interfaces';
 
 
 
@@ -107,6 +107,13 @@ export class ApiService {
     return resp
   }
 
+  async get_Teacher_admin(id: any){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const resp: any = await this.http.get(`${this.apiUrl}/api/teachers/filtered/${id}`, options).toPromise() 
+    return resp
+  }
   async delete_student(id: any){
     const options = {
       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
@@ -120,6 +127,14 @@ export class ApiService {
       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
     };
     const resp: any = await this.http.put(`${this.apiUrl}/api/students/${id}`, Student, options).toPromise() 
+    return resp
+  }
+
+  async edit_course(id: any, course: editCourses | any ){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.put(`${this.apiUrl}/api/courses/${id}`, course, options).toPromise() 
     return resp
   }
 

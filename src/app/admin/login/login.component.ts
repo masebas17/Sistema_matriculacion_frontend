@@ -42,9 +42,14 @@ export class LoginComponent implements OnInit {
           icon: 'success',
           title: 'Iniciando Sesión'
         })
-
+        if(resp.data.user[0] === 'ADMIN'){
+        localStorage.setItem('role', resp.data.user[0]);
         this.router.navigate(['/admin'])
-
+        }
+        if(resp.data.user[0] === 'SUPERVISOR'){
+          localStorage.setItem('role', resp.data.user[0]);
+          this.router.navigate(['/supervisor'])
+          }
       }, 1000);
       myTimeout;
     }
