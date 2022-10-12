@@ -39,4 +39,5 @@ export class SupervisorComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
+
 }
