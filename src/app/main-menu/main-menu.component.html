@@ -41,18 +41,18 @@
   </div>
     <div class="contenedor"> 
         <br>
-        <div class="service-items float-contenedor texto-centro">
-            <a (click)="anunce()"><img src="../assets/images/main-menu/icono_matriculacion.png" class="img-responsive"/></a>
+        <button (click)="anunce()" class="service-items float-contenedor texto-centro">
+            <a><img src="../assets/images/main-menu/icono_matriculacion.png" class="img-responsive"/></a>
             <h2>Matriculación</h2>
-        </div>
-        <div class="service-items float-contenedor texto-centro">
-            <a href="/searcher"><img src="../assets/images/main-menu/icono_consultas.png" class="img-responsive"/></a>
+        </button>
+        <button routerLink="/searcher" class="service-items float-contenedor texto-centro">
+            <a ><img src="../assets/images/main-menu/icono_consultas.png" class="img-responsive"/></a>
             <h2>Consultas</h2>
-        </div>
-        <div class="service-items float-contenedor texto-centro">
-            <a  data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="../assets/images/users/logo_login.png" class="img-responsive"/></a>
+        </button>
+        <button class="service-items float-contenedor texto-centro" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a ><img src="../assets/images/users/logo_login.png" class="img-responsive"/></a>
             <h3>Registro de Catequistas</h3>
-        </div>
+        </button>
         <div class="limpieza"></div>
     </div>
 </section>
