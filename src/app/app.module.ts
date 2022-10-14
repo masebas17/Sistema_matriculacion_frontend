@@ -32,6 +32,8 @@ import { ListCoursesComponent } from './supervisor/list-courses/list-courses.com
 import { EditTeacherComponent } from './supervisor/edit-teacher/edit-teacher.component';
 import { MyCoursesComponent } from './supervisor/my-courses/my-courses.component';
 import { TeacherFormComponent } from './teacher-form/teacher-form.component';
+import { EnrollmentPipe } from './shared/enrollment.pipe';
+import { TeacherPipe } from './shared/teacher.pipe';
 
 
 @NgModule({
@@ -61,6 +63,8 @@ import { TeacherFormComponent } from './teacher-form/teacher-form.component';
     EditTeacherComponent,
     MyCoursesComponent,
     TeacherFormComponent,
+    EnrollmentPipe,
+    TeacherPipe
   ],
   imports: [
     BrowserModule,
