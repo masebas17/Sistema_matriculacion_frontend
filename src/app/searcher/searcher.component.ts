@@ -6,6 +6,7 @@ import { ApiService } from '../services/api.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { DatePipe } from '@angular/common';
+import { text } from '@fortawesome/fontawesome-svg-core';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -20,6 +21,8 @@ export class SearcherComponent implements OnInit {
   pipe = new DatePipe('en-US');
   fecha = null
   datos_of_students: any;
+  display = 'none';
+
 
   constructor(private _ApiService: ApiService,
     private router: Router) { }
@@ -32,38 +35,33 @@ export class SearcherComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
 
   consultar(){
     this._ApiService.getStudent(this.Form.get("identityNumber").value).subscribe((resp: any) =>{
-      console.log(resp)
-
       this.datos_of_students = resp.data
-      if (resp) {
 
-        const myTimeout = setTimeout(() => {
-          Swal.fire({
-            title: 'Datos del Estudiante',
-            icon: 'info',
-            confirmButtonColor: '#1D71B8',
-            confirmButtonText: 'Revisar el Acta de Compromiso',
-            showCancelButton: true,
-            cancelButtonText: 'Salir',
-            cancelButtonColor: 'red',
-            html:
-              'Cédula de identidad:' + ' '+ resp.data.identityNumber + '<br>' +
-              'Nombre:' + ' ' + resp.data.lastName + ' ' +resp.data.name +'<br>' +
-              'Nivel:' + ' '+ resp.data.Course.Schedule.Level.name +'<br>' +
-              'Horario:' + ' ' + resp.data.Course.Schedule.weekDay + ' ' + resp.data.Course.Schedule.startTime + ' ' + '-'+ ' ' + resp.data.Course.Schedule.endTime + '<br>' +
-              'Paralelo:' + ' ' + resp.data.Course.name + '<br>' +
-              'Catequista:' + ' ' + ' No Asignado',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.createPDF()
-            } 
-              this.router.navigate(['/home'])
+      console.log(this.datos_of_students)
+
+      if (resp) {
+        const myTimeout = setTimeout(async() => {
+
+          const Toast = Swal.mixin({
+            toast: false,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 6000,
+            timerProgressBar: true,
           })
-        }, 1000);
+          await Toast.fire({
+            icon: 'success',
+            title: 'Datos del Estudiante encontrados',
+            text:' Generando Reporte'
+          })
+          this.opemmodalDialog()
+        }, 500);
         myTimeout;
+        
       }
       else {
         this.router.navigate(['/home'])
@@ -71,6 +69,76 @@ export class SearcherComponent implements OnInit {
     })
   }
 
+
+        //  const myTimeout = setTimeout(() => {
+        //    Swal.fire({
+        //      title: 'Datos del Estudiante encontrados',
+        //      icon: 'success',
+        //      confirmButtonColor: '#1D71B8',
+        //      confirmButtonText: 'ok',
+        //    }).then((result) => {
+        //      if (result.isConfirmed) {
+        //       this.opemmodalDialog()
+        //      } 
+        //    })
+        //  }, 1000);
+        //  myTimeout;
+
+//   Swal.fire({
+//     title: 'Datos del Estudiante',
+//     icon: 'info',
+//     confirmButtonColor: '#1D71B8',
+//     confirmButtonText: 'Revisar el Acta de Compromiso',
+//     showCancelButton: true,
+//     cancelButtonText: 'Salir',
+//     cancelButtonColor: 'red',
+//       html:
+//       'Cédula de identidad:' + ' '+ resp.data.identityNumber + '<br>' +
+//       'Nombre:' + ' ' + resp.data.lastName + ' ' +resp.data.name +'<br>' +
+//       'Nivel:' + ' '+ resp.data.Course.Schedule.Level.name +'<br>' +
+//       'Horario:' + ' ' + resp.data.Course.Schedule.weekDay + ' ' + resp.data.Course.Schedule.startTime + ' ' + '-'+ ' ' + resp.data.Course.Schedule.endTime + '<br>' +
+//       'Paralelo:' + ' ' + resp.data.Course.name + '<br>' +
+//       'Catequista:' + ' ' + ' No Asignado',
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       this.createPDF()
+//     } 
+//       this.router.navigate(['/home'])
+//   })
+// }, 1000);
+// myTimeout;
+
+
+ opemmodalDialog(){
+   this.display= 'block';
+ }
+
+ onCloseHandled(){
+  this.display='none';
+  Swal.fire({
+    title: '¿Desea realizar una nueva Consulta?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Nueva Consulta',
+    cancelButtonText: 'Salir',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.reload()
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      Swal.fire(
+        '',
+        '¡Consulta realizada con éxito!',
+        'success'
+      )
+      this.router.navigate(['/home'])
+    }
+  })
+}
   createPDF(){
 
     const voucher: any = {
