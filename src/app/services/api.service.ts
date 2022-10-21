@@ -138,6 +138,26 @@ export class ApiService {
     return resp
   }
 
+   async get_Teacher_info(){
+     const options = {
+       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+   };
+     const resp: any = await this.http.get(`${this.apiUrl}/api/teachers/info`, options).toPromise() 
+     return resp
+   }
+
+   async get_courses_teacher(id: any){
+    const resp: any = await this.http.get(`${this.apiUrl}/api/courses/${id}`).toPromise() 
+    return resp
+   }
+
+  // get_Teacher_info(): Observable<any> {
+  //   const options = {
+  //     headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  // };
+  //   return this.http.get<any>(`${this.apiUrl}/api/teachers/info`, options)
+  // }
+
   
   
 }

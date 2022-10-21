@@ -22,10 +22,14 @@ import { EditCourseComponent } from './admin/edit-course/edit-course.component';
 import { SupervisorComponent } from './supervisor/supervisor.component';
 import { ListCoursesComponent } from './supervisor/list-courses/list-courses.component';
 import { EditTeacherComponent } from './supervisor/edit-teacher/edit-teacher.component';
-import { MyCoursesComponent } from './supervisor/my-courses/my-courses.component';
+import { MyCoursesComponent } from './teacher-dashboard/my-courses/my-courses.component';
 import { TeacherFormComponent } from './teacher-form/teacher-form.component';
 import { TeacherFormGuard } from './guards/teacher-form.guard';
 import { SupervisorGuard } from './guards/supervisor.guard';
+import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
+import { TeacherLoginComponent } from './teacher-login/teacher-login.component';
+import { TeacherGuard } from './guards/teacher.guard';
+import { ListMycoursesComponent } from './teacher-dashboard/list-mycourses/list-mycourses.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -38,6 +42,7 @@ const routes: Routes = [
     {path: 'login', component:LoginComponent},
     {path: 'sidebar', component:SidebarComponentComponent},
     {path: 'teacher-form',canActivate: [TeacherFormGuard], component:TeacherFormComponent},
+    {path: 'teacher-login', component: TeacherLoginComponent},
     { path: 'admin', canActivate: [AuthGuard], component: AdminComponent,
     children:[
       {path: 'student', component:StudentComponentComponent},
@@ -54,6 +59,12 @@ const routes: Routes = [
       {path: 'edit-teacher', component:EditTeacherComponent},
       {path: 'mycourses', component:MyCoursesComponent},
       {path: 'edit-course', component: EditCourseComponent}
+    ]
+    },
+    { path: 'teacher', canActivate: [TeacherGuard] ,component: TeacherDashboardComponent,
+    children:[
+      {path: 'mycourses', component:MyCoursesComponent},
+      {path: 'listcourses/:id', component: ListMycoursesComponent},
     ]
     }
   

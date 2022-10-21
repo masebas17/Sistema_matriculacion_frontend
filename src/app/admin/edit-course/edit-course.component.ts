@@ -17,6 +17,10 @@ export class EditCourseComponent implements OnInit {
   verSeleccion_curso: number = 0;
   opcion: number = 0;
   opcion_teacher: number = 0;
+  opcion2: number = 0;
+  opcion_teacher2: number = 0;
+  opcion3: number = 0;
+  opcion_teacher3: number = 0;
   shedules: any;
   courses: any;
   Schedule_data: any;
@@ -27,7 +31,8 @@ export class EditCourseComponent implements OnInit {
   data_courses_edit: editCourses;
   cupo: number;
   courseId: any;
-  id_course: any
+  id_course: any;
+  display = 'none';
 
   constructor( private _apiService: ApiService,
     private router: Router) { 
@@ -43,7 +48,9 @@ export class EditCourseComponent implements OnInit {
   FormCourse = new FormGroup(
     {
       maxStudents: new FormControl('30',[Validators.min(30), Validators.max(50),Validators.maxLength(2)]),
-      Teacher: new FormControl('')
+      Teacher: new FormControl(''),
+      Teacher2: new FormControl(''),
+      Teacher3: new FormControl('')
     }
   )
 
@@ -61,6 +68,15 @@ export class EditCourseComponent implements OnInit {
   capturar_teacher(){
     this.opcion_teacher = this.opcion
     console.log(this.opcion_teacher)
+  }
+
+  capturar_teacher2(){
+    this.opcion_teacher2 = this.opcion2
+    console.log(this.opcion_teacher2)
+  }
+  capturar_teacher3(){
+    this.opcion_teacher3 = this.opcion3
+    console.log(this.opcion_teacher3)
   }
 
   async getShedule(){
@@ -88,6 +104,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   async edit(event: any){
+
     console.log(event.target.name)
     this.courseId =  parseInt(event.target.name)
 
@@ -99,15 +116,19 @@ export class EditCourseComponent implements OnInit {
     console.log(this.id_course)
 
     this.getTeachers()
+
+
   }
 
   async edit_course(){
     this.data_courses_edit ={
       name: this.courses.name,
       maxStudents: this.FormCourse.get('maxStudents').value,
-      teacherId: this.opcion_teacher,
-      scheduleId: this.verSeleccion
+      principalId: this.opcion_teacher,
+      scheduleId: this.verSeleccion,
+      teachersId: [this.opcion_teacher,this.opcion_teacher2, this.opcion_teacher3]
     }
+   
     const resp = await this._apiService.edit_course(this.id_course, this.data_courses_edit)
     console.log(resp)
 
@@ -118,12 +139,24 @@ export class EditCourseComponent implements OnInit {
     this.data_courses_edit ={
       name: this.courses.name,
       maxStudents: this.FormCourse.get('maxStudents').value,
-      teacherId: null,
-      scheduleId: this.verSeleccion
+      principalId: null,
+      scheduleId: this.verSeleccion,
+      teachersId: []
     }
     const resp = await this._apiService.edit_course(this.id_course, this.data_courses_edit)
     console.log(resp)
 
     this.getcourses()
   }
+
+  openselect(){
+    this.display= 'block';
+  }
+  closeselect(){
+    this.display= 'none';
+    this.opcion_teacher3 = 0;
+  }
+
+  
+
 }

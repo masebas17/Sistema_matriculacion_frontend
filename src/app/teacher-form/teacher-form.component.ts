@@ -106,9 +106,9 @@ export class TeacherFormComponent implements OnInit {
 
     {
 			text: [
-        'Yo' + ' '+ this.data_teacher_value.lastName +' '+ this.data_teacher_value.name + ' '+'con C.I.' +' ' + this.data_teacher_value.identityNumber+ ' '+ 'al ser catequista de esta Parroquia Eclesiástica Santiago Apóstol de Machachi, ',
-				{text: 'me comprometo a: \n\n', fontSize: 12, bold: true},
-			],
+         'Yo' + ' '+ this.data_teacher_value.lastName +' '+ this.data_teacher_value.name + ' '+'con C.I.' +' ' + this.data_teacher_value.identityNumber+ ' '+ 'al ser catequista de esta Parroquia Eclesiástica Santiago Apóstol de Machachi, ',
+			 	{text: 'me comprometo a: \n\n', fontSize: 12, bold: true},
+			 ],
       margin: [10, 20]
 		},
 		{
@@ -125,11 +125,11 @@ export class TeacherFormComponent implements OnInit {
       fontSize: 12,
 		},
     {
-			text: [
-				'____________________________________\n ',
-        this.data_teacher_value.lastName + ' ' + this.data_teacher_value.name+'\n\n',
-        'C.I.:' + ' ' + this.data_teacher_value.identityNumber
-      ],
+			 text: [
+			 	'____________________________________\n ',
+         this.data_teacher_value.lastName + ' ' + this.data_teacher_value.name+'\n\n',
+         'C.I.:' + ' ' + this.data_teacher_value.identityNumber
+       ],
       alignment: 'center',
       margin: [10, 40, 10, 30]
 		},

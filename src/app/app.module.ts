@@ -30,10 +30,13 @@ import { PayComponent } from './admin/pay/pay.component';
 import { SupervisorComponent } from './supervisor/supervisor.component';
 import { ListCoursesComponent } from './supervisor/list-courses/list-courses.component';
 import { EditTeacherComponent } from './supervisor/edit-teacher/edit-teacher.component';
-import { MyCoursesComponent } from './supervisor/my-courses/my-courses.component';
+import { MyCoursesComponent } from './teacher-dashboard/my-courses/my-courses.component';
 import { TeacherFormComponent } from './teacher-form/teacher-form.component';
 import { EnrollmentPipe } from './shared/enrollment.pipe';
 import { TeacherPipe } from './shared/teacher.pipe';
+import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
+import { TeacherLoginComponent } from './teacher-login/teacher-login.component';
+import { ListMycoursesComponent } from './teacher-dashboard/list-mycourses/list-mycourses.component';
 
 
 @NgModule({
@@ -64,7 +67,10 @@ import { TeacherPipe } from './shared/teacher.pipe';
     MyCoursesComponent,
     TeacherFormComponent,
     EnrollmentPipe,
-    TeacherPipe
+    TeacherPipe,
+    TeacherDashboardComponent,
+    TeacherLoginComponent,
+    ListMycoursesComponent
   ],
   imports: [
     BrowserModule,

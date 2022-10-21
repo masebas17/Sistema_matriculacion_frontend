@@ -36,7 +36,7 @@
           <th>Nivel</th>
           <th>Horario</th>
           <th>Paralelo</th>
-          <th>Catequista</th>
+          <th>Catequistas</th>
         </tr>
       </thead>
       <tbody>
@@ -44,7 +44,11 @@
           <th class="text-danger" id="Text_level" ></th>
           <th id = "Text_Schedule"></th>
           <th id="Text_course"></th>
-          <th id="Text_Teacher"></th>
+          <td>
+            <ul>
+              <li *ngFor="let teachers of teachers" style="list-style: none;">{{teachers.lastName + ' ' + teachers.name | uppercase}}</li>
+             </ul> 
+          </td>
         </tr>
       </tbody>
     </table>
