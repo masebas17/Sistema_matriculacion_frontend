@@ -77,5 +77,40 @@ export class AuthService {
     } 
     }
   }
+
+  async login_teacher(username: string, password: string) {
+    const data = { username, password };
+    const response: any = await this.http
+      .post(`${this.apiUrl}/api/users/login/teacher`, data)
+      .toPromise();
+    //Guarda el token en el local storage al iniciar sesion correctamente
+    if (response && response.correctProcess) {
+      this.saveToken(response.data.token);
+    } else {
+      localStorage.removeItem('jwt');
+    }
+    return response;
+  }
+
+  async verifyToken_teacher(): Promise<boolean> {
+    this.getToken();
+    // Si no existe un token en el storage, se redirecciona al login y se envia como una promesa con un false resolve
+    if (!this.token) {
+      this.router.navigate(['/teacher-login']);
+      return Promise.resolve(false);
+    }else{
+    const role = localStorage.getItem('role');
+    if(role === 'TEACHER'){
+      return Promise.resolve(true);
+    }else{
+      this.router.navigate(['/teacher-login']);
+      localStorage.removeItem('role')
+      localStorage.removeItem('jwt')
+      return Promise.resolve(false);
+    } 
+    }
+  }
+
+
   }
 

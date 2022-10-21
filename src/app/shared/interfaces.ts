@@ -90,6 +90,7 @@ export interface dataTeacher{
 export interface editCourses {
     name: string,
     maxStudents: number, 
-    teacherId: number,
-    scheduleId: number
+    principalId: number,
+    scheduleId: number,
+    teachersId
 }

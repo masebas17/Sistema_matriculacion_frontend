@@ -35,6 +35,7 @@ export class ListCoursesComponent implements OnInit {
   schedule_name: any;
   course_name:any;
   teacher_name:any;
+  teachers: any;
   
   constructor( private _apiService: ApiService,
     private router: Router) {
@@ -83,6 +84,7 @@ export class ListCoursesComponent implements OnInit {
    
 
     this.students = filtercourse[0].Students
+    this.teachers = filtercourse[0].Teachers
 
       if(this.students){
         const Toast = Swal.mixin({
@@ -107,14 +109,14 @@ export class ListCoursesComponent implements OnInit {
       document.getElementById('Text_Schedule').innerHTML =(filtershedule[0].weekDay + ' ' + '( '+ filtershedule[0].startTime +' - '+ filtershedule[0].endTime + ' )')
       document.getElementById('Text_level').innerHTML = filtershedule[0].Level.name
       document.getElementById('Text_course').innerHTML = filtercourse[0].name
-      if(filtercourse[0].Teacher != null){
-      document.getElementById('Text_Teacher').innerHTML = (filtercourse[0].Teacher.lastName + ' ' + filtercourse[0].Teacher.name).toUpperCase() 
-      this.teacher_name = (filtercourse[0].Teacher.lastName + ' ' + filtercourse[0].Teacher.name).toUpperCase()
-    }
-      else{
-        this.teacher_name = 'No asignado'
-        document.getElementById('Text_Teacher').innerHTML = 'No asignado'
-      }
+    //   if(filtercourse[0].Teacher != null){
+    //   document.getElementById('Text_Teacher').innerHTML = (filtercourse[0].Teachers.lastName + ' ' + filtercourse[0].Teachers.name).toUpperCase() 
+    //   this.teacher_name = (filtercourse[0].Teachers.lastName + ' ' + filtercourse[0].Teachers.name).toUpperCase()
+    // }
+    //   else{
+    //     this.teacher_name = 'No asignado'
+    //     document.getElementById('Text_Teacher').innerHTML = 'No asignado'
+    //   }
   }
 
   print(){
