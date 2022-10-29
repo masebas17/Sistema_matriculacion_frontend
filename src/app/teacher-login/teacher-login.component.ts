@@ -22,6 +22,12 @@ export class TeacherLoginComponent implements OnInit {
     }
   )
 
+  recover_password_Form = new FormGroup(
+    {
+      identityNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)])
+    }
+  )
+
   async iniciar_sesion_teacher(){
     const resp = await this.authservice.login_teacher(this.user_teacher_Form.get('user')?.value, this.user_teacher_Form.get('pwd')?.value)
 
@@ -52,5 +58,21 @@ export class TeacherLoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  reset_Form(){
+    this.recover_password_Form.reset()
+}
+
+reset_user(event: any){
+  console.log(event.target.name)
+  localStorage.setItem("type", event.target.name)
+  this.router.navigate(['/recover-data', event.target.name])
+  
+}
+reset_pwd(event: any){
+  console.log(event.target.name)
+  localStorage.setItem("type", event.target.name)
+  this.router.navigate(['/recover-data', event.target.name])
+}
 
 }

@@ -1,7 +1,9 @@
 
 <section class="Formulario">
     <div class="letras">
-        <h1 class="titulo" *ngIf="name_course">{{'Listado del Paralelo'+ ' ' + name_course}}</h1>
+      <h1 class="titulo" >Listado por Cursos</h1>
+      <h4 *ngIf="name_level">{{'Nivel: ' + name_level}}</h4>
+      <h4 *ngIf="name_course">{{'Paralelo'+ ' ' + name_course}}</h4>
     </div>
     <div class="contenedor">
       <div class="row">

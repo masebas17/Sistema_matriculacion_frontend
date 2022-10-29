@@ -41,4 +41,15 @@ export class GuardService {
       return false;
     }
   }
+
+  validate_recover_data(): boolean {
+    const id = localStorage.getItem('rcid');
+    if (id) {
+      return true;
+    } else {
+      this.router.navigate(['/home'])
+      localStorage.clear()
+      return false;
+    }
+  }
 }

@@ -13,7 +13,7 @@
                   <h4>Acceso de Catequistas</h4>
                 </div>
               </div>
-          <form [formGroup]="user_teacher_Form">
+          <form [formGroup]="user_teacher_Form"  (keydown.enter)="iniciar_sesion_teacher()">
             <!-- <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
               <p class="lead fw-normal mb-0 me-3">Sign in with</p>
               <button type="button" class="btn btn-primary btn-floating mx-1">
@@ -39,6 +39,16 @@
               <input type="email" id="form3Example3" class="form-control form-control-lg"
               formControlName="user" placeholder="Ingrese el Usuario" />
             </div>
+            <div class="d-flex justify-content-flex-end align-items-center">
+              <!-- Checkbox -->
+              <!-- <div class="form-check mb-0">
+                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                <label class="form-check-label" for="form2Example3">
+                  Remember me
+                </label>
+              </div> -->
+              <a  name="reset_user" (click)="reset_user($event)" class="text-body" >¿Olvidé mi usuario? </a>
+            </div>
   
             <!-- Password input -->
             <div class="form-outline mb-3">
@@ -47,15 +57,15 @@
               formControlName="pwd"  placeholder="Ingrese la Contraseña" />
             </div>
   
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-flex-end align-items-center">
               <!-- Checkbox -->
               <!-- <div class="form-check mb-0">
                 <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
                 <label class="form-check-label" for="form2Example3">
                   Remember me
                 </label>
-              </div>
-              <a href="#!" class="text-body">Forgot password?</a> -->
+              </div> -->
+              <a name="reset_password" (click)="reset_pwd($event)" class="text-body" >¿Olvidé mi contraseña? </a>
             </div>
   
             <div class="text-center text-lg-start mt-4 pt-2">
@@ -97,3 +107,38 @@
       <!-- Right -->
     <!-- </div> -->
   </section>
+
+    <!-- Modal para recuperación de contraseña -->
+    <div class="modal fade" id="exampleModal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #0F79B9; color: white;">
+            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold; font-size: x-large;">Recuperación de Usuario y Contraseña</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="reset_Form()"></button>
+          </div>
+          <div class="modal-body">
+                <form [formGroup]="recover_password_Form" >
+                  <div class="row">
+                    <label for="">Ingrese su número de Cédula:</label> <br>
+                    <!-- <div class="icons col-sm-2">
+                      <fa-icon [icon]="faLock"></fa-icon>
+                    </div> -->
+                    <div class="col-sm-12">
+                      <input type="text" class="form-control" formControlName="identityNumber" placeholder="Ingrese el Número de Cédula" name="" [ngClass]="{'is-invalid':recover_password_Form.get('identityNumber')?.errors && recover_password_Form.get('identityNumber')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
+                      <div *ngIf="recover_password_Form.get('identityNumber')?.errors">
+                          <div class="text-danger" *ngIf="recover_password_Form.get('identityNumber')?.hasError('required') && recover_password_Form.get('identityNumber')?.touched">Ingrese un número de cédula válido</div>
+                          <div class="text-danger" *ngIf="recover_password_Form.get('identityNumber')?.hasError('maxLength')">Se debe llenar 10 dígitos</div>
+                          <div class="text-danger" *ngIf="recover_password_Form.get('identityNumber')?.hasError('minLength')">Se debe llenar 10 dígitos</div>
+                      </div>
+                      <br>
+                  </div>
+                  </div>
+                </form>
+             </div>
+          <div class="modal-footer">
+              <button [disabled]="recover_password_Form.invalid" type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Iniciar Sesión</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reset_Form()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>

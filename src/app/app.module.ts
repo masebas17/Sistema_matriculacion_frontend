@@ -37,6 +37,10 @@ import { TeacherPipe } from './shared/teacher.pipe';
 import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
 import { TeacherLoginComponent } from './teacher-login/teacher-login.component';
 import { ListMycoursesComponent } from './teacher-dashboard/list-mycourses/list-mycourses.component';
+import { RecoverdataComponent } from './recoverdata/recoverdata.component';
+import { RecoverUserComponent } from './recover-user/recover-user.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+
 
 
 @NgModule({
@@ -70,7 +74,10 @@ import { ListMycoursesComponent } from './teacher-dashboard/list-mycourses/list-
     TeacherPipe,
     TeacherDashboardComponent,
     TeacherLoginComponent,
-    ListMycoursesComponent
+    ListMycoursesComponent,
+    RecoverdataComponent,
+    RecoverUserComponent,
+    RecoverPasswordComponent
   ],
   imports: [
     BrowserModule,

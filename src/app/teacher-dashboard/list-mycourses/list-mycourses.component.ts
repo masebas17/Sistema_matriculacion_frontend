@@ -16,6 +16,7 @@ courseId: any;
 courses: any;
 students: any;
 name_course: any;
+name_level: any;
 faArrowAltCircleLeft = faArrowAltCircleLeft;
 faPrint = faPrint;
 
@@ -44,6 +45,7 @@ faPrint = faPrint;
     this.students = filtercourse[0].Students
 
     this.name_course = filtercourse[0].name
+    this.name_level =filtercourse[0].Schedule.Level.name
 
       if(this.students){
         const Toast = Swal.mixin({

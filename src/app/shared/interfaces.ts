@@ -94,3 +94,8 @@ export interface editCourses {
     scheduleId: number,
     teachersId
 }
+
+export interface reset_user{
+    username: string,
+    password: string
+}
