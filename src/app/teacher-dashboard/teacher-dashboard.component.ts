@@ -50,7 +50,7 @@ export class TeacherDashboardComponent implements OnInit {
   }
 
   logout(){
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     this.router.navigate(['/teacher-login'])
   }
 

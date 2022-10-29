@@ -1,0 +1,55 @@
+<section class="vh-100" style="background-color: #508bfc;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+                <div class="titulos">
+                    <img class="logo img-fluid" src="./assets/images/header-component/logo_parroquia.png" alt="logo parroquial" width="300">
+                  </div>
+              <h3 class="mb-5">Recuperación de Usuario y Contraseña</h3>
+            <form [formGroup]="TeacherForm" (ngSubmit)="reset_user_teacher(TeacherForm.value)">
+              <div class="form-outline mb-4">
+                <input type="email" id="typeEmailX-2" class="form-control form-control-lg"  formControlName="username" [ngClass]="{'is-invalid':TeacherForm.get('username')?.errors && TeacherForm.get('username')?.touched}"/>
+                <div *ngIf="TeacherForm.get('username')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('username')?.hasError('required') && TeacherForm.get('username')?.touched">Se requiere el ingreso de un Usuario</div>
+                </div>
+                <label class="form-label" for="typeEmailX-2">Nuevo Usuario</label>
+              </div>
+  
+              <div class="form-outline mb-4">
+                <input type="password" id="typePasswordX-2" formControlName="password" class="form-control form-control-lg" [ngClass]="{'is-invalid':TeacherForm.get('password')?.errors && TeacherForm.get('password')?.touched}" minlength="8" maxlength="16"/>
+                <div *ngIf="TeacherForm.get('password')?.errors">
+                    <div class="text-danger" *ngIf="TeacherForm.get('password')?.hasError('required') && TeacherForm.get('password').touched">Se requiere el ingreso de una contraseña de minimo 8 caracteres</div>
+                </div>
+                <label class="form-label" for="typePasswordX-2">Nueva Contraseña</label>
+              </div>
+              
+              <div class="form-outline mb-4">
+                <input type="password" id="typePasswordX-2" formControlName="Confirmpassword" class="form-control form-control-lg" [ngClass]="{'is-invalid':TeacherForm.get('Confirmpassword')?.errors && TeacherForm.get('Confirmpassword')?.touched}" minlength="8" maxlength="16" />
+                <div *ngIf="TeacherForm.get('password').value !== TeacherForm.get('Confirmpassword').value" class="text-danger">Las Contraseñas no coinciden</div>
+                <label class="form-label" for="typePasswordX-2">Repetir Contraseña</label>
+              </div>
+              <!-- Checkbox -->
+              <!-- <div class="form-check d-flex justify-content-start mb-4">
+                <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+                <label class="form-check-label" for="form1Example3"> Remember password </label>
+              </div>
+   -->
+            <hr class="my-4">
+              <button [disabled]="TeacherForm.invalid" class="btn btn-primary btn-lg btn-block" type="submit">Verificar y registrar datos</button>
+              <a class="btn btn-danger btn-lg btn-block" href="/teacher-login" style="margin: 1% ;" (click)="reset_local()">cancelar</a>
+            </form>
+             
+  
+              <!-- <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
+                type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
+              <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
+                type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button> -->
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

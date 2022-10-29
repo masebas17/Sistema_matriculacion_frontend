@@ -35,7 +35,7 @@ export class SupervisorComponent implements OnInit {
   }
 
   logout(){
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     this.router.navigate(['/login'])
   }
 

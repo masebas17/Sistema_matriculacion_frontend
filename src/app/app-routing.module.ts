@@ -30,6 +30,10 @@ import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard
 import { TeacherLoginComponent } from './teacher-login/teacher-login.component';
 import { TeacherGuard } from './guards/teacher.guard';
 import { ListMycoursesComponent } from './teacher-dashboard/list-mycourses/list-mycourses.component';
+import { RecoverdataComponent } from './recoverdata/recoverdata.component';
+import { RecoverUserComponent } from './recover-user/recover-user.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { RecoverDataGuard } from './guards/recover-data.guard';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -66,7 +70,10 @@ const routes: Routes = [
       {path: 'mycourses', component:MyCoursesComponent},
       {path: 'listcourses/:id', component: ListMycoursesComponent},
     ]
-    }
+    },
+    { path: 'recover-data/:type' ,component: RecoverdataComponent},
+    { path: 'recover_user/:id', canActivate: [RecoverDataGuard] ,component: RecoverUserComponent},
+    { path: 'recover_password/:id', canActivate: [RecoverDataGuard] ,component: RecoverPasswordComponent}
   
 ];
 

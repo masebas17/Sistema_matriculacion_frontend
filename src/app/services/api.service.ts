@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import{ HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, editCourses, LevelResponse, Students } from '../shared/interfaces';
+import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, editCourses, LevelResponse, Students, reset_user } from '../shared/interfaces';
 
 
 
@@ -150,6 +150,19 @@ export class ApiService {
     const resp: any = await this.http.get(`${this.apiUrl}/api/courses/${id}`).toPromise() 
     return resp
    }
+
+   async verify_teacher(id: any){
+    const resp: any = await this.http.get(`${this.apiUrl}/api/users/${id}`).toPromise() 
+    return resp
+   }
+
+   async reset_data_user_teacher(id: any , user: reset_user | any){
+    const resp: any = await this.http.put(`${this.apiUrl}/api/users/${id}`, user).toPromise() 
+    return resp
+   }
+
+   
+
 
   // get_Teacher_info(): Observable<any> {
   //   const options = {
