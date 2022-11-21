@@ -40,6 +40,8 @@ import { ListMycoursesComponent } from './teacher-dashboard/list-mycourses/list-
 import { RecoverdataComponent } from './recoverdata/recoverdata.component';
 import { RecoverUserComponent } from './recover-user/recover-user.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { AttendanceComponent } from './teacher-dashboard/attendance/attendance.component';
+import { GradesComponent } from './teacher-dashboard/grades/grades.component';
 
 
 
@@ -77,7 +79,9 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
     ListMycoursesComponent,
     RecoverdataComponent,
     RecoverUserComponent,
-    RecoverPasswordComponent
+    RecoverPasswordComponent,
+    AttendanceComponent,
+    GradesComponent
   ],
   imports: [
     BrowserModule,
