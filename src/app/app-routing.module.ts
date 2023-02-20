@@ -34,6 +34,8 @@ import { RecoverdataComponent } from './recoverdata/recoverdata.component';
 import { RecoverUserComponent } from './recover-user/recover-user.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { RecoverDataGuard } from './guards/recover-data.guard';
+import { AttendanceComponent } from './teacher-dashboard/attendance/attendance.component';
+import { GradesComponent } from './teacher-dashboard/grades/grades.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -69,6 +71,8 @@ const routes: Routes = [
     children:[
       {path: 'mycourses', component:MyCoursesComponent},
       {path: 'listcourses/:id', component: ListMycoursesComponent},
+      {path: 'attendance', component: AttendanceComponent},
+      {path: 'grades', component: GradesComponent}
     ]
     },
     { path: 'recover-data/:type' ,component: RecoverdataComponent},

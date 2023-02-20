@@ -18,10 +18,11 @@
                 </select>
             </div>
             <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-9">
                 <div class="botones">
                 <button class="btn btn-success" (click)="listado()">Generar listado</button> 
-                <button class="btn btn-primary" (click)="print()"><fa-icon [icon]="faprint" ></fa-icon> Imprimir lista</button>         
+                <button class="btn btn-primary" (click)="print()"><fa-icon [icon]="faprint" ></fa-icon> Imprimir lista</button> 
+                <button class="btn btn-outline-success" (click)="exportarAExcel()"><fa-icon [icon]="faDownload" ></fa-icon> Exportar a Excel</button> 
             </div>
             </div>
         </div>
@@ -30,7 +31,7 @@
 <div class="contenedor-table">
 <div class="container mt-3" id="lista_del_curso">
   <div class="table-responsive">
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" id = "table1">
       <thead class="table-secondary">
         <tr class = "text-center">
           <th>Nivel</th>
@@ -46,7 +47,7 @@
           <th id="Text_course"></th>
           <td>
             <ul>
-              <li *ngFor="let teachers of teachers" style="list-style: none;">{{teachers.lastName + ' ' + teachers.name | uppercase}}</li>
+              <li *ngFor="let teachers of teachers" style="list-style: none;">{{teachers.lastName + ' ' + teachers.name + '  ' | uppercase}}</li>
              </ul> 
           </td>
         </tr>
@@ -54,31 +55,36 @@
     </table>
   </div>
   <div class="table-responsive">    
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" id = "table2">
       <thead class="table-secondary">
         <tr class = "text-center">
           <th scope="col">Ord</th>
-          <!-- <th id="num_cedula">Cédula</th> -->
+          <th id="num_cedula">Cédula</th>
           <th>Apellidos</th>
           <th>Nombres</th>
           <th>Edad</th>
           <th>Contacto</th>
+          <th id="email">Email</th>
+          <th id="baptized">Bautizado</th>
           <th>Discapacidad</th>
-          <th>Status</th>
+          <th>Recibo de Matrícula</th>
+
           <!-- <th id="status">Status</th> -->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let student of students; let item = index">
           <td scope="row" class = "text-center">{{item+1}}</td>
-          <!-- <td class = "text-center" id="num_cedula">{{student.identityNumber}}</td> -->
+          <td class = "text-center" id="num_cedula">{{student.identityNumber}}</td> 
           <td>{{student.lastName | uppercase}}</td>
           <td>{{student.name | uppercase}}</td>
           <td class = "text-center">{{student.age}}</td>
-          <td class="text-center">{{student.phone1}}</td>
+          <td class="text-center" >{{student.phone1}}</td>
+          <td class = "text-center" id="email">{{student.email}}</td>
+          <td class = "text-center" id="baptized">{{student.baptized | baptized}}</td>
           <td class = "text-center">{{student.disability | siNo}}</td>
-          <!-- <td class = "text-center">{{student.payment}}</td> -->
-          <td class="text-center" id="status">{{student.payment | asignated}} </td> 
+          <td class = "text-center">{{student.payment}}</td> 
+          <!-- <td class="text-center" id="status">{{student.payment | asignated}} </td>  -->
         </tr>
       </tbody>
     </table>

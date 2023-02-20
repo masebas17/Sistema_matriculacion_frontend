@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronDown, faFileArchive, faHome, faList, faPenToSquare, faRightToBracket, faSackDollar, faSchool, faUser, faUserPen } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faFileArchive, faHome, faListCheck, faPenToSquare, faRightToBracket, faSackDollar, faSchool, faUser, faUserPen, faCheckToSlot, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -16,9 +16,12 @@ export class TeacherDashboardComponent implements OnInit {
   faUserPen = faUserPen;
   faFileArchive = faFileArchive;
   faPenToSquare = faPenToSquare;
-  faList = faList;
+  faListCheck = faListCheck;
   faSackDollar = faSackDollar;
   faSchool = faSchool;
+  faCheckCircle = faCheckToSlot;
+  faBookOpen = faBookOpen;
+  
 
   constructor(private router: Router) { }
 

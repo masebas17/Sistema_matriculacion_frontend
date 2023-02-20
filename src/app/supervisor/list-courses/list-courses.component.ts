@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faMoneyCheckDollar, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyCheckDollar, faPrint, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from 'src/app/services/api.service';
 import { dataStudent } from 'src/app/shared/interfaces';
 import Swal from 'sweetalert2';
@@ -8,6 +8,7 @@ import printJS from 'print-js';
 import { UpperCasePipe } from '@angular/common';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as XLSX from 'xlsx';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -27,6 +28,7 @@ export class ListCoursesComponent implements OnInit {
   courseId: any;
   Schedule_data: any;
   faprint = faPrint;
+  faDownload = faDownload;
   faMoneyCheckDollar =faMoneyCheckDollar;
   studentId: any;
   data_courses: any;
@@ -123,7 +125,7 @@ export class ListCoursesComponent implements OnInit {
     if(this.students){
     printJS({ printable: 'lista_del_curso', type: 'html', documentTitle: 'Sistema de Gestión de Catequesis - Generación de listas', targetStyles: ['*'],
     header: '<h2 class="custom">Parroquia Eclesiástica Santiago Apóstol de Machachi <br>Catequesis 2022-2023</h2><hr><br>',
-    style: '.custom { color: black;}', maxWidth:1000, font_size: '9pt', font: 'Arial', ignoreElements: ["num_cedula", "btn-edit-voucher", "btn-creater-voucher", "actions","scroll"],
+    style: '.custom { color: black;}', maxWidth:2000, font_size: '10pt', font: 'Arial', ignoreElements: ["num_cedula", "email", "baptized", "btn-edit-voucher", "btn-creater-voucher", "actions","scroll"],
     honorMarginPadding: true
   })
     }
@@ -213,5 +215,23 @@ export class ListCoursesComponent implements OnInit {
       pdf.open()
       pdf.download("Listado de Curso" + " " + this.level_name + ' ' + 'Paralelo' + ' ' + this.course_name + ".pdf")
     }
-  }
 
+
+exportarAExcel(){
+  if(this.students){
+  const nombreArchivo = (this.level_name + ' ' + 'Paralelo' + ' ' + this.course_name + '_' + "listado" + ".xlsx");
+  const hojaDeCalculo = XLSX.utils.table_to_sheet(document.getElementById('lista_del_curso'));
+  const libroDeTrabajo = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(libroDeTrabajo, hojaDeCalculo, 'Listado de Curso');
+  XLSX.writeFile(libroDeTrabajo, nombreArchivo);
+  }
+  else{
+    Swal.fire({
+      icon: 'error',
+      text: 'Debe generar primero la lista',
+      confirmButtonColor: '#1D71B8'
+    })
+  }
+}
+
+}

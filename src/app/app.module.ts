@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -40,6 +40,14 @@ import { ListMycoursesComponent } from './teacher-dashboard/list-mycourses/list-
 import { RecoverdataComponent } from './recoverdata/recoverdata.component';
 import { RecoverUserComponent } from './recover-user/recover-user.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { AttendanceComponent } from './teacher-dashboard/attendance/attendance.component';
+import { GradesComponent } from './teacher-dashboard/grades/grades.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LOCALE_ID } from '@angular/core';
+import localeEc from '@angular/common/locales/es-EC';
+import { registerLocaleData } from "@angular/common";
+import { BaptizedPipe } from './shared/baptized.pipe';
+registerLocaleData(localeEc, 'es-EC');
 
 
 
@@ -77,7 +85,10 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
     ListMycoursesComponent,
     RecoverdataComponent,
     RecoverUserComponent,
-    RecoverPasswordComponent
+    RecoverPasswordComponent,
+    AttendanceComponent,
+    GradesComponent,
+    BaptizedPipe
   ],
   imports: [
     BrowserModule,
@@ -86,13 +97,16 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttpRequestInterceptor,
     multi: true,
-}],
-  bootstrap: [AppComponent]
+    
+}, { provide: LOCALE_ID, useValue: 'es-EC' }],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
