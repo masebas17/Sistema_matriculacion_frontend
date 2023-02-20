@@ -13,7 +13,32 @@
             </div>
             <div class="col-sm-4">
                 <label for="">Ingresar o escoger la Fecha:</label> <br>
-                <input type="date" id="current_date"  name="current_date" [value]="currentD" class="form-control" min="2022-10-15" max="2023-05-27" formControlName="presentDate" >
+                <!-- <input type="date" id="current_date"  name="current_date" [value]="currentD" class="form-control" min="2022-10-15" max="2023-05-27" formControlName="presentDate" >  -->
+                <div class="input-group">
+                  <input
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="dp"
+                  [(ngModel)]="model"
+                  ngbDatepicker
+                  [markDisabled]="isWeekend"
+                  [minDate]="{year: 2022, month: 10, day: 15}"
+                  [maxDate]="{year: 2023, month: 05, day: 27}"
+                  #d="ngbDatepicker"
+                />
+                  <!-- <input
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    [(ngModel)]="model"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                    [markDisabled]="isDisabled"
+                    [minDate]="{year: 2022, month: 10, day: 15}"
+                    [maxDate]="{year: 2023, month: 05, day: 27}"
+                  /> -->
+                  <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button>
+                </div>
             </div>
             <div class="row">
             <div class="col-sm-12">
@@ -21,6 +46,7 @@
                     <!-- <button class="btn btn-primary">Nueva Asistencia</button>  -->
                     <button class="btn btn-success"> <fa-icon [icon]="faListCheck"></fa-icon> Marcar a todos</button> 
                     <button class="btn btn-warning"><fa-icon [icon]="faX"></fa-icon> Desmarcar a todos</button>
+                    <button class="btn btn-primary" type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><fa-icon [icon]="faEdit"></fa-icon> Editar Asistencia</button>   
                 </div> 
             </div>
         </div>
@@ -63,7 +89,7 @@
                           <th scope="col">Ord</th>
                           <th>Alumno</th>
                           <th>Asistencia</th>
-                          <th>Justificación</th> 
+                           <th>Justificación</th> 
                         </tr>
                       </thead>
                       <tbody>
@@ -75,7 +101,7 @@
                           </div></td>
                           <td class="d-flex-inline-flex justify-content-center"><div  class="form-check">
                             <input class=" justify form-check-input" type="checkbox" value="" id="flexCheck">
-                          </div></td> 
+                          </div></td>  
                         </tr>
                       </tbody>
                     </table>
@@ -91,4 +117,49 @@
         </div>
     </div>
 </section>
+
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Asistencia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+      </div>
+      <div class="modal-body">
+          <form > 
+          <div class="row">
+              <div class="col-sm-12">
+                <label for="">Ingresar o escoger la Fecha:</label> <br>
+                <!-- <input type="date" id="current_date"  name="current_date" [value]="currentD" class="form-control" min="2022-10-15" max="2023-05-27" formControlName="presentDate" >  -->
+                <div class="input-group">
+                  <input
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="dp"
+                  [(ngModel)]="model1"
+                  ngbDatepicker
+                  [markDisabled]="isWeek"
+                  [minDate]="{year: 2022, month: 10, day: 15}"
+                  [maxDate]="{year: 2023, month: 05, day: 27}"
+                  #dos="ngbDatepicker"
+                  />
+                  <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dos.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button>
+                </div>
+                  
+              </div>
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-sm-6">
+                  <button type="submit"  class="btn btn-success" data-bs-dismiss="modal">Cargar datos</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>
+              </div>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 

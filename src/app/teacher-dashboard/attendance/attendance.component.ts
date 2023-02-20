@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
-import { faSave, faTrash, faListCheck, faX } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faTrash, faListCheck, faX, faCalendarDays, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-attendance',
@@ -19,10 +20,16 @@ export class AttendanceComponent implements OnInit {
   faSave = faSave;
   faTrash = faTrash;
   faListCheck = faListCheck;
+  faCalendarDays = faCalendarDays;
   faX = faX;
+  faEdit = faEdit;
   currentD = new Date();
+  model: NgbDateStruct;
+  model1: NgbDateStruct;
+	date: { year: number; month: number };
 
-  constructor( private ApiService: ApiService) { }
+  constructor( private ApiService: ApiService,
+    private calendar: NgbCalendar) { }
 
   ngOnInit(): void {
     this.misCursos();
@@ -71,6 +78,9 @@ export class AttendanceComponent implements OnInit {
           title: 'Preparando listado'
         })
       }
-  } 
+  }
 
+   isDisabled = (date: NgbDate, current: { month: number; year: number }) => date.month !== current.month;
+   isWeekend = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
+   isWeek = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
 }

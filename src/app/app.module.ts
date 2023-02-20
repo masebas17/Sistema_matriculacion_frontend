@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -42,6 +42,12 @@ import { RecoverUserComponent } from './recover-user/recover-user.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { AttendanceComponent } from './teacher-dashboard/attendance/attendance.component';
 import { GradesComponent } from './teacher-dashboard/grades/grades.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LOCALE_ID } from '@angular/core';
+import localeEc from '@angular/common/locales/es-EC';
+import { registerLocaleData } from "@angular/common";
+import { BaptizedPipe } from './shared/baptized.pipe';
+registerLocaleData(localeEc, 'es-EC');
 
 
 
@@ -81,7 +87,8 @@ import { GradesComponent } from './teacher-dashboard/grades/grades.component';
     RecoverUserComponent,
     RecoverPasswordComponent,
     AttendanceComponent,
-    GradesComponent
+    GradesComponent,
+    BaptizedPipe
   ],
   imports: [
     BrowserModule,
@@ -90,13 +97,16 @@ import { GradesComponent } from './teacher-dashboard/grades/grades.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttpRequestInterceptor,
     multi: true,
-}],
-  bootstrap: [AppComponent]
+    
+}, { provide: LOCALE_ID, useValue: 'es-EC' }],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
