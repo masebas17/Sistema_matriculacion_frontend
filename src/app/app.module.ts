@@ -47,6 +47,7 @@ import { LOCALE_ID } from '@angular/core';
 import localeEc from '@angular/common/locales/es-EC';
 import { registerLocaleData } from "@angular/common";
 import { BaptizedPipe } from './shared/baptized.pipe';
+import { LevelFormSelectionComponent } from './level-form-selection/level-form-selection.component';
 registerLocaleData(localeEc, 'es-EC');
 
 
@@ -88,7 +89,8 @@ registerLocaleData(localeEc, 'es-EC');
     RecoverPasswordComponent,
     AttendanceComponent,
     GradesComponent,
-    BaptizedPipe
+    BaptizedPipe,
+    LevelFormSelectionComponent
   ],
   imports: [
     BrowserModule,

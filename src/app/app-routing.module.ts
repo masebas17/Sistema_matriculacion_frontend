@@ -36,6 +36,7 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 import { RecoverDataGuard } from './guards/recover-data.guard';
 import { AttendanceComponent } from './teacher-dashboard/attendance/attendance.component';
 import { GradesComponent } from './teacher-dashboard/grades/grades.component';
+import { LevelFormSelectionComponent } from './level-form-selection/level-form-selection.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -44,6 +45,7 @@ const routes: Routes = [
     { path: 'shedule_selection', component: ScheduleSelectionComponent },
     { path: 'course_selection/:id',canActivate: [CourseSelectionGuard] ,component: CourseSelectionComponent },
     { path: 'enrollment/:id',canActivate: [EnrollmentGuard],component: EnrollmentFormComponent },
+    { path: 'level-form-selection',component: LevelFormSelectionComponent },
     { path: 'voucher',       component: VoucherComponentComponent },
     {path: 'login', component:LoginComponent},
     {path: 'sidebar', component:SidebarComponentComponent},
