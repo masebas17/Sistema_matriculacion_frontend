@@ -224,6 +224,7 @@ exportarAExcel(){
   const libroDeTrabajo = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(libroDeTrabajo, hojaDeCalculo, 'Listado de Curso');
   XLSX.writeFile(libroDeTrabajo, nombreArchivo);
+  hojaDeCalculo['column'](3).width = 15;
   }
   else{
     Swal.fire({
@@ -232,6 +233,8 @@ exportarAExcel(){
       confirmButtonColor: '#1D71B8'
     })
   }
+
+
 }
 
 }
