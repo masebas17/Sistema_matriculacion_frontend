@@ -37,6 +37,9 @@ import { RecoverDataGuard } from './guards/recover-data.guard';
 import { AttendanceComponent } from './teacher-dashboard/attendance/attendance.component';
 import { GradesComponent } from './teacher-dashboard/grades/grades.component';
 import { LevelFormSelectionComponent } from './level-form-selection/level-form-selection.component';
+import { ClassroomSelectionComponent } from './classroom-selection/classroom-selection.component';
+import { VerifyInformationComponent } from './verify-information/verify-information.component';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -46,6 +49,9 @@ const routes: Routes = [
     { path: 'course_selection/:id',canActivate: [CourseSelectionGuard] ,component: CourseSelectionComponent },
     { path: 'enrollment/:id',canActivate: [EnrollmentGuard],component: EnrollmentFormComponent },
     { path: 'level-form-selection',component: LevelFormSelectionComponent },
+    { path: 'classroom_selection/:id',canActivate: [CourseSelectionGuard],component:ClassroomSelectionComponent},
+    { path: 'verify_information/:id', canActivate:[EnrollmentGuard], component:VerifyInformationComponent},
+    { path:'registration-form', component:RegistrationFormComponent},
     { path: 'voucher',       component: VoucherComponentComponent },
     {path: 'login', component:LoginComponent},
     {path: 'sidebar', component:SidebarComponentComponent},
@@ -66,6 +72,7 @@ const routes: Routes = [
       {path: 'list-courses', component:ListCoursesComponent},
       {path: 'edit-teacher', component:EditTeacherComponent},
       {path: 'mycourses', component:MyCoursesComponent},
+      {path: 'edit-student', component:EditStudentComponent},
       {path: 'edit-course', component: EditCourseComponent}
     ]
     },

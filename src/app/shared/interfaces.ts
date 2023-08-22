@@ -24,6 +24,13 @@ export interface datashedule {
     endTime: number,
     level: datalevel
 }
+export interface datasheduleYear {
+    id: number,
+    weekDay: string,
+    startTime: number,
+    endTime: number,
+    level: datalevel
+}
 
 export interface course{
     correctProcess: boolean,
@@ -62,7 +69,8 @@ export interface dataStudent{
     disability?: null,
     courseId?: number,
     Course?: dataCourse,
-    payment?: string
+    payment?: string,
+    aproved?: null
 }
 
 export interface dataCourse{

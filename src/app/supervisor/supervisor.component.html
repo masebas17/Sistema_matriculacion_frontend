@@ -1,74 +1,73 @@
 <section class="navbar-superior">
-    <div class="contenedor">
-        <div class="logo">
-            <a href="/admin">
-            <img
-            width="200"
-            alt="logo parroquia"
-            src="../assets/images/header-component/logo_parroquia.png" class="img-responsive"
-            />
-            </a>
-        </div>
-        <div class="spacer"></div>
-        <div class="letras">
-            <img
-            width="400"
-            alt="letras parroquia"
-            src="../assets/images/header-component/letras_parroquia.png"  class="img-responsive"
-            />
-        </div>
-    </div>
-  </section>
-  <div class="topnav" id="myTopnav">
-    <a href="/supervisor" class="active"><fa-icon [icon]="faHome"></fa-icon> Home</a>
-    <a href="/supervisor/list-courses"><fa-icon [icon]="faList" ></fa-icon> Generar Listados</a>
-    <a href="/supervisor/edit-course"><fa-icon [icon]="faSchool"></fa-icon> Edición de Cursos</a>
-    <a class="cerrar-sesion btn btn-danger" (click)="logout()"> <fa-icon [icon]="faRightToBracket"></fa-icon>  Cerrar Sesión</a>
-    <a href="javascript:void(0);" class="icon" (click)="myFunction()">
-      ☰ 
-    </a>
-  </div> 
-
-   
-  <!-- <nav class="navbar navbar-expand-sm">
-    <div class="container-fluid">-->
-      <!-- <a class="navbar-brand" href="#">Logo</a> -->
-      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>  
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dropdown</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Link</a></li>
-              <li><a class="dropdown-item" href="#">Another link</a></li>
-              <li><a class="dropdown-item" href="#">A third link</a></li>
-            </ul>
-          </li>
-        </ul> 
+  <div class="contenedor">
+      <div class="logo">
+          <a href="/admin">
+          <img
+          width="200"
+          alt="logo parroquia"
+          src="../assets/images/header-component/logo_parroquia.png" class="img-responsive"
+          />
+          </a>
       </div>
-      <div>
-        <a class="cerrar-sesion btn btn-danger" (click)="logout()"> <fa-icon [icon]="faRightToBracket"></fa-icon>  Cerrar Sesión</a>
+      <div class="spacer"></div>
+      <div class="letras">
+          <img
+          width="400"
+          alt="letras parroquia"
+          src="../assets/images/header-component/letras_parroquia.png"  class="img-responsive"
+          />
       </div>
+  </div>
+</section>
+<div class="topnav" id="myTopnav">
+  <a href="/supervisor" class="active"><fa-icon [icon]="faHome"></fa-icon> Home</a>
+  <a href="/supervisor/list-courses"><fa-icon [icon]="faList" ></fa-icon> Generar Listados</a>
+  <a href="/supervisor/edit-course"><fa-icon [icon]="faSchool"></fa-icon> Edición de Cursos</a>
+  <a href="/supervisor/edit-student"><fa-icon [icon]="faUserPen"></fa-icon> Estudiantes</a>
+  <a class="cerrar-sesion btn btn-danger" (click)="logout()"> <fa-icon [icon]="faRightToBracket"></fa-icon>  Cerrar Sesión</a>
+  <a href="javascript:void(0);" class="icon" (click)="myFunction()">
+    ☰ 
+  </a>
+</div> 
+
+ 
+<!-- <nav class="navbar navbar-expand-sm">
+  <div class="container-fluid">-->
+    <!-- <a class="navbar-brand" href="#">Logo</a> -->
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>  
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dropdown</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Link</a></li>
+            <li><a class="dropdown-item" href="#">Another link</a></li>
+            <li><a class="dropdown-item" href="#">A third link</a></li>
+          </ul>
+        </li>
+      </ul> 
     </div>
-  </nav> --> 
+    <div>
+      <a class="cerrar-sesion btn btn-danger" (click)="logout()"> <fa-icon [icon]="faRightToBracket"></fa-icon>  Cerrar Sesión</a>
+    </div>
+  </div>
+</nav> --> 
 
 
 
 
-  
-  <div style="padding-bottom:16px">
-    <router-outlet></router-outlet>
-  </div> 
-     
-  
+
+<div style="padding-bottom:16px">
+  <router-outlet></router-outlet>
+</div> 

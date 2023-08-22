@@ -50,7 +50,8 @@ export class EditStudentComponent implements OnInit {
       email: new FormControl('', Validators.email),
       address: new FormControl('', Validators.required),
       baptized: new FormControl('', Validators.required),
-      disability: new FormControl('', Validators.required)
+      disability: new FormControl('', Validators.required),
+      aproved: new FormControl('', Validators.required)
     }
   )
   ngOnInit(): void {
@@ -144,7 +145,8 @@ editar(){
       email: this.student.email,
       address: this.student.address,
       baptized: this.student.baptized,
-      disability: this.student.disability
+      disability: this.student.disability,
+      aproved: this.student.aproved
   })
 
 }
