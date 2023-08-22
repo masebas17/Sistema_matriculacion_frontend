@@ -157,7 +157,7 @@ export class SearcherComponent implements OnInit {
           color: 'red'
         },
         {
-          text: 'Datos de Matriculación\n\n',
+          text: 'Datos de Matriculación - Periodo: 2023-2024\n\n',
           style: 'subheader',
           margin:[10,0]
         },

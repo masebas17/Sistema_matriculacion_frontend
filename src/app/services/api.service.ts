@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import{ HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, editCourses, LevelResponse, Students, reset_user } from '../shared/interfaces';
+import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, editCourses, LevelResponse, Students, reset_user, datasheduleYear } from '../shared/interfaces';
 
 
 
@@ -15,7 +15,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   userUrl = 'https://sistema-matriculacion.herokuapp.com';
-  apiUrl = 'https://servicios.iglesiademachachi.com';
+  apiUrl = 'http://ec2-23-22-9-100.compute-1.amazonaws.com/';
 
 
   getToken() {
@@ -29,6 +29,10 @@ export class ApiService {
   getShedule(): Observable<datashedule[]>{
     const currentDate: Date = new Date();
     return this.http.post<datashedule[]>(`${this.apiUrl}/api/schedules/enrollment`, {currentDate})
+  }
+
+  getShedulebyYear(): Observable<datasheduleYear[]>{
+    return this.http.get<datasheduleYear[]>(`${this.apiUrl}/api/schedules/2023`)
   }
 
   getCourses(id: any): Observable<datacourses[]>{

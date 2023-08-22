@@ -1,0 +1,40 @@
+<app-header-component></app-header-component>
+<section class="course">
+    <div class="letras">
+        <h1 class="titulo">Matriculación</h1>
+    </div>
+    <br>
+    <div class="letras indicaciones">
+      <p>A continuación se muestra el listado de cursos habilitados para este nivel y horario, puede escoger cualquiera siempre y cuando existan cupos disponibles
+        Cada curso tiene un cupo máximo de 30 alumnos, cuando este cupo se llena, el botón desaparecerá y se indicará el mensaje "No hay cupos disponibles" </p>
+    </div>
+    <div class="contenedor">
+    <br>
+    <div class="formulario">
+        <div class="container mt-3">
+            <h2>Cupos Disponibles</h2>
+            <p>Escoja el curso que desee, siempre y cuando existan cupos disponibles </p>
+            <table class="table">
+              <thead class="table-primary">
+                <tr>
+                  <th>Cursos</th>
+                  <th>Cupos</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let course of course.data">
+                  <td>{{"Paralelo" + ' ' + course.name}}</td>
+                  <td>{{course.Students.length + "/" + course.maxStudents}}</td>
+                  <td *ngIf="course.Students.length < course.maxStudents "><a [name]="course.id" (click)="enroll($event)" type="submit" id="button_matriculacion" class="btn btn-outline-primary">Matricularme</a></td>
+                  <td *ngIf="course.Students.length == course.maxStudents "><p class="text-danger">No hay cupos disponibles</p></td>
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+    </div>
+    <div class="limpieza"></div>
+</div>
+</section>
+<app-footer-component></app-footer-component>

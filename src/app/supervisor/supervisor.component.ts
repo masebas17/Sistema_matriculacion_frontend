@@ -21,7 +21,7 @@ export class SupervisorComponent implements OnInit {
   faList = faList;
   faSackDollar = faSackDollar;
   faSchool = faSchool;
-
+  
   ngOnInit(): void {
   }
 
