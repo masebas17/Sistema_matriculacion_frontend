@@ -37,6 +37,9 @@ import { RecoverDataGuard } from './guards/recover-data.guard';
 import { AttendanceComponent } from './teacher-dashboard/attendance/attendance.component';
 import { GradesComponent } from './teacher-dashboard/grades/grades.component';
 import { LevelFormSelectionComponent } from './level-form-selection/level-form-selection.component';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { ClassroomSelectionComponent } from './classroom-selection/classroom-selection.component';
+import { VerifyInformationComponent } from './verify-information/verify-information.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -44,8 +47,11 @@ const routes: Routes = [
     { path: 'searcher',         component: SearcherComponent },
     { path: 'shedule_selection', component: ScheduleSelectionComponent },
     { path: 'course_selection/:id',canActivate: [CourseSelectionGuard] ,component: CourseSelectionComponent },
+    { path: 'classroom_selection/:id',canActivate: [CourseSelectionGuard],component:ClassroomSelectionComponent},
+    { path: 'verify_information/:id', canActivate:[EnrollmentGuard], component:VerifyInformationComponent},
     { path: 'enrollment/:id',canActivate: [EnrollmentGuard],component: EnrollmentFormComponent },
     { path: 'level-form-selection',component: LevelFormSelectionComponent },
+    { path:'registration-form', component:RegistrationFormComponent},
     { path: 'voucher',       component: VoucherComponentComponent },
     {path: 'login', component:LoginComponent},
     {path: 'sidebar', component:SidebarComponentComponent},
@@ -66,7 +72,8 @@ const routes: Routes = [
       {path: 'list-courses', component:ListCoursesComponent},
       {path: 'edit-teacher', component:EditTeacherComponent},
       {path: 'mycourses', component:MyCoursesComponent},
-      {path: 'edit-course', component: EditCourseComponent}
+      {path: 'edit-course', component: EditCourseComponent},
+      {path: 'edit-student', component:EditStudentComponent}
     ]
     },
     { path: 'teacher', canActivate: [TeacherGuard] ,component: TeacherDashboardComponent,

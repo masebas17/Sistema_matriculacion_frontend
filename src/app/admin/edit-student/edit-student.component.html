@@ -128,6 +128,22 @@
                 </div>
             </div>
         <br>
+        <hr>
+        <br>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="">Estado del Alumo:</label><br>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="aproved1" [value]="true" checked formControlName="aproved"> <p>Aprobado</p>
+                    <input type="radio" class="form-check-input" id="aproved2" [value]="false" checked formControlName="aproved"> <p>Reprobado</p>
+                </div>
+                <div *ngIf="Formstudent.get('aproved')?.errors">
+                    <div class="text-danger" *ngIf="Formstudent.get('aproved')?.hasError('required') && Formstudent.get('aproved')?.touched">Escoja una opción</div>
+                </div>
+            </div>
         </div>
         <br>
         <div class="row">

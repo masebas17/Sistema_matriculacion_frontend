@@ -1,0 +1,91 @@
+<app-header-component></app-header-component>
+<section class="registration-form">
+    <div class="row">
+        <div class="col">
+            <div class="letras">
+                <h1 class="titulo">Matrículación</h1>
+                <h6>Para realizar una nueva matrícula debe ingresar el <br> número de cédula del alumno</h6>
+            </div>
+            <br>
+            <div class="contenedor">
+            <div class="formulario">
+                <form [formGroup]="FormIdentitynumber" (ngSubmit)="consultar()">
+                    <div class="col-sm-8">
+                        <input type="tel" class="form-control" formControlName="identityNumber" id="numcedula" placeholder="Ingrese el Número de Cédula" name="identityNumber" [ngClass]="{'is-invalid':FormIdentitynumber.get('identityNumber')?.errors && FormIdentitynumber.get('identityNumber')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
+                            <div *ngIf="FormIdentitynumber.get('identityNumber')?.errors">
+                                <div class="text-danger" *ngIf="FormIdentitynumber.get('identityNumber')?.hasError('required') && FormIdentitynumber.get('identityNumber')?.touched">Ingrese un número de cédula válido</div>
+                                <div class="text-danger" *ngIf="FormIdentitynumber.get('identityNumber')?.hasError('maxLength')">Se debe llenar 10 dígitos</div>
+                                <div class="text-danger" *ngIf="FormIdentitynumber.get('identityNumber')?.hasError('minLength')">Se debe llenar 10 dígitos</div>
+                            </div>
+                            <div class="botones">
+                                <button [disabled]="FormIdentitynumber.invalid" type="submit" class="btn btn-success">Consultar</button>
+                                <a href="/home" class="btn btn-danger">Cancelar</a>
+                            </div>
+                     </div>
+                </form> 
+             </div>
+           </div>
+        </div>
+        <br>
+        <div class="col">
+            <h5>Datos del Estudiante</h5>
+            <div class="table-responsive">    
+                <table class="table table-bordered table-hover">
+                  <thead class="table-primary">
+                    <tr class = "text-center">
+                      <th >Cédula de Identidad</th>
+                      <th>Apellidos</th>
+                      <th>Nombres</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class = "text-center" id="num_cedula">{{datos_of_students.identityNumber}}</td>
+                      <td class = "text-center">{{datos_of_students.lastName | uppercase}}</td>
+                      <td class = "text-center">{{datos_of_students.name | uppercase}}</td> 
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            <br>
+            <div class="table-responsive">    
+                <table class="table table-bordered table-hover">
+                  <thead class="table-success">
+                    <tr class = "text-center">
+                      <th >Nivel concluido</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class = "text-center">{{datos_of_students.Course.Schedule.Level.name +" "+"(" + datos_of_students.Course.Schedule.weekDay + ' ' + datos_of_students.Course.Schedule.startTime + ' ' + '-'+ ' ' + datos_of_students.Course.Schedule.endTime + ")"}}</td>
+                      <td class = "text-center"><strong>{{datos_of_students.aproved | aproved}}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br>
+              <h5>Datos del nivel que debe matricularse</h5>
+              <div class="table-responsive">    
+                  <table class="table table-bordered table-hover">
+                    <thead class="table-danger">
+                      <tr class = "text-center">
+                        <th >Nivel</th>
+                        <th>Opción</th>
+                      </tr>
+                    </thead>
+                  <tbody>
+                    <tr *ngIf="datos_of_students !=null && datos_of_students.aproved === true && datos_of_students.Course.Schedule.Level.id != 6 ">
+                      <td class = "text-center">{{current_level.Level.name + ' ' + '(' + current_level.weekDay + ' ' + current_level.startTime + ' '+ '-' + ' '+ current_level.endTime +')'}}</td>
+                      <td class="text-center"><button type="button" [name]="this.current_level.id" (click)="consult_courses($event)" class="btn btn-primary actions" type="button">Escoger Cursos</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="limpieza"></div>
+</section>
+<app-footer-component></app-footer-component>
+
+
