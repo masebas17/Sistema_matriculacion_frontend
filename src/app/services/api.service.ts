@@ -15,7 +15,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   userUrl = 'https://sistema-matriculacion.herokuapp.com';
-  apiUrl = 'https://servicios.iglesiademachachi.com';
+  apiUrl = 'http://ec2-23-22-9-100.compute-1.amazonaws.com/';
 
 
   getToken() {
