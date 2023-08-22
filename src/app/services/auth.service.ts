@@ -9,7 +9,7 @@ import { stringify } from 'querystring';
 export class AuthService {
   token: any = null;
 
-  apiUrl = 'http://ec2-23-22-9-100.compute-1.amazonaws.com';
+  apiUrl = 'https://servicios.iglesiademachachi.com';
 
   constructor(private http: HttpClient, private router: Router) {}
 
