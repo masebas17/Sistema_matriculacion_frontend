@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { ApiService } from '../services/api.service';
+import { datalevel, datashedule, datasheduleYear, LevelResponse } from '../shared/interfaces';
 
 @Component({
   selector: 'app-level-form-selection',
@@ -14,10 +16,17 @@ export class LevelFormSelectionComponent implements OnInit {
   
   isMobile = false;
   faUser = faUser;
+  shedules: any;
+  levels: any;
+  current_shedule;
 
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private _apiService:ApiService
+  ) { 
+    this.shedules = [];
+    this.levels = {};
+  }
 
   FormIdentitynumber = new FormGroup(
     {
@@ -26,76 +35,8 @@ export class LevelFormSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkIfMobile();
+    this.getShedule();
   }
-
-  
-async validar(){
-
-  const { value: ipAddress } = await Swal.fire({
-    title: 'Ingrese su número de Cédula',
-    input: 'text',
-    inputValue: '',
-    icon: 'info',
-    inputPlaceholder: 'Ingrese el número de cédula del alumno',
-    showCancelButton: true,
-    confirmButtonText: 'Validar los datos',
-    confirmButtonColor: '#1D71B8',
-    cancelButtonText: 'Salir',
-    cancelButtonColor: 'red',
-     inputValidator: (value) => {
-       const trimmedValue = value.trim();
-       if (trimmedValue.length !== 10 || !/^\d{1,10}$/.test(value)) {
-         return 'Ingrese un número válido, la cédula contiene 10 dígitos'
-       }
-       return null;
-     }
-  })
-  
-  if (ipAddress) {
-    const myTimeout = setTimeout(async() => {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        color:'#3d9b24',
-        width: 600,
-        padding: '2em',
-        timer: 5000,
-        timerProgressBar: true,
-      })
-      
-      await Toast.fire({
-        icon: 'success',
-        title: 'Validando la información del alumno'
-      })
-      this.router.navigate(['/searcher'])
-    }, 1000)
-    myTimeout;
-}
-}
-
-verificar(){
-  
-    const myTimeout = setTimeout(async() => {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        color:'#3d9b24',
-        width: 600,
-        padding: '2em',
-        timer: 5000,
-        timerProgressBar: true,
-      })
-      
-      await Toast.fire({
-        icon: 'success',
-        title: 'Validando la información del alumno'
-      })
-      this.router.navigate(['/registration-form'])
-    }, 1000)
-    myTimeout;
-}
 
 checkIfMobile() {
   if (this.isMobile = window.innerWidth < 1024){
@@ -131,6 +72,53 @@ onResize(event) {
 reset_Form(){
   this.FormIdentitynumber.reset()
 }
+
+getShedule(){
+  this._apiService.getShedulebyYear().subscribe((resp: any) => {
+    console.log(resp),
+    this.shedules = resp.data;
+    console.log(this.shedules)
+  })
+}
+
+verify_level(){
+  const idbusqueda = 1;
+  const auxshedule = this.shedules.find(
+    (sheduleid) => sheduleid.Level.order === idbusqueda
+  );
+  
+  if (auxshedule) {
+    console.log('Objeto encontrado:', auxshedule);
+    this.current_shedule = auxshedule
+    if(this.current_shedule.id === 7){
+      localStorage.setItem("cs", '7')
+      this.router.navigate(['/course_selection', 7]) 
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        text: 'No puede ingresar',
+      })
+    }
+  } else {
+    console.log('Objeto no encontrado');
+  }
+}
+
+consult_courses(event: any){
+  if(this.current_shedule.id === 7){
+    localStorage.setItem("cs", '7')
+    this.router.navigate(['/course_selection', 7]) 
+  }
+  else{
+    Swal.fire({
+      icon: 'error',
+      text: 'No puede ingresar',
+    })
+  }
+}
+
+
 
 
 }

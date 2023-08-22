@@ -7,7 +7,7 @@
     <br>
     <div class="formulario">
         <form [formGroup]="Form" (ngSubmit)="consultar()" >
-            <div class="mb-5 mt-5">
+        <div class="mb-5 mt-5">
                 <label>Ingrese su Número de Cédula para realizar una nueva consulta</label><br><br>
                 <input type="text" class="form-control" formControlName="identityNumber" id="numcedula" placeholder="Ingrese el Número de Cédula" name="identityNumber" [ngClass]="{'is-invalid':Form.get('identityNumber')?.errors && Form.get('identityNumber')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
                 <div *ngIf="Form.get('identityNumber')?.errors">
