@@ -42,6 +42,8 @@
                 <label for="">Escoger a edad:</label>
                 <select class="form-select" aria-label="Default select example" formControlName="age" [ngClass]="{'is-invalid':signupForm.get('age')?.errors && signupForm.get('age')?.touched}">
                     <option value="8">8 años </option>
+                    <option value="9">9 años </option>
+                    <option value="10">10 años </option>
                 </select>
                 <div *ngIf="signupForm.get('age')?.errors">
                     <div class="text-danger" *ngIf="signupForm.get('age')?.hasError('required') && signupForm.get('age')?.touched">Debe escoger la edad</div>
