@@ -10,6 +10,7 @@ export class UiService {
 
   async presentErrorAlert(error: any) {
     // Si status del error es > 400 eso quiere decir que el contenido del error proviene del backend de tipo ResponseDto
+    console.log(error)
     if (error.status >= 400) {
       await Swal.fire({
         icon: 'error',

@@ -1,0 +1,50 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.Formulario{
+    padding: 3% 8% 2% 8%;
+}
+.contenedor{
+    /* border: 1px solid #000; */
+    width: 100%;
+    margin: 0 auto;
+    padding: 4% 10%;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+}
+.titulo{
+    text-align:left;
+    color: #6096BA;
+    font-weight: bold;
+
+}
+.letras{
+    position:relative;
+    float: left;
+ }
+ .indicaciones{
+    border: 2px solid #6096BA ;
+    border-radius: 15px;
+    padding: 10px;
+ }
+ /* .formulario{
+    padding: 10%;
+    width: 70%;
+    margin: 10px;
+    color: #6096BA;
+ } */
+ .limpieza{
+    clear: both;
+    float: none;
+}
+.botones{
+    display: flex;
+    flex-direction: row;
+}
+.btn{
+    padding: 0.5% 6%;
+    margin: 0 2% 0 2%;
+}

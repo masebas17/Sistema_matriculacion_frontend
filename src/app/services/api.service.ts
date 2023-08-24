@@ -134,6 +134,11 @@ export class ApiService {
     return resp
   }
 
+  async edit_student_enrollment(id: any, Student: dataStudent | any ){
+    const resp: any = await this.http.put(`${this.apiUrl}/api/students/enrollment/${id}`, Student).toPromise() 
+    return resp
+  }
+
   async edit_course(id: any, course: editCourses | any ){
     const options = {
       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})

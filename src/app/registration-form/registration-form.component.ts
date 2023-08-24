@@ -72,19 +72,19 @@ consultar(){
           timerProgressBar: true,
         })
         this.verificar_datos(resp.data)
-    if(!this.validDate){
+        if(!this.validDate){
           Swal.fire({
             icon: 'error',
-            text: 'Usted no esta habilitado para la matriculación en este día, revise las fechas correspondientes',
+            text: 'Usuario no esta habilitado para la matriculación en este día, revise las fechas correspondientes',
           })
           this.router.navigate(['/home'])
         }else{
     if(resp.data.Course.Schedule.id > 6 ){
       await Swal.fire({
         icon: 'error',
-        text: 'Usted ya se encuentra matriculado',
+        text: 'Usuario ya se encuentra matriculado',
       })
-      this.router.navigate(['/home'])
+      //this.router.navigate(['/home'])
     }else{
         await Toast.fire({
           icon: 'success',
@@ -143,7 +143,7 @@ verificar_datos(datos_of_students: any){
 consult_courses(event: any){
   if(this.current_level.id != 0){
     localStorage.setItem("cs", event.target.name)
-    this.router.navigate(['/classroom_selection', event.target.name]) 
+    this.router.navigate(['/classroom_selection', event.target.name, this.datos_of_students.identityNumber]) 
   }
   else{
     Swal.fire({
@@ -151,6 +151,11 @@ consult_courses(event: any){
       text: 'Debe seleccionar un horario',
     })
   }
+}
+
+guardar(){
+  
+  
 }
 
 
