@@ -75,17 +75,29 @@ consultar(){
         if(!this.validDate){
           Swal.fire({
             icon: 'error',
-            text: 'Usuario no esta habilitado para la matriculación en este día, revise las fechas correspondientes',
-          })
-          this.router.navigate(['/home'])
+            text: 'El Usuario no esta habilitado para la matriculación en este día, revise las fechas correspondientes',
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              this.router.navigate(['/level-form-selection'])
+            }})
+          //window.location.reload();
         }else{
     if(resp.data.Course.Schedule.id > 6 ){
       await Swal.fire({
         icon: 'error',
-        text: 'Usuario ya se encuentra matriculado',
+        text: 'El Usuario ya se encuentra matriculado',
       })
-      //this.router.navigate(['/home'])
+      window.location.reload();
     }else{
+
+      if(resp.data.aproved === false || resp.data.aproved === null ){
+        await Swal.fire({
+          icon: 'error',
+          text: 'El usuario registra nivel no aprobado, no tiene permitido matricularse, debe acercarse al Despacho parroquial',
+        })
+        window.location.reload();
+      } else {
         await Toast.fire({
           icon: 'success',
           title: 'Datos del Estudiante encontrados',
@@ -94,6 +106,7 @@ consultar(){
         this.datos_of_students = resp.data
         console.log(this.datos_of_students)
         
+      }
       }
       }
     }, 500);
@@ -152,12 +165,5 @@ consult_courses(event: any){
     })
   }
 }
-
-guardar(){
-  
-  
-}
-
-
 
 }
