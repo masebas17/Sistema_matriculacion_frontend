@@ -139,6 +139,7 @@
                 <div class="form-check">
                     <input type="radio" class="form-check-input" id="aproved1" [value]="true" checked formControlName="aproved"> <p>Aprobado</p>
                     <input type="radio" class="form-check-input" id="aproved2" [value]="false" checked formControlName="aproved"> <p>Reprobado</p>
+                    <input type="radio" class="form-check-input" id="aproved2" [value]="null" checked formControlName="aproved"> <p>Matriculado</p>
                 </div>
                 <div *ngIf="Formstudent.get('aproved')?.errors">
                     <div class="text-danger" *ngIf="Formstudent.get('aproved')?.hasError('required') && Formstudent.get('aproved')?.touched">Escoja una opción</div>
