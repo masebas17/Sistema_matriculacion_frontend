@@ -53,7 +53,7 @@ export class VerifyInformationComponent implements OnInit {
       console.log(parseInt(params['id']))
       console.log(parseInt(params['identityNumber']))
       this.courseId = parseInt(params['id'])
-      this.identity_Number = parseInt(params['identityNumber'])
+      this.identity_Number = (params['identityNumber'])
     })
     this.consultar()
     

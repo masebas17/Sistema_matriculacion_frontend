@@ -29,7 +29,7 @@ export class ClassroomSelectionComponent implements OnInit {
       console.log(parseInt(params['id']))
       console.log(parseInt(params['identityNumber']))
       this.sheduleId = parseInt(params['id'])
-      this.identity_Number = parseInt(params['identityNumber'])
+      this.identity_Number = (params['identityNumber'])
     })
     this.getCourse()
   }
