@@ -10,8 +10,10 @@ import Swal from 'sweetalert2';
 import printJS from 'print-js'
 import { faPrint, faMoneyCheckDollar} from '@fortawesome/free-solid-svg-icons';
 import { AsignatedPipe } from 'src/app/shared/asignated.pipe';
-import { find } from 'rxjs';
+import {  SiNoPipe } from 'src/app/shared/si-no.pipe';
+import { find, single } from 'rxjs';
 import { TeacherComponentComponent } from '../teacher-component/teacher-component.component';
+import { PdfMakeWrapper, Txt, Table } from 'pdfmake-wrapper';
 
 
 @Component({
@@ -34,6 +36,8 @@ export class CourseComponentComponent implements OnInit {
   studentId: any;
   data_courses: any;
   data_student: dataStudent = {};
+  classroom;
+  level;
 
   constructor(
     private _apiService: ApiService,
@@ -87,10 +91,11 @@ export class CourseComponentComponent implements OnInit {
     );
 
     const filtershedule = this.Schedule_data.filter(
-      (Schedule) => this.verSeleccion === Schedule.Level.id
+      (Schedule) => this.verSeleccion === Schedule.id
     );
    
-
+    this.classroom = filtercourse[0]
+    this.level = filtershedule[0]
     this.students = filtercourse[0].Students
 
       if(this.students){
@@ -106,10 +111,6 @@ export class CourseComponentComponent implements OnInit {
           title: 'Generando listado'
         }).then(() =>{
 
-        
-      })
-      }
-
       document.getElementById('Text_Schedule').innerHTML =(filtershedule[0].weekDay + ' ' + '( '+ filtershedule[0].startTime +' - '+ filtershedule[0].endTime + ' )')
       document.getElementById('Text_level').innerHTML = filtershedule[0].Level.name
       document.getElementById('Text_course').innerHTML = filtercourse[0].name
@@ -119,6 +120,9 @@ export class CourseComponentComponent implements OnInit {
       else{
         document.getElementById('Text_Teacher').innerHTML = 'No asignado'
       }
+    })
+  }
+
   }
 
 
@@ -200,5 +204,101 @@ export class CourseComponentComponent implements OnInit {
   reset_form(){
     this.Formpay.reset()
   }
-  
+
+  createListado(){
+
+    const pdf = new PdfMakeWrapper();
+
+    const titleTxt = new Txt(`Parroquia Santiago Apóstol de Machachi\n`)
+        .fontSize(18)
+        .alignment('center')
+        .bold()
+        .end;
+
+      pdf.add(titleTxt);
+
+      const title2Txt = new Txt(`Catequesis Parroquial\n\n`)
+        .fontSize(16)
+        .alignment('center')
+        .bold()
+        .end;
+
+      pdf.add(title2Txt);
+
+      const title3Txt = new Txt(`Listado de Alumnos\n\n`)
+      .fontSize(14)
+      .alignment('center')
+      .end;
+
+    pdf.add(title3Txt);
+
+    const initialTxt = new Txt(`Nivel: ${this.level.Level.name}\n`)
+        .fontSize(12)
+        .bold()
+        .end;
+
+      pdf.add(initialTxt);
+
+    const initialTxtLine2 = new Txt(`Horario: ${this.level.weekDay} (${this.level.startTime} - ${this.level.endTime})\n`)
+        .fontSize(12)
+        .bold()
+        .end;
+
+      pdf.add(initialTxtLine2);
+
+      const initialTxtLine3 = new Txt(`Paralelo: ${this.classroom.name}\n`)
+        .fontSize(12)
+        .bold()
+        .end;
+
+      pdf.add(initialTxtLine3);
+
+      const initialTxtLine4 = new Txt(`Periodo: 2023-2024\n\n`)
+        .fontSize(12)
+        .bold()
+        .end;
+
+      pdf.add(initialTxtLine4);
+    
+      // Tabla
+
+    const content = this.students.map((item, index) => {
+      return [
+        (index + 1).toString(),
+        item.identityNumber,
+        item.lastName.toUpperCase(),
+        item.name.toUpperCase(),
+        item.age,
+        item.payment,
+        '  '
+      ];
+    });
+
+    pdf.add(
+      new Table([
+        ['N°', 'Cédula', 'Apellidos', 'Nombres', 'Edad', 'Recibo', 'Observaciones'],
+        ...content
+      ])
+      .layout({
+        fillColor: (rowIndex) => {
+            // row 0 is the header
+            if (rowIndex === 0) {
+              return '#D0D3D4';
+            }
+    
+            return '#ffffff';
+        }
+      },
+      )
+      .widths([15, 'auto', 'auto','auto','auto','auto', 100])
+      .fontSize(10)
+      .end
+    );
+
+    const pdfName = `Listado_${this.level.Level.name}_${this.classroom.name}.pdf`;
+    pdf.create().print();
+    //pdf.create().download(pdfName);
+  }
+
+
 }
