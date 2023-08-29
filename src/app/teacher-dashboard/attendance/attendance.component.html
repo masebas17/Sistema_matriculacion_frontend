@@ -89,19 +89,25 @@
                           <th scope="col">Ord</th>
                           <th>Alumno</th>
                           <th>Asistencia</th>
-                           <th>Justificación</th> 
+                           <!-- <th>Justificación</th>  -->
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let student of students; let item = index">
                           <td scope="row" class = "text-center">{{item+1}}</td>
                           <td>{{student.lastName + ' ' + student.name | uppercase}}</td>
-                          <td ><div  class="form-check">
+                          <!-- <td>
+                            <label class="custom-checkbox">
+                              <input type="checkbox" [ngClass]="checkboxState" (click)="toggleCheckbox()">
+                              <span></span>
+                            </label>
+                          </td> -->
+                          <!-- <td ><div  class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                          </div></td>
-                          <td class="d-flex-inline-flex justify-content-center"><div  class="form-check">
+                          </div></td> -->
+                          <!-- <td class="d-flex-inline-flex justify-content-center"><div  class="form-check">
                             <input class=" justify form-check-input" type="checkbox" value="" id="flexCheck">
-                          </div></td>  
+                          </div></td>   -->
                         </tr>
                       </tbody>
                     </table>

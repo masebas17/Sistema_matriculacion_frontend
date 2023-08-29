@@ -18,10 +18,11 @@
                 </select>
             </div>
             <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-9">
                 <div class="botones">
                 <button class="btn btn-success" (click)="listado()">Generar listado</button> 
-                <button class="btn btn-primary" (click)="createListado()"><fa-icon [icon]="faprint" ></fa-icon> Imprimir lista</button>         
+                <button class="btn btn-primary" (click)="createListado()"><fa-icon [icon]="faprint" ></fa-icon> Imprimir lista</button>
+                <button class="btn btn-outline-success" (click)="exportarAExcel()"><fa-icon [icon]="faDownload" ></fa-icon> Exportar a Excel</button>          
             </div>
             </div>
         </div>
@@ -41,7 +42,7 @@
       </thead>
       <tbody>
         <tr class = "text-center">
-          <th class="text-danger" id="Text_level" ></th>
+          <th class="text-danger" id="Text_level"></th>
           <th id = "Text_Schedule"></th>
           <th id="Text_course"></th>
           <th id="Text_Teacher"></th>

@@ -2,8 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { faSave, faTrash, faListCheck, faX, faCalendarDays, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup } from '@angular/forms';
+import { CheckboxControlValueAccessor, FormControl, FormGroup } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+
+interface Person {
+  id: number;
+  name: string;
+  checkboxState: 'checked' | 'unchecked' | 'indeterminate';
+}
 
 @Component({
   selector: 'app-attendance',
@@ -27,6 +33,8 @@ export class AttendanceComponent implements OnInit {
   model: NgbDateStruct;
   model1: NgbDateStruct;
 	date: { year: number; month: number };
+ 
+  personList: Person[] = [];
 
   constructor( private ApiService: ApiService,
     private calendar: NgbCalendar) { }
@@ -53,6 +61,7 @@ export class AttendanceComponent implements OnInit {
 
     this.mycourses = resp.data.Teacher.Courses
     this.courses = resp.data.Teacher.Courses
+
   } 
 
   async listado(){
@@ -83,4 +92,17 @@ export class AttendanceComponent implements OnInit {
    isDisabled = (date: NgbDate, current: { month: number; year: number }) => date.month !== current.month;
    isWeekend = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
    isWeek = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
+
+   toggleCheckbox(person: Person) {
+    if (person.checkboxState === 'checked') {
+      person.checkboxState = 'unchecked';
+    } else if (person.checkboxState === 'unchecked') {
+      person.checkboxState = 'indeterminate';
+    } else {
+      person.checkboxState = 'checked';
+    }
+  }
+
+
+
 }

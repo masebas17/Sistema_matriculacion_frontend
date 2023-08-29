@@ -78,7 +78,44 @@
     flex-direction: row-reverse;
 } 
 
+/* checked estilos de los estados */
 
+.custom-checkbox {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .custom-checkbox span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #999;
+    border-radius: 4px;
+    background-color: white;
+  }
+  
+  .custom-checkbox .checked {
+    background-color: #66bb6a;
+    border-color: #66bb6a;
+  }
+  
+  .custom-checkbox .indeterminate {
+    background-color: #ffa726;
+    border-color: #ffa726;
+  }
+  
+  .custom-checkbox .unchecked {
+    background-color: #ef5350;
+    border-color: #ef5350;
+  }
+
+  
 @media only screen and (max-width: 912px) {
     .botones{
         width: 100%;

@@ -40,6 +40,7 @@ import { LevelFormSelectionComponent } from './level-form-selection/level-form-s
 import { ClassroomSelectionComponent } from './classroom-selection/classroom-selection.component';
 import { VerifyInformationComponent } from './verify-information/verify-information.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-admin.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -64,7 +65,8 @@ const routes: Routes = [
       {path: 'course', component:CourseComponentComponent},
       {path: 'edit-student', component:EditStudentComponent},
       {path: 'pay', component:PayComponent},
-      {path: 'edit-course', component: EditCourseComponent}
+      {path: 'edit-course', component: EditCourseComponent},
+      {path: 'enrollment_admin', component: EnrollmentAdminComponent}
     ]
   },
     { path: 'supervisor', canActivate: [SupervisorGuard], component: SupervisorComponent,

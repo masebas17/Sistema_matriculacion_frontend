@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidebarComponentComponent } from './sidebar-component/sidebar-component.component';
-import { faChevronDown, faHome, faRightToBracket, faUser, faUserPen, faFileArchive, faPenToSquare, faList, faSackDollar, faSchool } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faHome, faRightToBracket, faUser, faUserPen, faFileArchive, faPenToSquare, faList, faSackDollar, faSchool, faBookOpenReader} from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -22,6 +22,7 @@ export class AdminComponent implements OnInit {
   faList = faList;
   faSackDollar = faSackDollar;
   faSchool = faSchool;
+  faBookOpenReader = faBookOpenReader;
 
   constructor(private router: Router) { }
 

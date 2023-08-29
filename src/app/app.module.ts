@@ -52,6 +52,7 @@ import { VerifyInformationComponent } from './verify-information/verify-informat
 import { ClassroomSelectionComponent } from './classroom-selection/classroom-selection.component';
 import { AprovedPipe } from './shared/aproved.pipe';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-admin.component';
 registerLocaleData(localeEc, 'es-EC');
 
 
@@ -98,7 +99,8 @@ registerLocaleData(localeEc, 'es-EC');
     VerifyInformationComponent,
     ClassroomSelectionComponent,
     AprovedPipe,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    EnrollmentAdminComponent
   ],
   imports: [
     BrowserModule,

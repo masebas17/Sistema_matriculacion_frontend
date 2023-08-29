@@ -8,12 +8,14 @@ import { ApiService } from 'src/app/services/api.service';
 import { dataStudent } from 'src/app/shared/interfaces';
 import Swal from 'sweetalert2';
 import printJS from 'print-js'
-import { faPrint, faMoneyCheckDollar} from '@fortawesome/free-solid-svg-icons';
+import { faPrint, faMoneyCheckDollar, faDownload} from '@fortawesome/free-solid-svg-icons';
 import { AsignatedPipe } from 'src/app/shared/asignated.pipe';
 import {  SiNoPipe } from 'src/app/shared/si-no.pipe';
 import { find, single } from 'rxjs';
 import { TeacherComponentComponent } from '../teacher-component/teacher-component.component';
 import { PdfMakeWrapper, Txt, Table } from 'pdfmake-wrapper';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class CourseComponentComponent implements OnInit {
   Schedule_data: any;
   faprint = faPrint;
   faMoneyCheckDollar =faMoneyCheckDollar;
+  faDownload = faDownload;
   studentId: any;
   data_courses: any;
   data_student: dataStudent = {};
@@ -207,6 +210,8 @@ export class CourseComponentComponent implements OnInit {
 
   createListado(){
 
+    if(this.students){
+
     const pdf = new PdfMakeWrapper();
 
     const titleTxt = new Txt(`Parroquia Santiago Apóstol de Machachi\n`)
@@ -253,12 +258,21 @@ export class CourseComponentComponent implements OnInit {
 
       pdf.add(initialTxtLine3);
 
-      const initialTxtLine4 = new Txt(`Periodo: 2023-2024\n\n`)
+      if(this.level.id > 6){
+        const initialTxtLine4 = new Txt(`Periodo: 2023-2024\n\n`)
         .fontSize(12)
         .bold()
         .end;
 
-      pdf.add(initialTxtLine4);
+        pdf.add(initialTxtLine4);
+      }else{
+        const initialTxtLine5 = new Txt(`Periodo: 2022-2023\n\n`)
+        .fontSize(12)
+        .bold()
+        .end;
+
+        pdf.add(initialTxtLine5);
+      }
     
       // Tabla
 
@@ -291,14 +305,45 @@ export class CourseComponentComponent implements OnInit {
       },
       )
       .widths([15, 'auto', 'auto','auto','auto','auto', 100])
-      .fontSize(10)
+      .fontSize(9)
       .end
     );
 
     const pdfName = `Listado_${this.level.Level.name}_${this.classroom.name}.pdf`;
     pdf.create().print();
     //pdf.create().download(pdfName);
+  } else {
+    Swal.fire({
+      icon: 'error',
+      text: 'Debe generar primero la lista',
+      confirmButtonColor: '#1D71B8'
+    })
+  }
   }
 
+  exportarAExcel(){
+    if(this.students){
+        const nombreArchivo = (this.level.Level.name  + ' ' + 'Paralelo' + ' ' + this.classroom.name + '_' + "listado" + ".xlsx");
+        const tabla = document.getElementById('lista_del_curso').cloneNode(true) as HTMLElement;
+        tabla.querySelectorAll('tr').forEach(row => {
+        const lastCell = row.lastElementChild;
+        if (lastCell) {
+          lastCell.remove(); // Elimina la última celda de cada fila
+         }
+       });
+        const hojaDeCalculo = XLSX.utils.table_to_sheet(tabla);
+        const libroDeTrabajo = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(libroDeTrabajo, hojaDeCalculo, 'Listado ' + this.level.Level.name + ' Paralelo ' + this.classroom.name);
+        XLSX.writeFile(libroDeTrabajo, nombreArchivo);
+        hojaDeCalculo['cols'] = [{ width: 10 }, { width: 15 }, { width: 20 }, { width: 20 }, { width: 15 },{ width: 15 },{ width: 15 }];
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            text: 'Debe generar primero la lista',
+            confirmButtonColor: '#1D71B8'
+          })
+        }
+    }
 
 }

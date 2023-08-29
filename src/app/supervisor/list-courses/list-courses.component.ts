@@ -6,6 +6,7 @@ import { dataStudent } from 'src/app/shared/interfaces';
 import Swal from 'sweetalert2';
 import printJS from 'print-js';
 import { UpperCasePipe } from '@angular/common';
+import { PdfMakeWrapper, Txt, Table } from 'pdfmake-wrapper';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as XLSX from 'xlsx';
@@ -38,6 +39,8 @@ export class ListCoursesComponent implements OnInit {
   course_name:any;
   teacher_name:any;
   teachers: any;
+  level;
+  classroom;
   
   constructor( private _apiService: ApiService,
     private router: Router) {
@@ -81,12 +84,14 @@ export class ListCoursesComponent implements OnInit {
     );
 
     const filtershedule = this.Schedule_data.filter(
-      (Schedule) => this.verSeleccion === Schedule.Level.id
+      (Schedule) => this.verSeleccion === Schedule.id
     );
    
 
     this.students = filtercourse[0].Students
     this.teachers = filtercourse[0].Teachers
+    this.level = filtershedule[0]
+    this.classroom = filtercourse[0]
 
       if(this.students){
         const Toast = Swal.mixin({
@@ -123,13 +128,108 @@ export class ListCoursesComponent implements OnInit {
 
   print(){
     if(this.students){
-    printJS({ printable: 'lista_del_curso', type: 'html', documentTitle: 'Sistema de Gestión de Catequesis - Generación de listas', targetStyles: ['*'],
-    header: '<h2 class="custom">Parroquia Eclesiástica Santiago Apóstol de Machachi <br>Catequesis 2022-2023</h2><hr><br>',
-    style: '.custom { color: black;}', maxWidth:2000, font_size: '10pt', font: 'Arial', ignoreElements: ["num_cedula", "email", "baptized", "btn-edit-voucher", "btn-creater-voucher", "actions","scroll"],
-    honorMarginPadding: true
-  })
-    }
-    else{
+
+      const pdf = new PdfMakeWrapper();
+  
+      const titleTxt = new Txt(`Parroquia Santiago Apóstol de Machachi\n`)
+          .fontSize(18)
+          .alignment('center')
+          .bold()
+          .end;
+  
+        pdf.add(titleTxt);
+  
+        const title2Txt = new Txt(`Catequesis Parroquial\n\n`)
+          .fontSize(16)
+          .alignment('center')
+          .bold()
+          .end;
+  
+        pdf.add(title2Txt);
+  
+        const title3Txt = new Txt(`Listado de Alumnos\n\n`)
+        .fontSize(14)
+        .alignment('center')
+        .end;
+  
+      pdf.add(title3Txt);
+  
+      const initialTxt = new Txt(`Nivel: ${this.level.Level.name}\n`)
+          .fontSize(12)
+          .bold()
+          .end;
+  
+        pdf.add(initialTxt);
+  
+      const initialTxtLine2 = new Txt(`Horario: ${this.level.weekDay} (${this.level.startTime} - ${this.level.endTime})\n`)
+          .fontSize(12)
+          .bold()
+          .end;
+  
+        pdf.add(initialTxtLine2);
+  
+        const initialTxtLine3 = new Txt(`Paralelo: ${this.classroom.name}\n`)
+          .fontSize(12)
+          .bold()
+          .end;
+  
+        pdf.add(initialTxtLine3);
+  
+        if(this.level.id > 6){
+          const initialTxtLine4 = new Txt(`Periodo: 2023-2024\n\n`)
+          .fontSize(12)
+          .bold()
+          .end;
+  
+          pdf.add(initialTxtLine4);
+        }else{
+          const initialTxtLine5 = new Txt(`Periodo: 2022-2023\n\n`)
+          .fontSize(12)
+          .bold()
+          .end;
+  
+          pdf.add(initialTxtLine5);
+        }
+      
+        // Tabla
+  
+      const content = this.students.map((item, index) => {
+        return [
+          (index + 1).toString(),
+          item.identityNumber,
+          item.lastName.toUpperCase(),
+          item.name.toUpperCase(),
+          item.age,
+          item.payment,
+          '  '
+        ];
+      });
+  
+      pdf.add(
+        new Table([
+          ['N°', 'Cédula', 'Apellidos', 'Nombres', 'Edad', 'Recibo', 'Observaciones'],
+          ...content
+        ])
+        .layout({
+          fillColor: (rowIndex) => {
+              // row 0 is the header
+              if (rowIndex === 0) {
+                return '#D0D3D4';
+              }
+      
+              return '#ffffff';
+          }
+        },
+        )
+        .widths([15, 'auto', 'auto','auto','auto','auto', 100])
+        .fontSize(9)
+        .end
+      );
+  
+      const pdfName = `Listado_${this.level.Level.name}_${this.classroom.name}.pdf`;
+      pdf.create().print();
+      //pdf.create().download(pdfName);
+    } else {
       Swal.fire({
         icon: 'error',
         text: 'Debe generar primero la lista',
