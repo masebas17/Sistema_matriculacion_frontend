@@ -179,7 +179,7 @@ export class EnrollmentAdminComponent implements OnInit {
           email: values.email,
           address: values.address, 
           courseId: this.verSeleccion_curso,
-          payment: values.payment,
+          payment: null,
           aproved: null
       }
     
