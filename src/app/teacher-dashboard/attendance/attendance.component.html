@@ -44,7 +44,7 @@
             <div class="col-sm-12">
                 <div class="botones">
                     <!-- <button class="btn btn-primary">Nueva Asistencia</button>  -->
-                    <button class="btn btn-success"> <fa-icon [icon]="faListCheck"></fa-icon> Marcar a todos</button> 
+                    <button class="btn btn-success" (click)="marcarDesmarcarAsistencia()"> <fa-icon [icon]="faListCheck"></fa-icon> Marcar a todos</button> 
                     <button class="btn btn-warning"><fa-icon [icon]="faX"></fa-icon> Desmarcar a todos</button>
                     <button class="btn btn-primary" type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><fa-icon [icon]="faEdit"></fa-icon> Editar Asistencia</button>   
                 </div> 
@@ -88,26 +88,38 @@
                         <tr class = "text-center">
                           <th scope="col">Ord</th>
                           <th>Alumno</th>
-                          <th>Asistencia</th>
-                           <!-- <th>Justificación</th>  -->
+                          <th></th>
+                          <th></th> 
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let student of students; let item = index">
                           <td scope="row" class = "text-center">{{item+1}}</td>
                           <td>{{student.lastName + ' ' + student.name | uppercase}}</td>
+                          <td>
+                            <label>
+                              <input type="radio" class="form-check-input" value="true" [(ngModel)]="student.baptized" [name]="'asistencia_' + student.id">
+                              Asistencia
+                            </label>
+                          </td>
+                          <td>
+                            <label>
+                              <input type="radio" class="form-check-input" value="false" [(ngModel)]="student.baptized" [name]="'asistencia_' + student.id">
+                              Justificación
+                            </label>
+                          </td>                         
                           <!-- <td>
                             <label class="custom-checkbox">
                               <input type="checkbox" [ngClass]="checkboxState" (click)="toggleCheckbox()">
                               <span></span>
                             </label>
-                          </td> -->
+                          </td>  -->
                           <!-- <td ><div  class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                          </div></td> -->
+                          </div></td>  -->
                           <!-- <td class="d-flex-inline-flex justify-content-center"><div  class="form-check">
                             <input class=" justify form-check-input" type="checkbox" value="" id="flexCheck">
-                          </div></td>   -->
+                          </div></td>    -->
                         </tr>
                       </tbody>
                     </table>

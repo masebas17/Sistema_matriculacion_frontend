@@ -33,6 +33,7 @@ export class AttendanceComponent implements OnInit {
   model: NgbDateStruct;
   model1: NgbDateStruct;
 	date: { year: number; month: number };
+  marcarAsistencia = false;
  
   personList: Person[] = [];
 
@@ -100,6 +101,14 @@ export class AttendanceComponent implements OnInit {
       person.checkboxState = 'indeterminate';
     } else {
       person.checkboxState = 'checked';
+    }
+  }
+
+  marcarDesmarcarAsistencia() {
+    // Itera sobre la lista de alumnos
+    for (const alumno of this.students) {
+      // Establece el estado de asistencia según el valor de marcarAsistencia
+      alumno.baptized = this.marcarAsistencia;
     }
   }
 

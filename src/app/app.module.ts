@@ -53,6 +53,7 @@ import { ClassroomSelectionComponent } from './classroom-selection/classroom-sel
 import { AprovedPipe } from './shared/aproved.pipe';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-admin.component';
+import { ReportsComponent } from './admin/reports/reports.component';
 registerLocaleData(localeEc, 'es-EC');
 
 
@@ -100,7 +101,8 @@ registerLocaleData(localeEc, 'es-EC');
     ClassroomSelectionComponent,
     AprovedPipe,
     RegistrationFormComponent,
-    EnrollmentAdminComponent
+    EnrollmentAdminComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,

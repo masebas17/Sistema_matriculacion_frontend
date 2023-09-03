@@ -333,7 +333,7 @@ export class CourseComponentComponent implements OnInit {
        });
         const hojaDeCalculo = XLSX.utils.table_to_sheet(tabla);
         const libroDeTrabajo = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(libroDeTrabajo, hojaDeCalculo, 'Listado ' + this.level.Level.name + ' Paralelo ' + this.classroom.name);
+        XLSX.utils.book_append_sheet(libroDeTrabajo, hojaDeCalculo, this.level.Level.name + ' Paralelo ' + this.classroom.name);
         XLSX.writeFile(libroDeTrabajo, nombreArchivo);
         hojaDeCalculo['cols'] = [{ width: 10 }, { width: 15 }, { width: 20 }, { width: 20 }, { width: 15 },{ width: 15 },{ width: 15 }];
         }

@@ -41,6 +41,7 @@ import { ClassroomSelectionComponent } from './classroom-selection/classroom-sel
 import { VerifyInformationComponent } from './verify-information/verify-information.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-admin.component';
+import { ReportsComponent } from './admin/reports/reports.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -66,7 +67,8 @@ const routes: Routes = [
       {path: 'edit-student', component:EditStudentComponent},
       {path: 'pay', component:PayComponent},
       {path: 'edit-course', component: EditCourseComponent},
-      {path: 'enrollment_admin', component: EnrollmentAdminComponent}
+      {path: 'enrollment_admin', component: EnrollmentAdminComponent},
+      {path: 'reports', component: ReportsComponent}
     ]
   },
     { path: 'supervisor', canActivate: [SupervisorGuard], component: SupervisorComponent,

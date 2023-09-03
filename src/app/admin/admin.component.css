@@ -64,7 +64,7 @@ body {
   overflow: hidden;
 }
 
-.dropdown {
+/* .dropdown {
   float: left;
   overflow: hidden;
 }
@@ -104,7 +104,7 @@ body {
 
 .dropdown:hover .dropdown-content {
   display: block;
-}
+} */
 
 @media screen and (max-width: 650px) {
   .topnav a:not(:first-child) {display: none;}

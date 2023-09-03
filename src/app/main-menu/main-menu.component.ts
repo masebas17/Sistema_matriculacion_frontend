@@ -39,8 +39,8 @@ export class MainMenuComponent implements OnInit {
   anunce(){
     Swal.fire({
       icon: 'info',
-      title: '¡Culminaron los días de Matriculación!',
-      text: 'Acerquese al Despacho Parroquial, si se desea realizar algún proceso referente a la Matriculación',
+      title: '¡Culminaron los días de Matriculación online!',
+      text: 'Debe acudir al Despacho Parroquial, en horario de oficina, si se desea realizar algún proceso referente a la Matriculación',
       confirmButtonColor: '#1D71B8'
     }).then((result) => {
       if (result.isConfirmed) {
