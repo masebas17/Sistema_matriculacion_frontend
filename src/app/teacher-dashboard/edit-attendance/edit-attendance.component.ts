@@ -52,10 +52,10 @@ export class EditAttendanceComponent implements OnInit {
   List: number[] = [];
   ListJustification: number[] = [];
   selectedStudentIds: any;
-  IDStudents: any;
+  IDStudents: number[] = [];
   edit_date: any;
   justifyStudentsId: any;
-  IDStudentsJustify: any;
+  IDStudentsJustify: number[] = [];
   
 
   constructor( private ApiService: ApiService,
@@ -239,7 +239,7 @@ export class EditAttendanceComponent implements OnInit {
 
         Swal.fire({
           icon: 'success',
-          title: 'Se ha edita la Asistencia con éxito',
+          title: 'Se ha editado la Asistencia con éxito',
           text: 'Edición del día:' + ' ' + this.edit_date + ' ' + this.name_level + '-' + this.name_course,
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#1D71B8'
@@ -260,47 +260,47 @@ export class EditAttendanceComponent implements OnInit {
     const resp = await this.ApiService.get_Assistance(this.courseId, this.edit_date)
     console.log(resp)
 
-    this.selectedStudentIds = resp.data.assistance.Students
-
-    this.IDStudents = this.selectedStudentIds.map(id => id.id)
-
-    if(resp.data.justification === null){
-      this.justifyStudentsId = resp.data.justification.Students
-    
-      this.IDStudentsJustify = this.justifyStudentsId.map(id => id.id)
-
-      this.IDStudentsJustify = [];
-    }else{
-      this.IDStudentsJustify = [];
+    if(resp.data.assistance.Students){
+      this.selectedStudentIds = resp.data.assistance.Students
+      this.IDStudents = this.selectedStudentIds.map(id => id.id)
+      this.List = this.IDStudents
     }
-
-    this.List = this.IDStudents
-    this.ListJustification = this.IDStudentsJustify
-
+    
+    if(resp.data.justification != null){
+      this.justifyStudentsId = resp.data.justification.Students
+      this.IDStudentsJustify = this.justifyStudentsId.map(id => id.id)
+      this.ListJustification = this.IDStudentsJustify
+    }
+      
     console.log(this.ListJustification)
   }
 
 
   checkboxDeberiaEstarMarcado(id: number): boolean {
-    if (this.IDStudents != null) {
-      return this.IDStudents.includes(id);
-    } else {
-      return false; 
-    }
+    const studentsJustify = this.IDStudents ?? [];
+    return studentsJustify.includes(id);
   }
 
-  // checkboxjustification(id: number): boolean {
-  //   const studentsJustify = this.IDStudentsJustify ?? [];
-  //   return studentsJustify.includes(id);
+  // checkboxDeberiaEstarMarcado(id: number): boolean {
+  //   if (this.IDStudents != null) {
+  //     return this.IDStudents.includes(id);
+  //   } else {
+  //     return false; 
+  //   }
   // }
 
-  checkboxjustification(id: number): boolean {
-    if (this.IDStudentsJustify != null && Array.isArray(this.IDStudentsJustify)) {
-      return this.IDStudentsJustify.includes(id);
-    } else {
-      return false; // Devuelve false si this.IDStudentsJustify es null o no es un array
-    }
-  }
+   checkboxjustification(id: number): boolean {
+    const studentsJustify = this.IDStudentsJustify ?? [];
+    return studentsJustify.includes(id);
+   }
+
+  // checkboxjustification(id: number): boolean {
+  //   if (this.IDStudentsJustify != null && Array.isArray(this.IDStudentsJustify)) {
+  //     return this.IDStudentsJustify.includes(id);
+  //   } else {
+  //     return false; // Devuelve false si this.IDStudentsJustify es null o no es un array
+  //   }
+  // }
   
   
 

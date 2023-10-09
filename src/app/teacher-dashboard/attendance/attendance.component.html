@@ -110,10 +110,10 @@
                           <td scope="row" class = "text-center">{{item+1}}</td>
                           <!-- <td scope="row" class = "text-center">{{student.identityNumber}}</td> -->
                           <td>{{student.lastName + ' ' + student.name | uppercase}}</td>
-                          <td>
+                          <td class="text-center">
                             <label>
                               <input type="checkbox" class="form-check-input" value="true"  [checked]="alumno.value"  [name]="student.id" (change)="toggleAsistencia(student.id)" >
-                               Asistencia
+                              
                             </label>
                           </td>
                           <!-- <td class="text-center">

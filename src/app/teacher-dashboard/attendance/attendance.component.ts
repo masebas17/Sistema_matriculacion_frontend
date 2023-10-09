@@ -122,9 +122,9 @@ export class AttendanceComponent implements OnInit {
       }
   }
 
-   isDisabled = (date: NgbDate, current: { month: number; year: number }) => date.month !== current.month;
-   isWeekend = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
-   isWeek = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
+  isDisabled = (date: NgbDate, current: { month: number; year: number }) => date.month !== current.month;
+  isWeekend = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
+  isWeek = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
 
    toggleCheckbox(person: Person) {
     if (person.checkboxState === 'checked') {
