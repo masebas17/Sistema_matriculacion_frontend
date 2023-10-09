@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { faSave, faTrash, faListCheck, faX, faCalendarDays, faEdit, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
@@ -6,6 +6,7 @@ import { CheckboxControlValueAccessor, FormControl, FormGroup } from '@angular/f
 import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { List } from 'pdfmake-wrapper/lib/definitions/list/list';
 
 interface Person {
   id: number;
@@ -13,12 +14,14 @@ interface Person {
   checkboxState: 'checked' | 'unchecked' | 'indeterminate';
 }
 
+
 @Component({
-  selector: 'app-attendance',
-  templateUrl: './attendance.component.html',
-  styleUrls: ['./attendance.component.css']
+  selector: 'app-edit-attendance',
+  templateUrl: './edit-attendance.component.html',
+  styleUrls: ['./edit-attendance.component.css']
 })
-export class AttendanceComponent implements OnInit {
+export class EditAttendanceComponent implements OnInit {
+
   opcionSeleccionada: number = 0;
   verSeleccion: number = 0;
   mycourses: any;
@@ -47,10 +50,13 @@ export class AttendanceComponent implements OnInit {
   mostrarBotondeseleccion: boolean = false;
  
   List: number[] = [];
-  selectedStudentIds;
-  IDStudents;
-  BtnCargarDatos: boolean = false;
-
+  ListJustification: number[] = [];
+  selectedStudentIds: any;
+  IDStudents: any;
+  edit_date: any;
+  justifyStudentsId: any;
+  IDStudentsJustify: any;
+  
 
   constructor( private ApiService: ApiService,
     private calendar: NgbCalendar,
@@ -62,10 +68,12 @@ export class AttendanceComponent implements OnInit {
 
     this.activateRoute.params.subscribe(params => {
       console.log(parseInt(params['id']))
-      this.courseId = parseInt(params['id'])
+      this.courseId = parseInt(params['id']),
+      this.edit_date =(params['date'])
     })
 
     this.misCursos();
+    this.consultar_asistencia();
     this.alumno = false;
   }
 
@@ -107,19 +115,19 @@ export class AttendanceComponent implements OnInit {
     this.name_level =filtercourse[0].Schedule.Level.name
 
 
-      if(this.students){
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        })
-         Toast.fire({
-          icon: 'success',
-          title: 'Preparando listado'
-        })
-      }
+      // if(this.students){
+      //   const Toast = Swal.mixin({
+      //     toast: true,
+      //     position: 'top-end',
+      //     showConfirmButton: false,
+      //     timer: 2000,
+      //     timerProgressBar: true,
+      //   })
+      //    Toast.fire({
+      //     icon: 'success',
+      //     title: 'Preparando listado'
+      //   })
+      // }
   }
 
    isDisabled = (date: NgbDate, current: { month: number; year: number }) => date.month !== current.month;
@@ -144,7 +152,6 @@ export class AttendanceComponent implements OnInit {
         this.List.push(this.alumno.id);
       }
     }
-    this.toastr.success('Se ha seleccionado a todos los alumnos');
     console.log('todos los alumnos seleccionados:', this.List)
     this.mostrarBotonseleccionar = false;
     this.mostrarBotondeseleccion = true;
@@ -156,7 +163,6 @@ export class AttendanceComponent implements OnInit {
       this.alumno.value = false;
       this.List = this.List.filter(id => id !== this.alumno.id);
     }
-    this.toastr.warning('Se ha quitado a todos los alumnos');
     console.log('todos los alumnos quitados:', this.List)
 
     this.mostrarBotonseleccionar = true;
@@ -173,20 +179,36 @@ export class AttendanceComponent implements OnInit {
     if (this.isSelected(studentId)) {
       // Si el estudiante ya estaba seleccionado, lo eliminamos del arreglo
       this.List = this.List.filter(id => id !== studentId);
-      this.toastr.warning('Se ha quitado de la lista al Estudiante');
     } else {
       // Si el estudiante no estaba seleccionado, lo agregamos al arreglo
       this.List.push(studentId);
-      this.toastr.success('Se ha tomado lista del Estudiante');
+      this.toastr.info('Se ha colocado asistencia a un estudiante');
     }
     console.log('Estudiante agregado:', this.List)
-    
   }
 
   isSelected(studentId: number): boolean {
     // Verificamos si un estudiante está en el arreglo de estudiantes seleccionados
     return this.List.includes(studentId);
   }
+
+  toggleJustification(studentId: number) {
+    if (this.isSelectedJustification(studentId)) {
+      // Si el estudiante ya estaba seleccionado, lo eliminamos del arreglo
+      this.ListJustification = this.ListJustification.filter(id => id !== studentId);
+    } else {
+      // Si el estudiante no estaba seleccionado, lo agregamos al arreglo
+      this.ListJustification.push(studentId);
+      this.toastr.warning('Se ha Justificado a un estudiante');
+    }
+    console.log('Estudiante Justificado:', this.ListJustification)
+  }
+
+  isSelectedJustification(studentId: number): boolean {
+    // Verificamos si un estudiante está en el arreglo de estudiantes seleccionados
+    return this.ListJustification.includes(studentId);
+  }
+
 
   formatDate(date: NgbDateStruct): string {
     if (date) {
@@ -199,19 +221,16 @@ export class AttendanceComponent implements OnInit {
   }
 
 
- async guardarAsistencia() {
-    const fechaSeleccionada = this.formatDate(this.model);
-    console.log('Fecha seleccionada en formato yyyy-mm-dd:', fechaSeleccionada);
-  
+ async EditarAsistencia() {
+    
     const data = {
       students: this.List,
-      date: fechaSeleccionada,
-      courseId: this.courseId
+      justifiedStudents: this.ListJustification
     }
 
     console.log('array de envio:', data)
 
-    const resp = await this.ApiService.Assistance(data)
+    const resp = await this.ApiService.Update_Assistance(this.courseId, this.edit_date, data)
     console.log(resp)
 
     if (resp.correctProcess === true) {
@@ -220,26 +239,8 @@ export class AttendanceComponent implements OnInit {
 
         Swal.fire({
           icon: 'success',
-          title: 'Se ha guardado la Asistencia con éxito',
-          text: 'Registro del día:' + ' ' + fechaSeleccionada + ' ' + this.name_level + '-' + this.name_course,
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#1D71B8'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
-        })
-
-      }, 1000);
-      myTimeout;
-    }
-    else {
-      const myTimeout = setTimeout(() => {
-
-        Swal.fire({
-          icon: 'error',
-          title: 'Asistencia ya existente',
-          text: 'Ya existe una asitencia registrada con la fecha ingresados',
+          title: 'Se ha edita la Asistencia con éxito',
+          text: 'Edición del día:' + ' ' + this.edit_date + ' ' + this.name_level + '-' + this.name_course,
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#1D71B8'
         }).then((result) => {
@@ -254,7 +255,56 @@ export class AttendanceComponent implements OnInit {
 
   }
 
- async consultar_asistencia1(event: any){
+ async consultar_asistencia(){
+
+    const resp = await this.ApiService.get_Assistance(this.courseId, this.edit_date)
+    console.log(resp)
+
+    this.selectedStudentIds = resp.data.assistance.Students
+
+    this.IDStudents = this.selectedStudentIds.map(id => id.id)
+
+    if(resp.data.justification){
+      this.justifyStudentsId = resp.data.justification.Students
+    
+      this.IDStudentsJustify = this.justifyStudentsId.map(id => id.id)
+    }else{
+      this.IDStudentsJustify = [];
+    }
+
+    this.List = this.IDStudents
+    this.ListJustification = this.IDStudentsJustify
+
+    console.log(this.ListJustification)
+  }
+
+
+  checkboxDeberiaEstarMarcado(id: number): boolean {
+    if (this.IDStudents != null) {
+      return this.IDStudents.includes(id);
+    } else {
+      return false; 
+    }
+  }
+
+  // checkboxjustification(id: number): boolean {
+  //   const studentsJustify = this.IDStudentsJustify ?? [];
+  //   return studentsJustify.includes(id);
+  // }
+
+  checkboxjustification(id: number): boolean {
+    if (this.IDStudentsJustify != null && Array.isArray(this.IDStudentsJustify)) {
+      return this.IDStudentsJustify.includes(id);
+    } else {
+      return false; // Devuelve false si this.IDStudentsJustify es null o no es un array
+    }
+  }
+  
+  
+
+
+
+  async consultar_asistencia1(event: any){
 
     const fecha_editar = this.formatDate(this.model1);
     console.log('Fecha seleccionada en formato yyyy-mm-dd:', fecha_editar);
@@ -274,7 +324,7 @@ export class AttendanceComponent implements OnInit {
         }).then((result) => {
           if (result.isConfirmed) {
             localStorage.setItem("en", event.target.name)
-            this.router.navigate(['/teacher/edit-attendance/', event.target.name, this.formatDate(this.model1)])
+            this.router.navigate(['/teacher/edit-attendance/', event.target.name])
           }
         })
 
@@ -303,45 +353,14 @@ export class AttendanceComponent implements OnInit {
 
   }
 
-  consultar_asistencia(event: any){
-    
-     
-      
+
+
+  regresar(event: any ){
+    console.log(event.target.name)
+    localStorage.setItem("en", event.target.name)
+    this.router.navigate(['/teacher/attendance/', event.target.name])
   }
-  
 
-  // toggleAsistencia2(student: any) {
-  //   for (this.alumno of this.students) {
-  //     student.alumno.value = !student.alumno.value;
-  //   }
-    
-  // }
-
-  verificarFechaSeleccionada(date: NgbDate): void {
-    const fechaSeleccionada = `${date.year}-${date.month}-${date.day}`;
-
-    // Obtener la fecha actual
-    const fechaActual = new Date();
-
-    // Calcular la diferencia en milisegundos
-    const diferenciaEnMilisegundos = fechaActual.getTime() - new Date(fechaSeleccionada).getTime();
-
-    // Calcular el límite de dos semanas en milisegundos
-    const dosSemanasEnMilisegundos = 15 * 24 * 60 * 60 * 1000;
-
-    if (diferenciaEnMilisegundos <= dosSemanasEnMilisegundos) {
-      // La fecha es editable, abrir una nueva pestaña o realizar la acción deseada.
-      // Puedes agregar tu lógica aquí.
-      this.toastr.success('Se puede editar la asistencia en la fecha seleccionada', 'Correcto');
-      this.BtnCargarDatos = true;
-
-      console.log('La fecha es editable, puedes abrir una nueva pestaña o realizar la acción deseada.');
-    } else {
-      // La fecha no es editable, muestra un mensaje de error.
-      this.toastr.error('No es posible editar la asistencia de esta fecha', 'Error');
-      this.BtnCargarDatos = false;
-      console.log('La fecha no es editable, muestra un mensaje de error.');
-    }
-  }
 
 }
+

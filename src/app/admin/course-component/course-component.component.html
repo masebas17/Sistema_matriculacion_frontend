@@ -5,10 +5,20 @@
     <br>
     <div class="contenedor">
         <div class="row">
+          <div class="col-sm-4">
+            <label for="">Escoger el periodo:</label>
+            <select class="form-select" aria-label="Default select example" name="Level" [(ngModel)]="opcion_periodo" (change)="capturar_periodo()" >
+                <option value="all" >Todos (2022 - 2023)</option>
+                <option value="2023">2023</option>
+            </select>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
             <div class="col-sm-4">
                 <label for="">Escoger el Nivel:</label>
                 <select class="form-select" aria-label="Default select example" name="Level" [(ngModel)]="opcionSeleccionada" (change)="capturar()" >
-                    <option *ngFor="let shedule of shedules.data"  [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
+                    <option *ngFor="let shedule of shedules.data" [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
                 </select>
             </div>
             <div class="col-sm-4">
@@ -37,15 +47,19 @@
           <th>Nivel</th>
           <th>Horario</th>
           <th>Paralelo</th>
-          <th>Catequista</th>
+          <th>Catequista(s)</th>
         </tr>
       </thead>
       <tbody>
         <tr class = "text-center">
-          <th class="text-danger" id="Text_level"></th>
-          <th id = "Text_Schedule"></th>
-          <th id="Text_course"></th>
-          <th id="Text_Teacher"></th>
+          <td class="text-danger" id="Text_level"></td>
+          <td id = "Text_Schedule"></td>
+          <td id="Text_course"></td>
+          <td>
+            <ul style="padding: 0; margin: 0;">
+              <li *ngFor="let teachers of teachers" style="list-style: none;">{{teachers.lastName + ' ' + teachers.name + '  ' | uppercase}}</li>
+            </ul> 
+          </td>
         </tr>
       </tbody>
     </table>

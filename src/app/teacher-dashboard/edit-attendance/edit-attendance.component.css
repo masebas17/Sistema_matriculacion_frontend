@@ -12,7 +12,7 @@
     display: flex;
     align-content: center;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: stretch;
 }
 

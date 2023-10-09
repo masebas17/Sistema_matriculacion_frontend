@@ -54,6 +54,8 @@ import { AprovedPipe } from './shared/aproved.pipe';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-admin.component';
 import { ReportsComponent } from './admin/reports/reports.component';
+import { EditAttendanceComponent } from './teacher-dashboard/edit-attendance/edit-attendance.component';
+import {  ToastrModule } from 'ngx-toastr' ;
 registerLocaleData(localeEc, 'es-EC');
 
 
@@ -102,7 +104,8 @@ registerLocaleData(localeEc, 'es-EC');
     AprovedPipe,
     RegistrationFormComponent,
     EnrollmentAdminComponent,
-    ReportsComponent
+    ReportsComponent,
+    EditAttendanceComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ registerLocaleData(localeEc, 'es-EC');
     HttpClientModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    ToastrModule.forRoot(),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

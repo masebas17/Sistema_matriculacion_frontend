@@ -61,6 +61,22 @@ table{
     font-size: revert;
 }
 
+td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  th {
+    font-weight: bold;
+    text-align: center;
+    background-color: #f0f0f0;
+  }
+  
+  p {
+    margin: 0;
+    padding: 5px;
+  }
+
 @media only screen and (max-width: 912px) {
     .botones{
         width: 100%;

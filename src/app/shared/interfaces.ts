@@ -95,15 +95,30 @@ export interface dataTeacher{
     password: string
 }
 
-export interface editCourses {
-    name: string,
-    maxStudents: number, 
+export interface editCourses_teacher {
     principalId: number,
     scheduleId: number,
     teachersId
+}
+
+export interface ediCourses_quota {
+    name: string,
+    maxStudents: number
 }
 
 export interface reset_user{
     username: string,
     password: string
 }
+
+export interface assistance {
+    students: number[],
+    date: string,
+    courseId: number
+}
+
+export interface update_assistance {
+    students: number[],
+    justifiedStudents: number[]
+}
+

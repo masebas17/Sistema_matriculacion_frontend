@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { NamespaceBody } from 'typescript';
+import {faListCheck} from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-my-courses',
@@ -11,6 +13,8 @@ import { NamespaceBody } from 'typescript';
 export class MyCoursesComponent implements OnInit {
   mycourses: any;
   name_teacher: any;
+  principal_teacher:any;
+  faListCheck = faListCheck;
 
   constructor(
   
@@ -29,13 +33,22 @@ export class MyCoursesComponent implements OnInit {
 
     this.mycourses = resp.data.Teacher.Courses
     this.name_teacher = resp.data.Teacher
+    this.principal_teacher = resp.data.Teacher.Courses.principalId
+
   }
+
 
   list_of_course(event: any){
     console.log(event.target.name)
     localStorage.setItem("en", event.target.name)
     this.router.navigate(['/teacher/listcourses', event.target.name])
     
+  }
+
+  attendance(event:any){
+    console.log(event.target.name)
+    localStorage.setItem("en", event.target.name)
+    this.router.navigate(['/teacher/attendance', event.target.name])
   }
 
   // mostrar_listado(){

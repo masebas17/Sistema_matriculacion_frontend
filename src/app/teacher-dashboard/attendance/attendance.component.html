@@ -1,18 +1,19 @@
 <section class="Formulario">
     <div class="letras">
         <h1 class="titulo">Control de Asistencia</h1>
+        <h5 *ngIf="name_level">{{'Nivel: ' + name_level + ' '+'-'+ ' ' + 'Paralelo'+ ' ' + name_course}}</h5>
     </div>
     <br>
     <div class="contenedor">
         <div class="row">
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <label for="">Escoger el curso:</label>
                 <select class="form-select" aria-label="Default select example" name="Level" [(ngModel)]="opcionSeleccionada" (change)="capturar()">
                     <option *ngFor="let courses of mycourses"  [ngValue]="courses.id">{{courses.Schedule.Level.name + ' ' + '-' + ' ' + 'Paralelo' + ' ' + courses.name }}</option> 
                 </select>
-            </div>
+            </div> -->
             <div class="col-sm-4">
-                <label for="">Ingresar o escoger la Fecha:</label> <br>
+                <label for="">Escoger la Fecha:</label> <br>
                 <!-- <input type="date" id="current_date"  name="current_date" [value]="currentD" class="form-control" min="2022-10-15" max="2023-05-27" formControlName="presentDate" >  -->
                 <div class="input-group">
                   <input
@@ -22,8 +23,9 @@
                   [(ngModel)]="model"
                   ngbDatepicker
                   [markDisabled]="isWeekend"
-                  [minDate]="{year: 2022, month: 10, day: 15}"
-                  [maxDate]="{year: 2023, month: 05, day: 27}"
+                  [minDate]="{year: 2023, month: 10, day: 07}"
+                  [maxDate]="{year: 2024, month: 05, day: 26}"
+                  [readonly]="true"
                   #d="ngbDatepicker"
                 />
                   <!-- <input
@@ -37,23 +39,32 @@
                     [minDate]="{year: 2022, month: 10, day: 15}"
                     [maxDate]="{year: 2023, month: 05, day: 27}"
                   /> -->
-                  <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button>
+                  <button class="btn btn-secondary bi bi-calendar3" style="width: 50px;" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button>
                 </div>
             </div>
-            <div class="row">
+            <div class="col-sm-8">
+              <div class="botones">
+                <button class="btn btn-success" *ngIf="mostrarBotonseleccionar" (click)="seleccionarTodos()"> <fa-icon [icon]="faListCheck"></fa-icon> Marcar a todos</button> 
+                <button class="btn btn-warning" *ngIf="mostrarBotondeseleccion" (click)="DesmarcarTodos()"><fa-icon [icon]="faX"></fa-icon> Desmarcar a todos</button>
+                <button class="btn btn-primary" type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><fa-icon [icon]="faEdit"></fa-icon> Editar Asistencia</button>  
+                <a href="/teacher/mycourses" class="btn btn-outline-danger"><fa-icon [icon]="faArrowAltCircleLeft"></fa-icon> Salir</a> 
+              </div>
+            </div>
+            <!-- <div class="row">
             <div class="col-sm-12">
                 <div class="botones">
-                    <!-- <button class="btn btn-primary">Nueva Asistencia</button>  -->
-                    <button class="btn btn-success" (click)="marcarDesmarcarAsistencia()"> <fa-icon [icon]="faListCheck"></fa-icon> Marcar a todos</button> 
-                    <button class="btn btn-warning"><fa-icon [icon]="faX"></fa-icon> Desmarcar a todos</button>
-                    <button class="btn btn-primary" type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><fa-icon [icon]="faEdit"></fa-icon> Editar Asistencia</button>   
+                    <button class="btn btn-primary">Nueva Asistencia</button> 
+                    <a href="/teacher/mycourses" class="btn btn-outline-danger"><fa-icon [icon]="faArrowAltCircleLeft"></fa-icon> Salir</a> 
+                    <button class="btn btn-success" *ngIf="mostrarBotonseleccionar" (click)="seleccionarTodos()"> <fa-icon [icon]="faListCheck"></fa-icon> Marcar a todos</button> 
+                    <button class="btn btn-warning" *ngIf="mostrarBotondeseleccion" (click)="DesmarcarTodos()"><fa-icon [icon]="faX"></fa-icon> Desmarcar a todos</button>
+                    <button class="btn btn-primary" type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><fa-icon [icon]="faEdit"></fa-icon> Editar Asistencia</button>  
                 </div> 
             </div>
-        </div>
+        </div> -->
         </div>
 </div> 
         <div class="row">
-             <div class="col-sm-4">
+             <!-- <div class="col-sm-4">
                 <div class="card">
                     <div class="card-header">
                       ¿Cómo tomar asistencia?
@@ -80,57 +91,48 @@
                       Si por alguna razón se decide cancelar este proceso se puede presionar el Botón "Eliminar Asistencia", el cual borrará todos los datos y nos dirigirá a la pantalla principal</p>
                     </div>
                   </div>
-            </div> 
-            <div class="col-sm-8">
+            </div>  -->
+            <div class="col-sm-9">
                 <div class="table-responsive">    
                     <table class="table table-hover">
                       <thead class="table-secondary">
                         <tr class = "text-center">
                           <th scope="col">Ord</th>
+                          <!-- <th>Cédula</th> -->
                           <th>Alumno</th>
-                          <th></th>
-                          <th></th> 
+                          <th>Asistencia</th>
+                          <!-- <th>Falta</th>  -->
+                          <!-- <th>Justificación</th>  -->
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let student of students; let item = index">
                           <td scope="row" class = "text-center">{{item+1}}</td>
+                          <!-- <td scope="row" class = "text-center">{{student.identityNumber}}</td> -->
                           <td>{{student.lastName + ' ' + student.name | uppercase}}</td>
                           <td>
                             <label>
-                              <input type="radio" class="form-check-input" value="true" [(ngModel)]="student.baptized" [name]="'asistencia_' + student.id">
-                              Asistencia
+                              <input type="checkbox" class="form-check-input" value="true"  [checked]="alumno.value"  [name]="student.id" (change)="toggleAsistencia(student.id)" >
+                               Asistencia
                             </label>
                           </td>
-                          <td>
+                          <!-- <td class="text-center">
                             <label>
-                              <input type="radio" class="form-check-input" value="false" [(ngModel)]="student.baptized" [name]="'asistencia_' + student.id">
+                              <input type="checkbox" class="form-check-input" value="justify"   [name]="student.id" >
                               Justificación
                             </label>
-                          </td>                         
-                          <!-- <td>
-                            <label class="custom-checkbox">
-                              <input type="checkbox" [ngClass]="checkboxState" (click)="toggleCheckbox()">
-                              <span></span>
-                            </label>
-                          </td>  -->
-                          <!-- <td ><div  class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                          </div></td>  -->
-                          <!-- <td class="d-flex-inline-flex justify-content-center"><div  class="form-check">
-                            <input class=" justify form-check-input" type="checkbox" value="" id="flexCheck">
-                          </div></td>    -->
+                          </td>                         -->
                         </tr>
                       </tbody>
                     </table>
                   </div>
             </div>
         </div>
-    <div class="button_save row" *ngIf="students != null">
+    <div class="row" *ngIf="students != null">
         <div class="col-sm-6">
             <div class="botones">
-                <button class="btn btn-success"><fa-icon [icon]="faSave"></fa-icon> Grabar Asistencia</button> 
-                <button class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon> Eliminar Asistencia</button>
+                <button class="btn btn-success" (click)="guardarAsistencia()"><fa-icon [icon]="faSave"></fa-icon> Grabar Asistencia</button> 
+                <button class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon> Eliminar Acciones</button>
             </div>
         </div>
     </div>
@@ -145,39 +147,47 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
       </div>
       <div class="modal-body">
-          <form > 
-          <div class="row">
-              <div class="col-sm-12">
-                <label for="">Ingresar o escoger la Fecha:</label> <br>
-                <!-- <input type="date" id="current_date"  name="current_date" [value]="currentD" class="form-control" min="2022-10-15" max="2023-05-27" formControlName="presentDate" >  -->
-                <div class="input-group">
-                  <input
-                  class="form-control"
-                  placeholder="yyyy-mm-dd"
-                  name="dp"
-                  [(ngModel)]="model1"
-                  ngbDatepicker
-                  [markDisabled]="isWeek"
-                  [minDate]="{year: 2022, month: 10, day: 15}"
-                  [maxDate]="{year: 2023, month: 05, day: 27}"
-                  #dos="ngbDatepicker"
-                  />
-                  <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dos.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button>
-                </div>
-                  
+        <form > 
+        <div class="row">
+            <div class="col-sm-12">
+              <div aria-live="polite" toastContainer></div>
+              <label for="">Escoger la Fecha:</label> <br>
+              <!-- <input type="date" id="current_date"  name="current_date" [value]="currentD" class="form-control" min="2022-10-15" max="2023-05-27" formControlName="presentDate" >  -->
+              <div class="input-group">
+                <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="dp"
+                [(ngModel)]="model1"
+                ngbDatepicker
+                [markDisabled]="isWeek"
+                [minDate]="{year: 2023, month: 09, day: 07}"
+                [maxDate]="{year: 2024, month: 05, day: 26}"
+                [readonly]="true"
+                #dos="ngbDatepicker"
+                (dateSelect)="verificarFechaSeleccionada($event)"
+                />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dos.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button>
               </div>
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-6">
-                  <button type="submit"  class="btn btn-success" data-bs-dismiss="modal">Cargar datos</button>
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>
-              </div>
-          </div>
-          </form>
-      </div>
+                
+            </div>
+           
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <button type="submit" *ngIf="BtnCargarDatos" data-bs-dismiss="modal" class="btn btn-success" [name]="courseId" (click)="consultar_asistencia1($event)">Cargar datos</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>
+            </div>
+        </div>
+        </form>
+    </div>
     </div>
   </div>
 </div>
+
+
+
+
 
 

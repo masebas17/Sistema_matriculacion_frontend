@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import{ HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, editCourses, LevelResponse, Students, reset_user, datasheduleYear } from '../shared/interfaces';
+import { datacourses, datalevel, datashedule, dataStudent, dataTeacher, editCourses_teacher, ediCourses_quota, LevelResponse, Students, reset_user, datasheduleYear, assistance, update_assistance } from '../shared/interfaces';
 
 
 
@@ -79,6 +79,17 @@ export class ApiService {
     return response;
   }
 
+  async getschedules_from_year(year: string) {
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const response: any = await this.http
+      .get(`${this.apiUrl}/api/schedules/${year}`, options)
+      .toPromise();
+    //Guarda el token en el local storage al iniciar sesion correctamente
+    return response;
+  }
+
   async getcourses_from_admin(id: any) {
     const options = {
       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
@@ -139,13 +150,22 @@ export class ApiService {
     return resp
   }
 
-  async edit_course(id: any, course: editCourses | any ){
+  async edit_course_teacher(id: any, course: editCourses_teacher | any ){
     const options = {
       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
     };
     const resp: any = await this.http.put(`${this.apiUrl}/api/courses/${id}`, course, options).toPromise() 
     return resp
   }
+
+  async edit_course_quota(id: any, course: ediCourses_quota | any ){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.put(`${this.apiUrl}/api/courses/${id}`, course, options).toPromise() 
+    return resp
+  }
+
 
    async get_Teacher_info(){
      const options = {
@@ -167,6 +187,21 @@ export class ApiService {
 
    async reset_data_user_teacher(id: any , user: reset_user | any){
     const resp: any = await this.http.put(`${this.apiUrl}/api/users/${id}`, user).toPromise() 
+    return resp
+   }
+
+    async Assistance(Assistance: assistance){
+     const resp: any = await this.http.post(`${this.apiUrl}/api/assistance`, Assistance).toPromise() 
+     return resp
+   }
+
+   async get_Assistance(id: any, date: any){
+    const resp: any = await this.http.get(`${this.apiUrl}/api/assistance/courseId/${id}/date/${date}`).toPromise() 
+    return resp
+   }
+
+   async Update_Assistance(id: any, date: any, update_assistance: update_assistance){
+    const resp: any = await this.http.put(`${this.apiUrl}/api/assistance/courseId/${id}/date/${date}`, update_assistance).toPromise() 
     return resp
    }
 

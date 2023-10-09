@@ -42,6 +42,7 @@ import { VerifyInformationComponent } from './verify-information/verify-informat
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-admin.component';
 import { ReportsComponent } from './admin/reports/reports.component';
+import { EditAttendanceComponent } from './teacher-dashboard/edit-attendance/edit-attendance.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -84,7 +85,8 @@ const routes: Routes = [
     children:[
       {path: 'mycourses', component:MyCoursesComponent},
       {path: 'listcourses/:id', component: ListMycoursesComponent},
-      {path: 'attendance', component: AttendanceComponent},
+      {path: 'attendance/:id', component: AttendanceComponent},
+      {path: 'edit-attendance/:id/:date', component: EditAttendanceComponent},
       {path: 'grades', component: GradesComponent}
     ]
     },

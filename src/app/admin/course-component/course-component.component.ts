@@ -13,7 +13,7 @@ import { AsignatedPipe } from 'src/app/shared/asignated.pipe';
 import {  SiNoPipe } from 'src/app/shared/si-no.pipe';
 import { find, single } from 'rxjs';
 import { TeacherComponentComponent } from '../teacher-component/teacher-component.component';
-import { PdfMakeWrapper, Txt, Table } from 'pdfmake-wrapper';
+import { PdfMakeWrapper, Txt, Table, Columns, Stack } from 'pdfmake-wrapper';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
@@ -25,6 +25,7 @@ import * as FileSaver from 'file-saver';
 })
 export class CourseComponentComponent implements OnInit {
   opcionSeleccionada: number = 0;
+  opcion_periodo: string;
   verSeleccion: number = 0;
   seleccion_curso: number = 0;
   verSeleccion_curso: number = 0;
@@ -41,6 +42,7 @@ export class CourseComponentComponent implements OnInit {
   data_student: dataStudent = {};
   classroom;
   level;
+  teachers;
 
   constructor(
     private _apiService: ApiService,
@@ -58,7 +60,7 @@ export class CourseComponentComponent implements OnInit {
     }
   )
   ngOnInit(): void {
-    this.getShedule()
+    
   }
 
 
@@ -66,11 +68,23 @@ export class CourseComponentComponent implements OnInit {
     this.verSeleccion = this.opcionSeleccionada
     console.log(this.verSeleccion)
     this.getcourses()
+    this.verSeleccion_curso = 0
   }
 
   capturar_curso(){
     this.verSeleccion_curso = this.seleccion_curso
     console.log(this.verSeleccion_curso)
+
+  }
+
+  async capturar_periodo(){
+    console.log(this.opcion_periodo)
+    const resp = await this._apiService.getschedules_from_year(this.opcion_periodo)
+    console.log(resp)
+    this.shedules = resp
+    this.Schedule_data = resp.data
+    this.opcionSeleccionada = 0;
+    this.verSeleccion_curso = 0;
   }
 
   async getShedule(){
@@ -100,6 +114,7 @@ export class CourseComponentComponent implements OnInit {
     this.classroom = filtercourse[0]
     this.level = filtershedule[0]
     this.students = filtercourse[0].Students
+    this.teachers = filtercourse[0].Teachers
 
       if(this.students){
         const Toast = Swal.mixin({
@@ -117,12 +132,12 @@ export class CourseComponentComponent implements OnInit {
       document.getElementById('Text_Schedule').innerHTML =(filtershedule[0].weekDay + ' ' + '( '+ filtershedule[0].startTime +' - '+ filtershedule[0].endTime + ' )')
       document.getElementById('Text_level').innerHTML = filtershedule[0].Level.name
       document.getElementById('Text_course').innerHTML = filtercourse[0].name
-      if(filtercourse[0].Teacher != null){
-      document.getElementById('Text_Teacher').innerHTML = (filtercourse[0].Teacher.lastName + ' ' + filtercourse[0].Teacher.name).toUpperCase() 
-      }
-      else{
-        document.getElementById('Text_Teacher').innerHTML = 'No asignado'
-      }
+      //  if(this.teachers != null){
+      //   document.getElementById('Text_Teacher').innerHTML = (this.teachers.lastName + ' ' + this.teachers.name).toUpperCase() 
+      // }
+      // else{
+      //    document.getElementById('Text_Teacher').innerHTML = 'No asignado'
+      //  }
     })
   }
 
@@ -273,8 +288,48 @@ export class CourseComponentComponent implements OnInit {
 
         pdf.add(initialTxtLine5);
       }
+
+      if(this.teachers.length > 0){
+
+      const teachers_name = this.teachers.map((item) =>{
+        return [
+          item.lastName.toUpperCase(),
+          item.name.toUpperCase(),
+          item.phone
+        ]
+      })
+
+      console.log(teachers_name)
+      
+          const tabla_teachers = new Table([
+            ...teachers_name
+          ])
+          .layout('lightHorizontalLines')
+          .widths(['auto','auto','auto'])
+          .fontSize(10)
+          .end
+      
+      pdf.add(
+        new Columns([
+          new Txt(`Catequista(s):`).fontSize(12).bold().alignment('left').width('17%').end,
+          // new Txt(` `).height(5).end,
+          tabla_teachers,
+        ]).end
+      )
+      const espacio = new Txt(` `).height(10).end;
+      pdf.add(espacio)
+
+    } else {
+      const initialTxtLine7 = new Txt(`Catequistas: No asignados \n\n`)
+      .fontSize(12)
+        .bold()
+        .end;
+
+        pdf.add(initialTxtLine7);
+    }
     
-      // Tabla
+    
+        // Tabla
 
     const content = this.students.map((item, index) => {
       return [

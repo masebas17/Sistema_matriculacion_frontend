@@ -35,15 +35,32 @@
           <!-- <td scope="row" class = "text-center">{{item+1}}</td> -->
           <td class = "text-center" id="num_cedula">{{'PARALELO' + ' ' + course.name}}</td>
           <td *ngIf="course.principalId == null" class="text-center">No Asignados</td>
+          <td *ngIf="course.principalId != null " class="text-center">
+            <div>
+              <th>Principal</th>
+              <p>{{course.Teachers[0].lastName + ' ' + course.Teachers[0].name | uppercase}}</p> 
+            </div>
+            <div>
+              <th>Auxiliar o Auxiliares</th>
+                <ul style="padding: 0; margin: 0;">
+                <!-- Mostrar profesores auxiliares si existen -->
+              <ng-container *ngFor="let teacher of course.Teachers.slice(1)">
+                <li style="list-style: none;">{{ teacher.lastName + ' ' + teacher.name | uppercase }}</li>
+              </ng-container>
+             </ul>
+            </div>
+          </td>
+          <!-- <td *ngIf="course.principalId == null" class="text-center">No Asignados</td>
             <td  *ngIf="course.principalId != null" class="text-center">
-              <ul>
+              <ul style=" padding: 0; margin: 0;">
                <li style="list-style: none;">{{course.Teachers[0].lastName + ' ' + course.Teachers[0].name | uppercase}}</li>
                <li *ngIf="course.Teachers[1]" style="list-style: none;">{{course.Teachers[1].lastName + ' ' + course.Teachers[1].name | uppercase}}</li>
                <li *ngIf="course.Teachers[2]" style="list-style: none;">{{course.Teachers[2].lastName + ' ' + course.Teachers[2].name | uppercase}}</li>
               </ul> 
-            </td>
+            </td> -->
+          
           <td class = "text-center">
-            <button type="button" class="btn btn-primary actions" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="course.id" (click)="edit($event)" > <fa-icon [icon]="faEdit"></fa-icon> Editar Datos</button>    
+              <button type="button" class="btn btn-primary actions" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="course.id" (click)="edit($event)" > <fa-icon [icon]="faEdit"></fa-icon> Editar datos del curso</button>  
           </td>
         </tr>
       </tbody>
@@ -68,6 +85,9 @@
                 <div class="col-sm-4">
                     <input  type="number" class="form-control" formControlName="maxStudents" onKeyDown="if(this.value.length==2) return false;"  value="30"  min="30" max="50" maxlength="2" >
                 </div>
+                <div class="col-sm-6">
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="edit_quota()">Editar Cupo</button>
+                </div>
             </div>
             <br>
             <div class="row">
@@ -81,37 +101,41 @@
             </div>
             <br>
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-9">
                   <label for="">Asignar Catequesita Auxiliar</label>
                   <select class="form-select" aria-label="Default select example" formControlName="Teacher2" id="Teacher-Select" [(ngModel)]="opcion2" (change)="capturar_teacher2()" >
-                       <option selected>Escoja un Catequista</option>
+                      <option selected>Escoja un Catequista</option>
                       <option *ngFor="let teachers of list_teachers"  [ngValue]="teachers.id">{{teachers.lastName + ' ' + teachers.name | uppercase}}</option>
                   </select>
+              </div>
+              <div class="col-sm-3">
+                <br>
+                <button type="button" class="btn btn-primary"  type="button" *ngIf="mostrarBotonPlus" (click)="openselect()" ><fa-icon [icon]="faPlus"></fa-icon> </button>
+                <button type="button" class="btn btn-danger"  type="button" *ngIf="mostrarBotonMinus" (click)="closeselect()" ><fa-icon [icon]="faMinus"></fa-icon> </button>
               </div>
           </div>
           <br>
           <div class="row"  [ngStyle]="{'display':display}">
             <div class="col-sm-12" >
-                <label for="">Asignar Catequesita otro Auxiliar</label>
+                <label for="">Asignar otro Auxiliar</label>
                 <select class="form-select" aria-label="Default select example" formControlName="Teacher3" id="Teacher-Select" [(ngModel)]="opcion3" (change)="capturar_teacher3()" >
-                     <option selected>Escoja un Catequista</option>
+                    <option selected>Escoja un Catequista</option>
                     <option *ngFor="let teachers of list_teachers"  [ngValue]="teachers.id">{{teachers.lastName + ' ' + teachers.name | uppercase}}</option>
                 </select>
             </div>
         </div>
-          <br>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-sm-6">
             <button type="button" class="btn btn-primary"  type="button" (click)="openselect()" > Agregar Catequista </button>
             </div>
             <div class="col-sm-6">
               <button type="button" class="btn btn-danger"  type="button" (click)="closeselect()" > Eliminar Opción </button>
               </div>
-          </div>
+          </div> -->
             <hr>
             <div class="row">
               <div class="col-sm-12">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="edit_course()">Guardar</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="edit_teachers()">Asignar </button>
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal" type="button" (click)="Quitar_Catequista()" ><fa-icon [icon]="faTrash"></fa-icon> Quitar Catequistas</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
               </div>
