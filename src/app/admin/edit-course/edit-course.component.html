@@ -42,22 +42,25 @@
             </div>
             <div>
               <th>Auxiliar o Auxiliares</th>
-                <ul style="padding: 0; margin: 0;">
-                <!-- Mostrar profesores auxiliares si existen -->
+                <!-- <ul style="padding: 0; margin: 0;">
               <ng-container *ngFor="let teacher of course.Teachers.slice(1)">
                 <li style="list-style: none;">{{ teacher.lastName + ' ' + teacher.name | uppercase }}</li>
-              </ng-container>
-             </ul>
+              </ng-container> 
+             </ul>-->
+             <ul style=" padding: 0; margin: 0;">
+              <li *ngIf="course.Teachers[1]" style="list-style: none;">{{course.Teachers[1].lastName + ' ' + course.Teachers[1].name | uppercase}}</li>
+              <li *ngIf="course.Teachers[2]" style="list-style: none;">{{course.Teachers[2].lastName + ' ' + course.Teachers[2].name | uppercase}}</li>
+             </ul> 
             </div>
-          </td>
-          <!-- <td *ngIf="course.principalId == null" class="text-center">No Asignados</td>
+          </td> 
+           <!-- <td *ngIf="course.principalId == null" class="text-center">No Asignados</td>
             <td  *ngIf="course.principalId != null" class="text-center">
               <ul style=" padding: 0; margin: 0;">
                <li style="list-style: none;">{{course.Teachers[0].lastName + ' ' + course.Teachers[0].name | uppercase}}</li>
                <li *ngIf="course.Teachers[1]" style="list-style: none;">{{course.Teachers[1].lastName + ' ' + course.Teachers[1].name | uppercase}}</li>
                <li *ngIf="course.Teachers[2]" style="list-style: none;">{{course.Teachers[2].lastName + ' ' + course.Teachers[2].name | uppercase}}</li>
               </ul> 
-            </td> -->
+            </td>  -->
           
           <td class = "text-center">
               <button type="button" class="btn btn-primary actions" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="course.id" (click)="edit($event)" > <fa-icon [icon]="faEdit"></fa-icon> Editar datos del curso</button>  

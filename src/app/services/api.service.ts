@@ -191,17 +191,26 @@ export class ApiService {
    }
 
     async Assistance(Assistance: assistance){
-     const resp: any = await this.http.post(`${this.apiUrl}/api/assistance`, Assistance).toPromise() 
+      const options = {
+        headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+      };
+     const resp: any = await this.http.post(`${this.apiUrl}/api/assistance`, Assistance, options).toPromise() 
      return resp
    }
 
    async get_Assistance(id: any, date: any){
-    const resp: any = await this.http.get(`${this.apiUrl}/api/assistance/courseId/${id}/date/${date}`).toPromise() 
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.get(`${this.apiUrl}/api/assistance/courseId/${id}/date/${date}`, options).toPromise() 
     return resp
    }
 
    async Update_Assistance(id: any, date: any, update_assistance: update_assistance){
-    const resp: any = await this.http.put(`${this.apiUrl}/api/assistance/courseId/${id}/date/${date}`, update_assistance).toPromise() 
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.put(`${this.apiUrl}/api/assistance/courseId/${id}/date/${date}`, update_assistance, options).toPromise() 
     return resp
    }
 

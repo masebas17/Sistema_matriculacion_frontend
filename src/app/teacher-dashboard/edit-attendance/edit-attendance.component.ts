@@ -264,10 +264,12 @@ export class EditAttendanceComponent implements OnInit {
 
     this.IDStudents = this.selectedStudentIds.map(id => id.id)
 
-    if(resp.data.justification){
+    if(resp.data.justification === null){
       this.justifyStudentsId = resp.data.justification.Students
     
       this.IDStudentsJustify = this.justifyStudentsId.map(id => id.id)
+
+      this.IDStudentsJustify = [];
     }else{
       this.IDStudentsJustify = [];
     }
