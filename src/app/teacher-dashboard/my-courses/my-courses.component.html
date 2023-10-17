@@ -20,8 +20,8 @@
                     <div class="card-body">
                       <h5 class="card-title">{{courses.Schedule.Level.name + ' ' + '-' + ' '+ 'Paralelo' + ' ' + courses.name}}</h5>
                       <p class="card-text">{{courses.Schedule.weekDay + ' ' + '(' + courses.Schedule.startTime + ' ' + '-' + ' '+ courses.Schedule.endTime + ')'}}</p>
-                      <p *ngIf="courses.principalId === name_teacher.id">Catequista Principal</p>
-                      <p *ngIf="courses.principalId != name_teacher.id">Catequista Auxiliar</p>
+                      <p *ngIf="courses.principalId === name_teacher.id">Catequista 1</p>
+                      <p *ngIf="courses.principalId != name_teacher.id">Catequista 2</p>
                       <!-- <p class="card-text">{{'Paralelo' + ' ' + courses.name}}</p>  -->
                       <a class="btn btn-primary" [name]="courses.id" (click)="list_of_course($event)">Listado</a>
                       <a class="btn btn-success" [name]="courses.id" (click)="attendance($event)" *ngIf="courses.principalId === name_teacher.id"><fa-icon [icon]="faListCheck"></fa-icon> Asistencia</a>

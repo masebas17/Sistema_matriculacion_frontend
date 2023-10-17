@@ -1,4 +1,4 @@
-import { NgForOf, UpperCasePipe } from '@angular/common';
+import { NgForOf, UpperCasePipe} from '@angular/common';
 import { ResourceLoader } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import printJS from 'print-js'
 import { faPrint, faMoneyCheckDollar, faDownload} from '@fortawesome/free-solid-svg-icons';
 import { AsignatedPipe } from 'src/app/shared/asignated.pipe';
 import {  SiNoPipe } from 'src/app/shared/si-no.pipe';
+import { BaptizedPipe } from 'src/app/shared/baptized.pipe';
 import { find, single } from 'rxjs';
 import { TeacherComponentComponent } from '../teacher-component/teacher-component.component';
 import { PdfMakeWrapper, Txt, Table, Columns, Stack } from 'pdfmake-wrapper';
@@ -21,18 +22,24 @@ import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-course-component',
   templateUrl: './course-component.component.html',
-  styleUrls: ['./course-component.component.css']
+  styleUrls: ['./course-component.component.css'],
+  providers: [BaptizedPipe, SiNoPipe],
 })
 export class CourseComponentComponent implements OnInit {
   opcionSeleccionada: number = 0;
+  opcionSeleccionada_edit: number = 0;
   opcion_periodo: string;
   verSeleccion: number = 0;
+  verSeleccion_edit: number = 0;
   seleccion_curso: number = 0;
+  seleccion_curso_edit: number = 0;
   verSeleccion_curso: number = 0;
+  verSeleccion_curso_edit: number = 0;
   shedules: any;
   courses: any;
   students: Array<dataStudent>;
   courseId: any;
+  courseId_edit: any;
   Schedule_data: any;
   faprint = faPrint;
   faMoneyCheckDollar =faMoneyCheckDollar;
@@ -43,10 +50,16 @@ export class CourseComponentComponent implements OnInit {
   classroom;
   level;
   teachers;
+  data1: any;
+  
+
+  
 
   constructor(
     private _apiService: ApiService,
-    private router: Router
+    private router: Router, 
+    private baptized: BaptizedPipe,
+    private SiNo: SiNoPipe,
   ) { 
     this.shedules = {};
     this.courses = [];
@@ -59,6 +72,7 @@ export class CourseComponentComponent implements OnInit {
       pay: new FormControl('', Validators.required)
     }
   )
+
   ngOnInit(): void {
     
   }
@@ -74,6 +88,19 @@ export class CourseComponentComponent implements OnInit {
   capturar_curso(){
     this.verSeleccion_curso = this.seleccion_curso
     console.log(this.verSeleccion_curso)
+
+  }
+
+  capturar_edit(){
+    this.verSeleccion_edit = this.opcionSeleccionada_edit
+    console.log(this.verSeleccion_edit)
+    this.getcourses_edit()
+    this.verSeleccion_curso = 0
+  }
+
+  capturar_curso_edit(){
+    this.verSeleccion_curso_edit = this.seleccion_curso_edit
+    console.log(this.verSeleccion_curso_edit)
 
   }
 
@@ -94,12 +121,44 @@ export class CourseComponentComponent implements OnInit {
     this.Schedule_data = resp.data
   }
 
+  async getShedule_edit(event: any){
+    const resp = await this._apiService.getschedules_from_admin()
+    console.log(resp)
+    this.shedules = resp
+    this.Schedule_data = resp.data
+    this.opcionSeleccionada_edit = 0
+    this.verSeleccion_curso_edit = 0
+
+    console.log(event.target.name)
+    this.studentId =  parseInt(event.target.name)
+
+    const findStudents = this.students.find(
+      (Student) => Student.id  === this.studentId
+    );
+
+    console.log(findStudents)
+    this.data_student = findStudents
+  }
+
+
   async getcourses(){
     const resp = await this._apiService.getCoursesbyid(this.verSeleccion)
     this.courses = resp.data
     this.data_courses = resp
     console.log(this.data_courses)
     this.seleccion_curso = 0;
+  }
+
+  async getcourses_edit(){
+    const resp = await this._apiService.getCoursesbyid(this.verSeleccion_edit)
+    this.courses = resp.data
+    console.log('Cursos',this.courses)
+    this.seleccion_curso_edit = 0;
+  }
+
+  reset_courses(){
+    this.opcionSeleccionada_edit = 0;
+    this.seleccion_curso_edit = 0;
   }
 
   listado(){
@@ -135,7 +194,7 @@ export class CourseComponentComponent implements OnInit {
       //  if(this.teachers != null){
       //   document.getElementById('Text_Teacher').innerHTML = (this.teachers.lastName + ' ' + this.teachers.name).toUpperCase() 
       // }
-      // else{
+      // else{  
       //    document.getElementById('Text_Teacher').innerHTML = 'No asignado'
       //  }
     })
@@ -221,6 +280,34 @@ export class CourseComponentComponent implements OnInit {
 
   reset_form(){
     this.Formpay.reset()
+  }
+
+  async edit_course(){
+    this.courseId_edit = this.verSeleccion_curso_edit
+    if(this.data_student && this.courseId_edit != 0){
+      this.data_student.courseId= this.verSeleccion_curso_edit
+      console.log(this.data_student.courseId)
+      const resp = await this._apiService.edit_student(this.studentId, this.data_student)
+      console.log(resp)
+      if(resp){
+        await Swal.fire({
+          icon: 'success',
+          title: 'Se realizaron el cambio de curso con éxito',
+          confirmButtonColor: '#1D71B8'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            window.location.reload()
+          }
+      })
+    }
+    }else{
+      Swal.fire({
+        icon: 'error',
+        text: 'No esta escogiendo curso',
+        confirmButtonColor: '#1D71B8'
+      })
+    }
+
   }
 
   createListado(){
@@ -338,14 +425,16 @@ export class CourseComponentComponent implements OnInit {
         item.lastName.toUpperCase(),
         item.name.toUpperCase(),
         item.age,
-        item.payment,
-        '  '
+        item.phone1,
+        this.baptized.transform(item.baptized),
+        this.SiNo.transform(item.disability),
+        item.payment
       ];
     });
 
     pdf.add(
       new Table([
-        ['N°', 'Cédula', 'Apellidos', 'Nombres', 'Edad', 'Recibo', 'Observaciones'],
+        ['N°', 'Cédula', 'Apellidos', 'Nombres', 'Edad','Contacto','Bautizado','PCD','Recibo'],
         ...content
       ])
       .layout({
@@ -359,10 +448,17 @@ export class CourseComponentComponent implements OnInit {
         }
       },
       )
-      .widths([15, 'auto', 'auto','auto','auto','auto', 100])
-      .fontSize(9)
+      .widths([15, 'auto', 'auto','auto','auto','auto', 'auto', 'auto', 'auto'])
+      .fontSize(8)
       .end
     );
+
+    const initialTxtLine8 = new Txt(`\n\n PCD: Persona con discapacidad`)
+        .fontSize(7)
+        .bold()
+        .end;
+
+      pdf.add(initialTxtLine8);
 
     const pdfName = `Listado_${this.level.Level.name}_${this.classroom.name}.pdf`;
     pdf.create().print();
@@ -380,12 +476,13 @@ export class CourseComponentComponent implements OnInit {
     if(this.students){
         const nombreArchivo = (this.level.Level.name  + ' ' + 'Paralelo' + ' ' + this.classroom.name + '_' + "listado" + ".xlsx");
         const tabla = document.getElementById('lista_del_curso').cloneNode(true) as HTMLElement;
-        tabla.querySelectorAll('tr').forEach(row => {
-        const lastCell = row.lastElementChild;
-        if (lastCell) {
-          lastCell.remove(); // Elimina la última celda de cada fila
-         }
-       });
+         tabla.querySelectorAll('tr').forEach(row => {
+         const lastCell = row.lastElementChild;
+         if (lastCell) {
+           lastCell.remove(); // Elimina la última celda de cada fila
+          }
+        });
+
         const hojaDeCalculo = XLSX.utils.table_to_sheet(tabla);
         const libroDeTrabajo = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(libroDeTrabajo, hojaDeCalculo, this.level.Level.name + ' Paralelo ' + this.classroom.name);
@@ -401,4 +498,55 @@ export class CourseComponentComponent implements OnInit {
         }
     }
 
+    Export_to_excel(){
+      if (this.students) {
+        const nombreArchivo = `${this.level.Level.name} Paralelo ${this.classroom.name} listado.xlsx`;
+
+        // Obtén la respuesta de la API (supongamos que está en this.apiResponse)
+        const apiResponse = this.students;
+
+        
+          if(this.teachers.length > 0){
+            this.data1 = [
+              this.level.Level.name, 
+              this.level.weekDay + ' ' + '( '+ this.level.startTime +' - '+ this.level.endTime + ' )', 
+              this.classroom.name,
+              this.teachers[0].lastName.toUpperCase() + ' ' + this.teachers[0].name.toUpperCase(),
+              this.teachers[1].lastName.toUpperCase() + ' ' + this.teachers[1].name.toUpperCase()]
+          } else {
+            this.data1 = [];
+          }
+        // Convierte los datos de la respuesta de la API a un formato adecuado para xlsx
+        const data = apiResponse.map(item => [
+            item.identityNumber,  
+            item.name.toUpperCase(),
+            item.lastName.toUpperCase(),
+            item.age,
+            item.phone1,
+            this.baptized.transform(item.baptized),
+            this.SiNo.transform(item.disability),
+            item.payment
+        ]);
+
+        const headers = ['Nivel', 'Horario', 'Paralelo', 'Catequista(s)'];
+        
+        const headers2 = ['Cédula', 'Nombres', 'Apellidos', 'Edad', 'Telefono', 'Bautizado', 'Discapacidad','Recibo']
+
+        const DatosEncabezados = [headers,this.data1, headers2, ...data]
+        // Crea una hoja de cálculo a partir de los datos
+        const hojaDeCalculo = XLSX.utils.aoa_to_sheet(DatosEncabezados);
+
+        const libroDeTrabajo = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(libroDeTrabajo, hojaDeCalculo, this.level.Level.name + ' Paralelo ' + this.classroom.name);
+
+        // Guarda el archivo Excel
+        XLSX.writeFile(libroDeTrabajo, nombreArchivo);
+    } else {
+        Swal.fire({
+            icon: 'error',
+            text: 'Debe generar primero la lista',
+            confirmButtonColor: '#1D71B8'
+        });
+    }
+  }
 }

@@ -43,7 +43,7 @@
                             <select class="form-select" aria-label="Default select example" name="course" [(ngModel)]="seleccion_curso" (change)="capturar_curso()">
                                 <ng-container *ngFor="let course_selection of course">
                                     <option  *ngIf="course_selection.count < course_selection.maxStudents"  [ngValue]="course_selection.id">{{"Paralelo" + ' ' + course_selection.name}}</option>
-                                    </ng-container>
+                                </ng-container>
                             </select>
                         </td>
                     </tr>

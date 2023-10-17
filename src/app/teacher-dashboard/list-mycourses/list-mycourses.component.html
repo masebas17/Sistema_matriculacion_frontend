@@ -7,10 +7,13 @@
     </div>
     <div class="contenedor">
       <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-12">
             <div class="botones">
-              <a href="/teacher/mycourses" class="btn btn-secondary"><fa-icon [icon]="faArrowAltCircleLeft"></fa-icon> Regresar</a>
-              <button class="btn btn-primary" (click)="print()"><fa-icon [icon]="faPrint"></fa-icon> Imprimir Lista</button> 
+              <a href="/teacher/mycourses" class="btn btn-light"><fa-icon [icon]="faArrowAltCircleLeft"></fa-icon> Regresar</a>
+              <button class="btn btn-primary" (click)="createListado()"><fa-icon [icon]="faPrint"></fa-icon> Imprimir Lista</button> 
+              <button class="btn btn-danger" (click)="Generar_PDF()" ><fa-icon [icon]="faFilePdf"></fa-icon> Descargar en PDF</button> 
+              <button class="btn btn-secondary" (click)="Generar_Listado_casilleros()" ><fa-icon [icon]="faFileExport"></fa-icon> Lista para registro</button>
+              <button class="btn btn-success" (click)="Export_to_excel()"><fa-icon [icon]="faFileExcel"></fa-icon> Exportar a excel</button>
             </div>
           </div>
       </div>
@@ -28,7 +31,7 @@
                   <th>Edad</th>
                   <th>Contacto</th>
                   <th>Discapacidad</th>
-                  <th>Status</th>
+                  <th>Status- Matrícula</th>
                   <!-- <th id="status">Status</th> -->
                 </tr>
               </thead>

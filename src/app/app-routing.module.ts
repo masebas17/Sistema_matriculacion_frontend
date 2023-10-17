@@ -43,6 +43,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-admin.component';
 import { ReportsComponent } from './admin/reports/reports.component';
 import { EditAttendanceComponent } from './teacher-dashboard/edit-attendance/edit-attendance.component';
+import { TeacherManagementComponent } from './admin/teacher-management/teacher-management.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -69,7 +70,8 @@ const routes: Routes = [
       {path: 'pay', component:PayComponent},
       {path: 'edit-course', component: EditCourseComponent},
       {path: 'enrollment_admin', component: EnrollmentAdminComponent},
-      {path: 'reports', component: ReportsComponent}
+      {path: 'reports', component: ReportsComponent},
+      {path: 'teacher-management', component: TeacherManagementComponent}
     ]
   },
     { path: 'supervisor', canActivate: [SupervisorGuard], component: SupervisorComponent,
