@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  type: string = "password";
+  isText: boolean = false;
+  eyeIcon = faEyeSlash;
 
   constructor(private _formbuilder: FormBuilder,
     private _authService: AuthService,
@@ -59,6 +65,30 @@ export class LoginComponent implements OnInit {
   
   
  ngOnInit(): void {
+  }
+
+  // hideshowPass(){
+  //   this.isText = !this.isText;
+  //   if(this.isText){
+  //     this.type = "text";
+  //     this.eyeIcon = faEye;
+  //   }else{
+  //     this.type = "password";
+  //     this.eyeIcon = faEyeSlash;
+  //   }
+  // }
+
+  hideshowPass() {
+    this.isText = true; // Cambiar a texto visible temporalmente
+    this.type = "text";
+    this.eyeIcon = faEye;
+  
+    // Después de un cierto tiempo (por ejemplo, 1 segundos), vuelve a ocultar la contraseña
+    setTimeout(() => {
+      this.isText = false;
+      this.type = "password";
+      this.eyeIcon = faEyeSlash;
+    }, 1000); // 1000 milisegundos (1 segundos)
   }
 
 }

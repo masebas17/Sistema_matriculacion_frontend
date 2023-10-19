@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
+import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-teacher-login',
@@ -10,6 +11,12 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./teacher-login.component.css']
 })
 export class TeacherLoginComponent implements OnInit {
+
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  type: string = "password";
+  isText: boolean = false;
+  eyeIcon = faEyeSlash;
 
   constructor(
     private authservice: AuthService,
@@ -73,6 +80,19 @@ reset_pwd(event: any){
   console.log(event.target.name)
   localStorage.setItem("type", event.target.name)
   this.router.navigate(['/recover-data', event.target.name])
+}
+
+hideshowPass() {
+  this.isText = true; // Cambiar a texto visible temporalmente
+  this.type = "text";
+  this.eyeIcon = faEye;
+
+  // Después de un cierto tiempo (por ejemplo, 1 segundos), vuelve a ocultar la contraseña
+  setTimeout(() => {
+    this.isText = false;
+    this.type = "password";
+    this.eyeIcon = faEyeSlash;
+  }, 1000); // 1000 milisegundos (1 segundos)
 }
 
 }

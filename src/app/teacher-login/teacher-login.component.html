@@ -35,11 +35,11 @@
   
             <!-- Email input -->
             <div class="form-outline mb-4">
-            <label class="form-label" for="form3Example3">Usuario:</label>
+            <!-- <label class="form-label" for="form3Example3">Usuario:</label> -->
               <input type="email" id="form3Example3" class="form-control form-control-lg"
               formControlName="user" placeholder="Ingrese el Usuario" />
             </div>
-            <div class="d-flex justify-content-flex-end align-items-center">
+            <div class="d-flex justify-content-flex-end align-items-center mb-3">
               <!-- Checkbox -->
               <!-- <div class="form-check mb-0">
                 <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
@@ -52,9 +52,15 @@
   
             <!-- Password input -->
             <div class="form-outline mb-3">
-            <label class="form-label" for="form3Example4">Contraseña</label>
-              <input type="password" id="form3Example4" class="form-control form-control-lg"
-              formControlName="pwd"  placeholder="Ingrese la Contraseña" />
+            <!-- <label class="form-label" for="form3Example4">Contraseña</label> -->
+              <!-- <input type="password" id="form3Example4" class="form-control form-control-lg"
+              formControlName="pwd"  placeholder="Ingrese la Contraseña" /> -->
+              <div class="input-group">
+                <input [type]="type" id="form3Example4" formControlName="pwd" class="form-control form-control-lg" placeholder="Ingrese la Contraseña" />
+                <div class="input-group-append input-group-text d-flex align-items-center">
+                    <span (click)="hideshowPass()"><fa-icon [icon]="eyeIcon"></fa-icon></span>
+                </div>
+            </div>
             </div>
   
             <div class="d-flex justify-content-flex-end align-items-center">
@@ -70,7 +76,7 @@
   
             <div class="text-center text-lg-start mt-4 pt-2">
               <button type="button" class="btn btn-primary btn-lg"
-                style="padding-left: 2.5rem; padding-right: 2.5rem;" (click)="iniciar_sesion_teacher()" [disabled]="user_teacher_Form.invalid">Iniciar Sesión</button>
+                style="padding-left: 2.5rem; padding-right: 2.5rem;" (click)="iniciar_sesion_teacher()" [disabled]="user_teacher_Form.invalid">Acceder</button>
                 <button  [routerLink]="['/home']" type="button" class="btn btn-secondary btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem; margin-left: 5%;">Salir</button>
               <!-- <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
