@@ -23,7 +23,7 @@
                   [(ngModel)]="model"
                   ngbDatepicker
                   [markDisabled]="isWeekend"
-                  [minDate]="{year: 2023, month: 10, day: 07}"
+                  [minDate]="{year: 2023, month: 10, day: 21}"
                   [maxDate]="{year: 2024, month: 05, day: 26}"
                   [readonly]="true"
                   #d="ngbDatepicker"
@@ -132,7 +132,7 @@
         <div class="col-sm-6">
             <div class="botones">
                 <button class="btn btn-success" (click)="guardarAsistencia()"><fa-icon [icon]="faSave"></fa-icon> Grabar Asistencia</button> 
-                <button class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon> Eliminar Acciones</button>
+                <button class="btn btn-danger" (click)="eliminar()"><fa-icon [icon]="faTrash"></fa-icon> Eliminar Acciones</button>
             </div>
         </div>
     </div>
@@ -161,7 +161,7 @@
                 [(ngModel)]="model1"
                 ngbDatepicker
                 [markDisabled]="isWeek"
-                [minDate]="{year: 2023, month: 09, day: 07}"
+                [minDate]="{year: 2023, month: 10, day: 21}"
                 [maxDate]="{year: 2024, month: 05, day: 26}"
                 [readonly]="true"
                 #dos="ngbDatepicker"

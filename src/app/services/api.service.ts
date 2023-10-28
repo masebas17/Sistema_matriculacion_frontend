@@ -73,7 +73,7 @@ export class ApiService {
       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
   };
     const response: any = await this.http
-      .get(`${this.apiUrl}/api/schedules/2023`, options)
+      .get(`${this.apiUrl}/api/schedules/all`, options)
       .toPromise();
     //Guarda el token en el local storage al iniciar sesion correctamente
     return response;

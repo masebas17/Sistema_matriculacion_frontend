@@ -7,6 +7,7 @@ import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { List } from 'pdfmake-wrapper/lib/definitions/list/list';
+import { JustifyType } from 'src/app/shared/interfaces';
 
 interface Person {
   id: number;
@@ -50,12 +51,18 @@ export class EditAttendanceComponent implements OnInit {
   mostrarBotondeseleccion: boolean = false;
  
   List: number[] = [];
-  ListJustification: number[] = [];
+  ListJustification: any[] = [];
   selectedStudentIds: any;
   IDStudents: number[] = [];
   edit_date: any;
   justifyStudentsId: any;
-  IDStudentsJustify: number[] = [];
+  IDStudentsJustify: any[] = [];
+
+  Justify: JustifyType;
+  observation: string = '';
+  textareaEnabled: { [key: number]: boolean } = {};
+
+  JustifyStudents: any[] = [];
   
 
   constructor( private ApiService: ApiService,
@@ -192,21 +199,98 @@ export class EditAttendanceComponent implements OnInit {
     return this.List.includes(studentId);
   }
 
-  toggleJustification(studentId: number) {
-    if (this.isSelectedJustification(studentId)) {
-      // Si el estudiante ya estaba seleccionado, lo eliminamos del arreglo
-      this.ListJustification = this.ListJustification.filter(id => id !== studentId);
+  // toggleJustification(studentId: number) {
+  //   if (this.isSelectedJustification(studentId)) {
+  //     // Si el estudiante ya estaba seleccionado, lo eliminamos del arreglo
+  //     this.textareaEnabled[studentId] = false;
+  //     this.ListJustification = this.ListJustification.filter(id => id !== studentId);
+      
+  //   } else {
+  //     // Si el estudiante no estaba seleccionado, lo agregamos al arreglo
+  //     // this.ListJustification.push(studentId);
+  //     this.ListJustification.push({id: studentId, observation: this.observation});
+  //     this.textareaEnabled[studentId] = true;
+  //     this.toastr.warning('Se ha Justificado a un estudiante');
+  //   }
+
+  //   const student = this.IDStudentsJustify.find(student => student.id === studentId);
+  //   if (student) {
+  //     student.observation = this.observation;
+  //     this.textareaEnabled[student.id] = true;
+  //   }
+    
+
+  //   console.log('Estudiante Justificado:', this.ListJustification)
+  // }
+
+  async toggleJustification(studentId: number) {
+
+    const student = this.ListJustification.find(item => item.id === studentId);
+  
+    if (student) {
+      const studentIndex = this.ListJustification.indexOf(student);
+      if (studentIndex !== -1) {
+        // Si el estudiante ya estaba justificado, lo eliminamos del arreglo
+        this.ListJustification.splice(studentIndex, 1);
+        this.textareaEnabled[studentId] = false;
+        this.toastr.warning('Se ha quitado a un estudiante');
+      }
     } else {
-      // Si el estudiante no estaba seleccionado, lo agregamos al arreglo
-      this.ListJustification.push(studentId);
-      this.toastr.warning('Se ha Justificado a un estudiante');
+      // Si el estudiante no estaba justificado, lo agregamos al arreglo
+      // this.ListJustification.push({ id: studentId, observation: this.observation });
+      this.textareaEnabled[studentId] = true;
+      this.toastr.warning('Se ha iniciado un proceso de justificación');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Justificación',
+        text: 'Tiene que ingresar una observación para justificar al estudiante'
+      });
     }
-    console.log('Estudiante Justificado:', this.ListJustification)
+  
+    const studentJustify = this.IDStudentsJustify.find(student => student.id === studentId);
+    if (studentJustify) {
+      studentJustify.observation = this.observation;
+      this.textareaEnabled[studentJustify.id] = true;
+    }
+    console.log('Estudiantes Justificados:', this.ListJustification)
+  
   }
+  
 
   isSelectedJustification(studentId: number): boolean {
     // Verificamos si un estudiante está en el arreglo de estudiantes seleccionados
     return this.ListJustification.includes(studentId);
+  }
+
+  onTextareaInput(event: any) {
+    // Función para rastrear cambios en el textarea
+    this.observation = event.target.value;
+  }
+
+  Justification(studentId: number, observation: string){
+    if(!observation || observation.trim() === '')
+    {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Justificación',
+        text: 'No esta lleno el campo de Observación'
+      });
+     
+    } else {
+      this.Justify = { 
+        id: studentId,
+        observation: observation
+       }
+  
+      this.ListJustification.push(this.Justify)
+
+      Swal.fire({
+        icon: 'success',
+        text: 'Se guardó la observación del alumno, puede proceder a guardar los cambios totales',
+      });
+  
+      console.log('Estudiantes Justificados:', this.ListJustification)
+    }   
   }
 
 
@@ -222,12 +306,13 @@ export class EditAttendanceComponent implements OnInit {
 
 
  async EditarAsistencia() {
-    
+  const isListValid = this.ListJustification.every(student => student.observation.trim() != '');
+  
     const data = {
       students: this.List,
       justifiedStudents: this.ListJustification
     }
-
+    
     console.log('array de envio:', data)
 
     const resp = await this.ApiService.Update_Assistance(this.courseId, this.edit_date, data)
@@ -252,7 +337,13 @@ export class EditAttendanceComponent implements OnInit {
       }, 1000);
       myTimeout;
     }
-
+   
+  // }else{
+  //   Swal.fire({
+  //     icon: 'error',
+  //     text: 'No se esta registrando adecuadamente la justificación del catequizando',
+  //   }); 
+  // }
   }
 
  async consultar_asistencia(){
@@ -267,9 +358,14 @@ export class EditAttendanceComponent implements OnInit {
     }
     
     if(resp.data.justification != null){
-      this.justifyStudentsId = resp.data.justification.Students
-      this.IDStudentsJustify = this.justifyStudentsId.map(id => id.id)
+      this.justifyStudentsId = resp.data.justification.StudentJustifications
+      this.IDStudentsJustify = this.justifyStudentsId.map(student => 
+        ({
+          id: student.studentId,
+          observation: student.observation
+        }))
       this.ListJustification = this.IDStudentsJustify
+      
     }
       
     console.log(this.ListJustification)
@@ -281,6 +377,55 @@ export class EditAttendanceComponent implements OnInit {
     return studentsJustify.includes(id);
   }
 
+  // checkboxjustification(id: number): boolean {
+  //   const studentsJustify = this.IDStudentsJustify ?? [];
+  //   return studentsJustify.includes(id);
+  //  }
+
+  
+   checkboxjustification(id: number): { isJustified: boolean, observation: string } {
+    const studentJustification = this.IDStudentsJustify.find(student => student.id === id);
+  
+    if (studentJustification) {
+      return {
+        isJustified: true,
+        observation: studentJustification.observation,
+      };
+    } else {
+      return {
+        isJustified: false,
+        observation: '',
+      };
+    }
+  }
+
+
+   updateObservation2(studentId: number, event: any) {
+     this.observation = event.target.value;
+     console.log('observación:', this.observation)
+     this.Justify = { 
+       id: studentId,
+       observation: this.observation
+      }
+    //  console.log('array justificación:', this.Justify)
+    const student = this.IDStudentsJustify.find(student => student.id === studentId);
+     if (student) {
+        student.observation = this.observation;
+      }
+   }
+  
+   updateObservation3(studentId: number, event: any) {
+    if (event.target) {
+      this.observation = event.target.value;
+      const student = this.IDStudentsJustify.find(student => student.id === studentId);
+  
+      if (student) {
+        student.observation = this.observation;
+      }
+    }
+  }
+
+
   // checkboxDeberiaEstarMarcado(id: number): boolean {
   //   if (this.IDStudents != null) {
   //     return this.IDStudents.includes(id);
@@ -289,10 +434,7 @@ export class EditAttendanceComponent implements OnInit {
   //   }
   // }
 
-   checkboxjustification(id: number): boolean {
-    const studentsJustify = this.IDStudentsJustify ?? [];
-    return studentsJustify.includes(id);
-   }
+  
 
   // checkboxjustification(id: number): boolean {
   //   if (this.IDStudentsJustify != null && Array.isArray(this.IDStudentsJustify)) {
@@ -363,6 +505,11 @@ export class EditAttendanceComponent implements OnInit {
     this.router.navigate(['/teacher/attendance/', event.target.name])
   }
 
+  getPlaceholder(isCheckboxChecked: boolean): string {
+    return isCheckboxChecked ? "Ingresar observación" : "Ninguna observación";
+  }
+
+ 
 
 }
 

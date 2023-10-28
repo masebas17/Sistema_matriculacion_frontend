@@ -344,4 +344,29 @@ export class AttendanceComponent implements OnInit {
     }
   }
 
+  eliminar(){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: '¿Estás Seguro?',
+      text: "Se va a reiniciar la toma de asistencia",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, reiniciar!',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+          window.location.reload();
+      } 
+    })
+    
+  }
+
 }

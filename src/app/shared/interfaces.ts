@@ -119,6 +119,16 @@ export interface assistance {
 
 export interface update_assistance {
     students: number[],
-    justifiedStudents: number[]
+    justifiedStudents: justifiedStudents[],
+}
+
+export interface justifiedStudents {
+    id: number,
+    observation: string
+}
+
+export interface JustifyType{
+    id: number,
+    observation: string
 }
 
