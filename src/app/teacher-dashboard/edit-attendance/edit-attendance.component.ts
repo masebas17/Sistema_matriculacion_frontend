@@ -63,6 +63,7 @@ export class EditAttendanceComponent implements OnInit {
   textareaEnabled: { [key: number]: boolean } = {};
 
   JustifyStudents: any[] = [];
+  idsjustify: number[] = [];
   
 
   constructor( private ApiService: ApiService,
@@ -183,6 +184,7 @@ export class EditAttendanceComponent implements OnInit {
   }
 
   toggleAsistencia(studentId: number) {
+  
     if (this.isSelected(studentId)) {
       // Si el estudiante ya estaba seleccionado, lo eliminamos del arreglo
       this.List = this.List.filter(id => id !== studentId);
@@ -225,6 +227,16 @@ export class EditAttendanceComponent implements OnInit {
 
   async toggleJustification(studentId: number) {
 
+    const isStudentIdInIdsJustify = this.idsjustify.includes(studentId);
+
+    if (isStudentIdInIdsJustify) {
+      // Si el estudiante ya estaba seleccionado, lo eliminamos del arreglo
+      this.idsjustify = this.idsjustify.filter(id => id !== studentId);
+    } else {
+      // Si el estudiante no estaba seleccionado, lo agregamos al arreglo
+      this.idsjustify .push(studentId);
+    }
+
     const student = this.ListJustification.find(item => item.id === studentId);
   
     if (student) {
@@ -236,7 +248,8 @@ export class EditAttendanceComponent implements OnInit {
       // if (studentIndex !== -1) {
       // }
       this.Justify = {}
-
+      this.students.find(student => student.id === studentId).observation = '';
+      this.idsjustify = this.idsjustify.filter(id => id !== studentId);
     } else {
       // Si el estudiante no estaba justificado, lo agregamos al arreglo
       // this.ListJustification.push({ id: studentId, observation: this.observation });
@@ -247,9 +260,10 @@ export class EditAttendanceComponent implements OnInit {
         title: 'Justificación',
         text: 'Tiene que ingresar una observación para justificar al estudiante'
       });
+
     }
-  
-    
+    console.log('ids pre Justificados:', this.idsjustify)
+    console.log('Estudiantes con asistencia', this.List)
     console.log('Estudiantes Justificados:', this.ListJustification)
   
   }
@@ -305,14 +319,37 @@ export class EditAttendanceComponent implements OnInit {
 
  async EditarAsistencia() {
 
- console.log('justificación antes de ingreso:', this.ListJustification)
- console.log('estudiantes antes de ingreso:', this.List)
+ const estudiantesConCheckboxMarcadoSinObservacion = this.idsjustify.filter(studentId => {
+  return !this.ListJustification.some(item => item.id === studentId);
+});
 
- const isValid = this.ListJustification.some(student => student.id && student.observation && student.observation.trim() !== '');
+console.log('estudiantes con checkbox marcado sin observación:', estudiantesConCheckboxMarcadoSinObservacion);
 
- console.log('validación:', isValid)
+ const ListRepetidos = this.List.filter(studentId => this.ListJustification.some(item => item.id === studentId));
 
-  // if(isValid){
+ console.log('estudiantes con ambos checks marcados:', ListRepetidos);
+
+  if (ListRepetidos.length > 0) {
+    
+    Swal.fire({
+      icon: 'error',
+      text: 'No se puede registrar a un catequizando con asistencia y justificación al mismo tiempo',
+    })
+    // .then((result) => {
+    //     if (result.isConfirmed) {
+    //       window.location.reload();
+    //       }
+    //    })
+  } else if (estudiantesConCheckboxMarcadoSinObservacion.length > 0) {
+    Swal.fire({
+      icon: 'error',
+      text: 'No esta registrando correctamente una justificación',
+    })
+  }else {
+    // alert('Se puede registrar');
+    console.log('estudiantes antes de ingreso:', this.List)
+    console.log('justificación antes de ingreso:', this.ListJustification)
+
     const data = {
       students: this.List,
       justifiedStudents: this.ListJustification
@@ -343,12 +380,7 @@ export class EditAttendanceComponent implements OnInit {
       myTimeout;
     }
     
-  // }else{
-  //   Swal.fire({
-  //     icon: 'error',
-  //     text: 'No se esta registrando adecuadamente la justificación del catequizando',
-  //   }); 
-  // }
+  }
   }
 
  async consultar_asistencia(){
@@ -394,7 +426,7 @@ export class EditAttendanceComponent implements OnInit {
     if (studentJustification) {
       return {
         isJustified: true,
-        observation: studentJustification.observation,
+        observation: studentJustification.observation
       };
     } else {
       return {

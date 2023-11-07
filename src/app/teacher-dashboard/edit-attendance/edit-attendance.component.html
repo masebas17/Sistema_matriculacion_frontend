@@ -67,12 +67,12 @@
                         </td>
                          <td class="text-center">
                           <label>
-                            <input type="checkbox" class="form-check-input" value="justify" [checked]="checkboxjustification(student.id).isJustified" (change)="toggleJustification(student.id)">
+                            <input type="checkbox" class="form-check-input" value="justify"  [checked]="checkboxjustification(student.id).isJustified" (change)="toggleJustification(student.id)">
                             Justificación
                           </label>
                         </td>    
                         <td class="text-center">
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" [disabled]="!textareaEnabled[student.id]" placeholder="Ingresar una observación si hay justificación" [maxLength]="300" [(ngModel)]="student.observation">{{ checkboxjustification(student.id).observation }}</textarea>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" [disabled]="!textareaEnabled[student.id]" [placeholder]="checkboxjustification(student.id).observation || 'No hay observaciones'" [maxLength]="300" [(ngModel)]="student.observation"></textarea>
                         </td>  
                         <td>
                           <button class="form-control btn btn-success" [disabled]="!textareaEnabled[student.id]" (click)="Justification(student.id, student.observation)">Guardar observación</button>
