@@ -58,7 +58,7 @@ export class EditAttendanceComponent implements OnInit {
   justifyStudentsId: any;
   IDStudentsJustify: any[] = [];
 
-  Justify: JustifyType;
+  Justify: {};
   observation: string = '';
   textareaEnabled: { [key: number]: boolean } = {};
 
@@ -229,17 +229,19 @@ export class EditAttendanceComponent implements OnInit {
   
     if (student) {
       const studentIndex = this.ListJustification.indexOf(student);
-      if (studentIndex !== -1) {
-        // Si el estudiante ya estaba justificado, lo eliminamos del arreglo
-        this.ListJustification.splice(studentIndex, 1);
-        this.textareaEnabled[studentId] = false;
-        this.toastr.warning('Se ha quitado a un estudiante');
-      }
+      // Si el estudiante ya estaba justificado, lo eliminamos del arreglo
+      this.ListJustification.splice(studentIndex, 1);
+      this.textareaEnabled[studentId] = false;
+      this.toastr.warning('Se ha quitado a un estudiante');
+      // if (studentIndex !== -1) {
+      // }
+      this.Justify = {}
+
     } else {
       // Si el estudiante no estaba justificado, lo agregamos al arreglo
       // this.ListJustification.push({ id: studentId, observation: this.observation });
       this.textareaEnabled[studentId] = true;
-      this.toastr.warning('Se ha iniciado un proceso de justificación');
+      this.toastr.info('Se ha iniciado un proceso de justificación');
       Swal.fire({
         icon: 'warning',
         title: 'Justificación',
@@ -247,11 +249,7 @@ export class EditAttendanceComponent implements OnInit {
       });
     }
   
-    const studentJustify = this.IDStudentsJustify.find(student => student.id === studentId);
-    if (studentJustify) {
-      studentJustify.observation = this.observation;
-      this.textareaEnabled[studentJustify.id] = true;
-    }
+    
     console.log('Estudiantes Justificados:', this.ListJustification)
   
   }
@@ -306,8 +304,15 @@ export class EditAttendanceComponent implements OnInit {
 
 
  async EditarAsistencia() {
-  const isListValid = this.ListJustification.every(student => student.observation.trim() != '');
-  
+
+ console.log('justificación antes de ingreso:', this.ListJustification)
+ console.log('estudiantes antes de ingreso:', this.List)
+
+ const isValid = this.ListJustification.some(student => student.id && student.observation && student.observation.trim() !== '');
+
+ console.log('validación:', isValid)
+
+  // if(isValid){
     const data = {
       students: this.List,
       justifiedStudents: this.ListJustification
@@ -337,7 +342,7 @@ export class EditAttendanceComponent implements OnInit {
       }, 1000);
       myTimeout;
     }
-   
+    
   // }else{
   //   Swal.fire({
   //     icon: 'error',
@@ -444,7 +449,35 @@ export class EditAttendanceComponent implements OnInit {
   //   }
   // }
   
-  
+  async eliminar_asistencia(){
+
+    Swal.fire({
+      title: 'Eliminar Registro',
+      text: "¿Está seguro que desea eliminar el registro de asistencia? ",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#28a745',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        
+        const resp = await this.ApiService.delete_assistance(this.courseId, this.edit_date)
+        if (resp) {
+        await Swal.fire({
+          title: 'Eliminado',
+          text:'Se ha eliminado un registro de asistencia del día:' + ' ' + this.edit_date + ' ' + this.name_level + '-' + this.name_course,
+          icon:'success',
+          timer: 3000,
+          showConfirmButton: false,
+          }
+        )
+        this.router.navigate(['/teacher/mycourses'])
+      }}
+    })
+    
+  }
 
 
 

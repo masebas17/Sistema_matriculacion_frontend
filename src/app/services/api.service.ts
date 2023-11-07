@@ -214,6 +214,22 @@ export class ApiService {
     return resp
    }
 
+   async delete_assistance(id: any, date: any){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.delete(`${this.apiUrl}/api/assistance/courseId/${id}/date/${date}`, options).toPromise() 
+    return resp
+  }
+
+  async get_report_Assistance(id: any){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.get(`${this.apiUrl}/api/reports/assistance/courseId/${id}`, options).toPromise() 
+    return resp
+   }
+
    
 
 

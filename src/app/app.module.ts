@@ -56,7 +56,8 @@ import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-ad
 import { ReportsComponent } from './admin/reports/reports.component';
 import { EditAttendanceComponent } from './teacher-dashboard/edit-attendance/edit-attendance.component';
 import {  ToastrModule } from 'ngx-toastr';
-import { TeacherManagementComponent } from './admin/teacher-management/teacher-management.component' ;
+import { TeacherManagementComponent } from './admin/teacher-management/teacher-management.component';
+import { ReportAttendanceComponent } from './teacher-dashboard/report-attendance/report-attendance.component' ;
 registerLocaleData(localeEc, 'es-EC');
 
 
@@ -107,7 +108,8 @@ registerLocaleData(localeEc, 'es-EC');
     EnrollmentAdminComponent,
     ReportsComponent,
     EditAttendanceComponent,
-    TeacherManagementComponent
+    TeacherManagementComponent,
+    ReportAttendanceComponent
   ],
   imports: [
     BrowserModule,

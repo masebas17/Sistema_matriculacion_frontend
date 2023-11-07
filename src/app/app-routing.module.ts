@@ -44,6 +44,7 @@ import { EnrollmentAdminComponent } from './admin/enrollment-admin/enrollment-ad
 import { ReportsComponent } from './admin/reports/reports.component';
 import { EditAttendanceComponent } from './teacher-dashboard/edit-attendance/edit-attendance.component';
 import { TeacherManagementComponent } from './admin/teacher-management/teacher-management.component';
+import { ReportAttendanceComponent } from './teacher-dashboard/report-attendance/report-attendance.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -89,7 +90,8 @@ const routes: Routes = [
       {path: 'listcourses/:id', component: ListMycoursesComponent},
       {path: 'attendance/:id', component: AttendanceComponent},
       {path: 'edit-attendance/:id/:date', component: EditAttendanceComponent},
-      {path: 'grades', component: GradesComponent}
+      {path: 'grades', component: GradesComponent},
+      {path: 'report-attendance', component: ReportAttendanceComponent}
     ]
     },
     { path: 'recover-data/:type' ,component: RecoverdataComponent},

@@ -327,7 +327,7 @@ export class AttendanceComponent implements OnInit {
     const diferenciaEnMilisegundos = fechaActual.getTime() - new Date(fechaSeleccionada).getTime();
 
     // Calcular el límite de dos semanas en milisegundos
-    const dosSemanasEnMilisegundos = 15 * 24 * 60 * 60 * 1000;
+    const dosSemanasEnMilisegundos = 25 * 24 * 60 * 60 * 1000;
 
     if (diferenciaEnMilisegundos <= dosSemanasEnMilisegundos) {
       // La fecha es editable, abrir una nueva pestaña o realizar la acción deseada.

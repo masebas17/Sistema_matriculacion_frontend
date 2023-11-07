@@ -72,10 +72,10 @@
                           </label>
                         </td>    
                         <td class="text-center">
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" [disabled]="!textareaEnabled[student.id]" placeholder="Ingresar una observación si hay justificación" [maxLength]="300" (input)="onTextareaInput($event)">{{ checkboxjustification(student.id).observation }}</textarea>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" [disabled]="!textareaEnabled[student.id]" placeholder="Ingresar una observación si hay justificación" [maxLength]="300" [(ngModel)]="student.observation">{{ checkboxjustification(student.id).observation }}</textarea>
                         </td>  
                         <td>
-                          <button class="form-control btn btn-success" [disabled]="!textareaEnabled[student.id]" (click)="Justification(student.id, observation)">Guardar observación</button>
+                          <button class="form-control btn btn-success" [disabled]="!textareaEnabled[student.id]" (click)="Justification(student.id, student.observation)">Guardar observación</button>
                         </td>               
                       </tr>
                     </tbody>
@@ -86,7 +86,7 @@
   <div class="button_save row" *ngIf="students != null">
           <div class="botones">
               <button class="btn btn-success" (click)="EditarAsistencia()"><fa-icon [icon]="faSave"></fa-icon> Guardar cambios totales</button> 
-              <button class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon> Eliminar Asistencia</button>
+              <button class="btn btn-danger" (click)="eliminar_asistencia()"><fa-icon [icon]="faTrash"></fa-icon> Eliminar Asistencia</button>
           </div>
   </div>
 </section>
