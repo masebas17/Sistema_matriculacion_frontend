@@ -33,6 +33,29 @@
     padding: 18px 35px;
   }
 
+  .overlay-button2 {
+    position: absolute;
+    top: 25%;
+    left: 60%;
+    background-color: rgba(19, 108, 180, 0.7);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+    transition: 0.5s;
+    border-radius: 20px;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+  }
+
+  .overlay-button2:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.02) translateY(-0.3em);
+    padding: 18px 35px;
+  }
+
 .float-contenedor{
     position: relative;
 }
@@ -90,6 +113,9 @@
     .overlay-button {
         display: none;
       }
+      .overlay-button2 {
+        display: none;
+      }
 
   }
 
@@ -132,6 +158,10 @@
     .overlay-button {
         display: none;
       }
+
+    .overlay-button2 {
+        display: none;
+    }
    
 
   } 
@@ -180,5 +210,9 @@
     .overlay-button {
         display: none;
       }
+    
+    .overlay-button2 {
+        display: none;
+    }
       
   }

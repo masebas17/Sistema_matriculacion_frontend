@@ -83,11 +83,12 @@ export class AttendanceReportsComponentComponent implements OnInit {
   capturar_curso(){
     this.verSeleccion_curso = this.seleccion_curso
     console.log(this.verSeleccion_curso)
+    this.resetTableData();
     this.listado();
   }
 
   async getShedule(){
-    const resp = await this.ApiService.getschedules_all()
+    const resp = await this.ApiService.getschedules_from_admin()
     // console.log(resp)
     this.shedules = resp
     this.Schedule_data = resp.data
@@ -97,7 +98,7 @@ export class AttendanceReportsComponentComponent implements OnInit {
     const resp = await this.ApiService.getCoursesbyid(this.verSeleccion)
     this.courses = resp.data
     this.seleccion_curso = 0;
-    
+    this.resetTableData()
   }
 
   async listado(){
