@@ -45,6 +45,7 @@ import { ReportsComponent } from './admin/reports/reports.component';
 import { EditAttendanceComponent } from './teacher-dashboard/edit-attendance/edit-attendance.component';
 import { TeacherManagementComponent } from './admin/teacher-management/teacher-management.component';
 import { ReportAttendanceComponent } from './teacher-dashboard/report-attendance/report-attendance.component';
+import { AttendanceReportsComponentComponent } from './admin/attendance-reports-component/attendance-reports-component.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -72,7 +73,8 @@ const routes: Routes = [
       {path: 'edit-course', component: EditCourseComponent},
       {path: 'enrollment_admin', component: EnrollmentAdminComponent},
       {path: 'reports', component: ReportsComponent},
-      {path: 'teacher-management', component: TeacherManagementComponent}
+      {path: 'teacher-management', component: TeacherManagementComponent},
+      {path: 'attendance-reports', component: AttendanceReportsComponentComponent}
     ]
   },
     { path: 'supervisor', canActivate: [SupervisorGuard], component: SupervisorComponent,
@@ -81,7 +83,8 @@ const routes: Routes = [
       {path: 'edit-teacher', component:EditTeacherComponent},
       {path: 'mycourses', component:MyCoursesComponent},
       {path: 'edit-student', component:EditStudentComponent},
-      {path: 'edit-course', component: EditCourseComponent}
+      {path: 'edit-course', component: EditCourseComponent},
+      {path: 'attendance-reports', component: AttendanceReportsComponentComponent}
     ]
     },
     { path: 'teacher', canActivate: [TeacherGuard] ,component: TeacherDashboardComponent,

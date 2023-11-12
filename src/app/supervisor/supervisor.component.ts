@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronDown, faFileArchive, faHome, faList, faPenToSquare, faRightToBracket, faSackDollar, faSchool, faUser, faUserPen } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faFileArchive, faHome, faList, faPenToSquare, faRightToBracket, faSackDollar, faSchool, faUser, faUserPen, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-supervisor',
@@ -21,6 +21,7 @@ export class SupervisorComponent implements OnInit {
   faList = faList;
   faSackDollar = faSackDollar;
   faSchool = faSchool;
+  faFilePdf = faFilePdf;
 
   ngOnInit(): void {
   }
