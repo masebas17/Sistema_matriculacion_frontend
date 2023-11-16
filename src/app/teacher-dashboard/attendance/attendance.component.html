@@ -39,7 +39,10 @@
                     [minDate]="{year: 2022, month: 10, day: 15}"
                     [maxDate]="{year: 2023, month: 05, day: 27}"
                   /> -->
-                  <button class="btn btn-secondary bi bi-calendar3" style="width: 50px;" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button>
+                  <div type="button" class="input-group-append input-group-text d-flex align-items-center">
+                    <span (click)="d.toggle()"><fa-icon [icon]="faCalendarDays" class="fa-lg"></fa-icon></span>
+                  </div>
+                  <!-- <button class="btn btn-secondary bi bi-calendar3 custom-calendar-button" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendarDays" class="fa-lg"></fa-icon></button> -->
                 </div>
             </div>
             <div class="col-sm-8">
@@ -160,14 +163,17 @@
                 name="dp"
                 [(ngModel)]="model1"
                 ngbDatepicker
-                [markDisabled]="isWeek"
+                [markDisabled]="isWeekend"
                 [minDate]="{year: 2023, month: 10, day: 21}"
                 [maxDate]="{year: 2024, month: 05, day: 26}"
                 [readonly]="true"
                 #dos="ngbDatepicker"
                 (dateSelect)="verificarFechaSeleccionada($event)"
                 />
-                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dos.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button>
+                <div type="button" class="input-group-append input-group-text d-flex align-items-center">
+                  <span (click)="dos.toggle()"><fa-icon [icon]="faCalendarDays" class="fa-lg"></fa-icon></span>
+                </div>
+                <!-- <button class="btn btn-secondary bi bi-calendar3 custom-calendar-button" (click)="dos.toggle()" type="button"><fa-icon [icon]="faCalendarDays"></fa-icon></button> -->
               </div>
                 
             </div>

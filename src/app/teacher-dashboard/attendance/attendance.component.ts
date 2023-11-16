@@ -39,6 +39,7 @@ export class AttendanceComponent implements OnInit {
   marcarAsistencia = false;
   alumno: any;
   courseId: any;
+  LevelId: any;
 
   name_course: any;
   name_level: any;
@@ -105,6 +106,7 @@ export class AttendanceComponent implements OnInit {
 
     this.name_course = filtercourse[0].name
     this.name_level =filtercourse[0].Schedule.Level.name
+    this.LevelId = filtercourse[0].Schedule.id
 
 
       if(this.students){
@@ -122,9 +124,41 @@ export class AttendanceComponent implements OnInit {
       }
   }
 
+  //isDisabled = (date: NgbDate, current: { month: number; year: number }) => date.month !== current.month;
+  // isWeekend = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
+  //isWeek = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
+
   isDisabled = (date: NgbDate, current: { month: number; year: number }) => date.month !== current.month;
-  isWeekend = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
+
   isWeek = (date: NgbDate) => this.calendar.getWeekday(date) <= 5;
+
+  
+
+  isWeekend = (date: NgbDate) => {
+
+    if (this.LevelId >= 1 && this.LevelId <= 4) {
+      return this.calendar.getWeekday(date) != 6; // 6 es sábado
+    }
+  
+    // Si el ID del nivel es 11 o 12, solo habilita los domingos (días de la semana === 7)
+    if (this.LevelId >= 5 && this.LevelId <= 6) {
+      return this.calendar.getWeekday(date) != 7; // 7 es domingo
+    }
+
+  // Si el ID del nivel está entre 7 y 10, solo habilita los sábados (días de la semana === 6)
+  if (this.LevelId >= 7 && this.LevelId <= 10) {
+    return this.calendar.getWeekday(date) != 6; // 6 es sábado
+  }
+
+  // Si el ID del nivel es 11 o 12, solo habilita los domingos (días de la semana === 7)
+  if (this.LevelId >= 11 && this.LevelId <= 12) {
+    return this.calendar.getWeekday(date) != 7; // 7 es domingo
+  }
+
+  // Por defecto, permite todos los días
+  return this.calendar.getWeekday(date) <= 5;
+};
+
 
    toggleCheckbox(person: Person) {
     if (person.checkboxState === 'checked') {
@@ -214,7 +248,7 @@ export class AttendanceComponent implements OnInit {
     const resp = await this.ApiService.Assistance(data)
     console.log(resp)
 
-    if (resp.correctProcess === true) {
+    if (resp) {
 
       const myTimeout = setTimeout(() => {
 
@@ -239,8 +273,8 @@ export class AttendanceComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Asistencia ya existente',
-          text: 'Ya existe una asitencia registrada con la fecha ingresados',
-          confirmButtonText: 'Aceptar',
+          text: 'Ya existe una asitencia registrada con la fecha ingresada',
+          // confirmButtonText: 'Aceptar',
           confirmButtonColor: '#1D71B8'
         }).then((result) => {
           if (result.isConfirmed) {
@@ -327,7 +361,7 @@ export class AttendanceComponent implements OnInit {
     const diferenciaEnMilisegundos = fechaActual.getTime() - new Date(fechaSeleccionada).getTime();
 
     // Calcular el límite de dos semanas en milisegundos
-    const dosSemanasEnMilisegundos = 25 * 24 * 60 * 60 * 1000;
+    const dosSemanasEnMilisegundos = 15 * 24 * 60 * 60 * 1000;
 
     if (diferenciaEnMilisegundos <= dosSemanasEnMilisegundos) {
       // La fecha es editable, abrir una nueva pestaña o realizar la acción deseada.

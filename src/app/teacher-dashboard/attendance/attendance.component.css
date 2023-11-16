@@ -131,7 +131,20 @@
     border-color: #ef5350;
   }
 
+  .custom-calendar-button {
+    width: 50px; 
+  }
   
+  /* @media (max-width: 767px) {
+   
+  } */
+
+  .input-group-append {
+    background-color: #c9cbcc; 
+    /* background-color: var(--btn-secondary-bg); */
+  }
+
+
 @media only screen and (max-width: 912px) {
     .botones{
         width: 100%;
@@ -145,4 +158,8 @@
     .card{
         display: none;
     }
+    .custom-calendar-button {
+        width: 40px; 
+        padding: 10px ;
+      }
   }
