@@ -84,6 +84,7 @@ const routes: Routes = [
       {path: 'mycourses', component:MyCoursesComponent},
       {path: 'edit-student', component:EditStudentComponent},
       {path: 'edit-course', component: EditCourseComponent},
+      {path: 'teacher-management', component: TeacherManagementComponent},
       {path: 'attendance-reports', component: AttendanceReportsComponentComponent}
     ]
     },

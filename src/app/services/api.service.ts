@@ -186,6 +186,31 @@ export class ApiService {
      return resp
    }
 
+   async get_Teachers(){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const resp: any = await this.http.get(`${this.apiUrl}/api/teachers`, options).toPromise() 
+    return resp
+  }
+
+  async edit_Teachers(id: any, teacher: dataTeacher | any ){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+  };
+    const resp: any = await this.http.put(`${this.apiUrl}/api/teachers/${id}`, teacher, options).toPromise() 
+    return resp
+  }
+
+  async delete_teacher(id: any){
+    const options = {
+      headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
+    };
+    const resp: any = await this.http.delete(`${this.apiUrl}/api/teachers/${id}`, options).toPromise() 
+    return resp
+  }
+
+
    async get_courses_teacher(id: any){
     const resp: any = await this.http.get(`${this.apiUrl}/api/courses/${id}`).toPromise() 
     return resp

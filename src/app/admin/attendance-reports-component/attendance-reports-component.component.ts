@@ -131,6 +131,8 @@ export class AttendanceReportsComponentComponent implements OnInit {
     
     const resp = await this.ApiService.get_report_Assistance(this.courseId)
 
+    console.log('Reporte de asistencias', resp)
+
    if(resp){
 
     const data = resp.data;

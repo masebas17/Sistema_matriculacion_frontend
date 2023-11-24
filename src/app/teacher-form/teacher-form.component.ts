@@ -42,6 +42,7 @@ export class TeacherFormComponent implements OnInit {
 
   async registrar(values: any){
     this.data_teacher = values   
+    
      const resp = await this.apiservice.enrollemnt_Teacher(this.data_teacher)
 
      if(resp === undefined){
