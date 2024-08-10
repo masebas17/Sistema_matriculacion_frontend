@@ -1,0 +1,172 @@
+<section class="vh-100" style="background-color: #006494">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem">
+          <div class="card-body p-4 text-center">
+            <div class="titulos">
+              <img
+                class="logo img-fluid"
+                src="./assets/images/header-component/logo_parroquia.png"
+                alt="logo parroquial"
+                width="200"
+              />
+            </div>
+            <h5 class="my-3">
+              Verificación de Matrícula Catequesis Parroquial de Machachi - 2024
+            </h5>
+            <div style="height: 400px; overflow-y: auto">
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                  <thead class="table-primary text-center">
+                    <tr>
+                      <th>Descripción</th>
+                      <th>Información</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Fecha de Registro</td>
+                      <td class="text-center">
+                        {{ formattedDate }}
+                      </td>
+                    </tr>
+                    <!-- Datos Personales -->
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="table-primary text-center" colspan="2">
+                        <strong>Datos Personales</strong>
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">C.I.</td>
+                      <td class="text-center">
+                        {{ datos_of_students.identityNumber }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Apellidos</td>
+                      <td class="text-center">
+                        {{ datos_of_students.lastName | uppercase }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Nombres</td>
+                      <td class="text-center">
+                        {{ datos_of_students.name | uppercase }}
+                      </td>
+                    </tr>
+
+                    <!-- Datos de Nivel y Horario -->
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="table-success text-center" colspan="2">
+                        <strong>Datos de Nivel y Horario</strong>
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Nivel</td>
+                      <td class="text-center">
+                        {{ datos_of_students.Course.Schedule.Level.name }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Horario</td>
+                      <td class="text-center">
+                        {{
+                          datos_of_students.Course.Schedule.weekDay +
+                            " " +
+                            datos_of_students.Course.Schedule.startTime +
+                            " - " +
+                            datos_of_students.Course.Schedule.endTime
+                        }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Paralelo</td>
+                      <td class="text-center">
+                        {{ datos_of_students.Course.name }}
+                      </td>
+                    </tr>
+
+                    <!-- Estado de Matriculación -->
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="table-danger text-center" colspan="2">
+                        <strong>Estado de Matriculación</strong>
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Matriculación</td>
+                      <td class="text-center">
+                        {{ datos_of_students.payment | enrollment }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">N° de Recibo</td>
+                      <td class="text-center">
+                        {{ datos_of_students.payment }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Status</td>
+                      <td class="text-center">
+                        {{ datos_of_students.payment | asignated }}
+                      </td>
+                    </tr>
+
+                    <!-- Datos de los Catequistas -->
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="table-warning text-center" colspan="2">
+                        <strong>Datos de los Catequistas</strong>
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Nombres</td>
+                      <td class="text-center">
+                        <ul *ngIf="datos_of_students.Course.Teachers != null">
+                          <li
+                            *ngFor="
+                              let teacher of datos_of_students.Course.Teachers
+                            "
+                            style="list-style: none"
+                          >
+                            {{
+                              teacher.lastName + " " + teacher.name | uppercase
+                            }}
+                          </li>
+                        </ul>
+                        <span
+                          *ngIf="!datos_of_students.Course.Teachers[0]"
+                          class="text-danger"
+                          >No Asignados</span
+                        >
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">N° de Contacto</td>
+                      <td class="text-center">
+                        <ul *ngIf="datos_of_students.Course.Teachers != null">
+                          <li
+                            *ngFor="
+                              let teacher of datos_of_students.Course.Teachers
+                            "
+                            style="list-style: none"
+                          >
+                            {{ teacher.phone }}
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
+              type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
+            <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
+              type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -59,7 +59,8 @@ import {  ToastrModule } from 'ngx-toastr';
 import { TeacherManagementComponent } from './admin/teacher-management/teacher-management.component';
 import { ReportAttendanceComponent } from './teacher-dashboard/report-attendance/report-attendance.component';
 import { AttendanceReportsComponentComponent } from './admin/attendance-reports-component/attendance-reports-component.component';
-import { FilterPipe } from './shared/filter.pipe' ;
+import { FilterPipe } from './shared/filter.pipe';
+import { VerifyInformationStudentsComponent } from './StudentsComponents/verify-information-students/verify-information-students.component' ;
 registerLocaleData(localeEc, 'es-EC');
 
 
@@ -113,7 +114,8 @@ registerLocaleData(localeEc, 'es-EC');
     TeacherManagementComponent,
     ReportAttendanceComponent,
     AttendanceReportsComponentComponent,
-    FilterPipe
+    FilterPipe,
+    VerifyInformationStudentsComponent
   ],
   imports: [
     BrowserModule,

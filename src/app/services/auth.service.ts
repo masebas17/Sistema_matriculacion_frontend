@@ -10,6 +10,7 @@ export class AuthService {
   token: any = null;
 
   apiUrl = 'https://servicios.iglesiademachachi.com';
+  //apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient, private router: Router) {}
 

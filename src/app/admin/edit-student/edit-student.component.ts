@@ -64,8 +64,8 @@ export class EditStudentComponent implements OnInit {
   consultar(){
     this._apiService.getStudent(this.FormCI.get("CI").value).subscribe((resp: any) =>{
       console.log(resp.data)
-      this.student = resp.data
-      this.data_student = resp.data
+      this.student = resp.data.student
+      this.data_student = resp.data.student 
 
   if (this.student) {
 

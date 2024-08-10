@@ -35,7 +35,8 @@ export class LevelFormSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkIfMobile();
-    this.getShedule();
+    // this.getShedule();
+    //this.getSheduleVerify();
   }
 
 checkIfMobile() {
@@ -73,26 +74,37 @@ reset_Form(){
   this.FormIdentitynumber.reset()
 }
 
-getShedule(){
-  this._apiService.getShedulebyYear().subscribe((resp: any) => {
+getSheduleVerify(){
+  this._apiService.getShedule().subscribe((resp: datashedule[]) =>{
     console.log(resp),
-    this.shedules = resp.data;
-    console.log(this.shedules)
+    this.shedules = resp;
   })
 }
 
+// getShedule(){
+//   this._apiService.getShedulebyYear().subscribe((resp: any) => {
+//     console.log(resp),
+//     this.shedules = resp.data;
+//     console.log(this.shedules)
+//   })
+// }
+
 verify_level(){
+  this._apiService.getShedule().subscribe((resp: any) =>{
+    console.log(resp),
+    this.shedules = resp.data;
+  })
   const idbusqueda = 1;
   const auxshedule = this.shedules.find(
     (sheduleid) => sheduleid.Level.order === idbusqueda
   );
   
   if (auxshedule) {
-    console.log('Objeto encontrado:', auxshedule);
+    //console.log('Objeto encontrado:', auxshedule);
     this.current_shedule = auxshedule
-    if(this.current_shedule.id === 7){
-      localStorage.setItem("cs", '7')
-      this.router.navigate(['/course_selection', 7]) 
+    if(this.current_shedule.id === 13){
+      localStorage.setItem("cs", '13')
+      this.router.navigate(['/course_selection', 13]) 
     }
     else{
       Swal.fire({
@@ -105,10 +117,45 @@ verify_level(){
   }
 }
 
+// verify_level() {
+//   this._apiService.getShedule().subscribe((resp: any) => {
+//     this.shedules = resp.data;
+
+//     // Debug: Verificar los datos de 'this.shedules'
+//     console.log('Horarios disponibles:', this.shedules);
+
+//     const idbusqueda = 13;
+
+//     // Debug: Asegurarse de que idbusqueda es un número
+//     console.log('Buscando horario con ID:', idbusqueda);
+
+//     // Verificar si existe un horario con id 13
+//     const auxshedule = this.shedules.find(
+//       (sheduleid) => sheduleid.id === idbusqueda
+//     );
+
+//     // Debug: Verificar el resultado de auxshedule
+//     console.log('Resultado de la búsqueda:', auxshedule);
+
+//     if (auxshedule !== undefined) {
+//       this.current_shedule = auxshedule;
+//       localStorage.setItem("cs", '13');
+//       this.router.navigate(['/course_selection', 13]);
+//     } else {
+//       Swal.fire({
+//         icon: 'error',
+//         text: 'Aún no inician los días de matriculación',
+//         confirmButtonColor: '#1D71B8'
+//       });
+//     }
+//   });
+// }
+
+
 consult_courses(event: any){
-  if(this.current_shedule.id === 7){
-    localStorage.setItem("cs", '7')
-    this.router.navigate(['/course_selection', 7]) 
+  if(this.current_shedule.id === 13){
+    localStorage.setItem("cs", '13')
+    this.router.navigate(['/course_selection', 13]) 
   }
   else{
     Swal.fire({

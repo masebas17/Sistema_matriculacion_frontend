@@ -46,11 +46,13 @@ import { EditAttendanceComponent } from './teacher-dashboard/edit-attendance/edi
 import { TeacherManagementComponent } from './admin/teacher-management/teacher-management.component';
 import { ReportAttendanceComponent } from './teacher-dashboard/report-attendance/report-attendance.component';
 import { AttendanceReportsComponentComponent } from './admin/attendance-reports-component/attendance-reports-component.component';
+import { VerifyInformationStudentsComponent } from './StudentsComponents/verify-information-students/verify-information-students.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home',             component: MainMenuComponent },
     { path: 'searcher',         component: SearcherComponent },
+    { path: 'student/:identityNumber', component: VerifyInformationStudentsComponent },
     { path: 'shedule_selection', component: ScheduleSelectionComponent },
     { path: 'course_selection/:id',canActivate: [CourseSelectionGuard] ,component: CourseSelectionComponent },
     { path: 'enrollment/:id',canActivate: [EnrollmentGuard],component: EnrollmentFormComponent },

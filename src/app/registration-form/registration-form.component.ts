@@ -71,7 +71,7 @@ consultar(){
           timer: 3000,
           timerProgressBar: true,
         })
-        this.verificar_datos(resp.data)
+        this.verificar_datos(resp.data.student)
         if(!this.validDate){
           Swal.fire({
             icon: 'error',
@@ -83,7 +83,7 @@ consultar(){
             }})
           //window.location.reload();
         }else{
-    if(resp.data.Course.Schedule.id > 6 ){
+    if(resp.data.student.Course.Schedule.id > 6 ){
       await Swal.fire({
         icon: 'error',
         text: 'El Usuario ya se encuentra matriculado',
@@ -91,7 +91,7 @@ consultar(){
       window.location.reload();
     }else{
 
-      if(resp.data.aproved === false || resp.data.aproved === null ){
+      if(resp.data.student.aproved === false || resp.data.student.aproved === null ){
         await Swal.fire({
           icon: 'error',
           text: 'El usuario registra nivel no aprobado, no tiene permitido matricularse, debe acercarse al Despacho parroquial',
@@ -103,7 +103,7 @@ consultar(){
           title: 'Datos del Estudiante encontrados',
           text:' Verificando el estado de matriculación'
         })
-        this.datos_of_students = resp.data
+        this.datos_of_students = resp.data.student
         console.log(this.datos_of_students)
         
       }
@@ -133,17 +133,15 @@ verificar_datos(datos_of_students: any){
   );
   
   if (auxlevel) {
-    console.log('Objeto encontrado:', auxlevel);
+    // console.log('Objeto encontrado:', auxlevel);
     this.current_level = auxlevel
-  } else {
-    console.log('Objeto no encontrado');
-  }
+  } 
 
   const auxDate = new Date();
 
-  console.log(auxDate)
-  console.log(new Date(this.current_level.Level.enrollmentStart))
-  console.log(new Date(this.current_level.Level.enrollmentEnd))
+  // console.log(auxDate)
+  // console.log(new Date(this.current_level.Level.enrollmentStart))
+  // console.log(new Date(this.current_level.Level.enrollmentEnd))
 
   if (auxDate >= new Date(this.current_level.Level.enrollmentStart) && auxDate <= new Date(this.current_level.Level.enrollmentEnd)) {
     this.validDate = true

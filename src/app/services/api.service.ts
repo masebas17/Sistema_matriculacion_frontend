@@ -16,6 +16,7 @@ export class ApiService {
 
   userUrl = 'https://sistema-matriculacion-backend.onrender.com';
   apiUrl = 'https://servicios.iglesiademachachi.com';
+  // apiUrl = 'http://localhost:3000';
 
 
   getToken() {
@@ -28,11 +29,11 @@ export class ApiService {
 
   getShedule(): Observable<datashedule[]>{
     const currentDate: Date = new Date();
-    return this.http.post<datashedule[]>(`${this.apiUrl}/api/schedules/enrollment`, {currentDate})
+    return this.http.post<datashedule[]>(`${this.apiUrl}/api/schedules/enrollment/2024`, {currentDate})
   }
 
   getShedulebyYear(): Observable<datasheduleYear[]>{
-    return this.http.get<datasheduleYear[]>(`${this.apiUrl}/api/schedules/2023`)
+    return this.http.get<datasheduleYear[]>(`${this.apiUrl}/api/schedules/2024`)
   }
 
   getCourses(id: any): Observable<datacourses[]>{
@@ -72,8 +73,9 @@ export class ApiService {
     const options = {
       headers: new HttpHeaders({['x-token']: localStorage.getItem('jwt')})
   };
+  //FIX esta api es con el año especifico no all
     const response: any = await this.http
-      .get(`${this.apiUrl}/api/schedules/2023`, options)
+      .get(`${this.apiUrl}/api/schedules/all`, options)
       .toPromise();
     //Guarda el token en el local storage al iniciar sesion correctamente
     return response;

@@ -76,10 +76,11 @@
           <th>Nombres</th>
           <th>Edad</th>
           <th>Discapacidad</th>
+          <th>Aprobado</th>
           <th>N° de Recibo</th>
           <!-- <th id="status">Status</th> -->
-          <th id="actions">Acciones</th>
-          <th id="actions">Cambio de Curso</th>
+          <th id="actions">Recibo</th>
+          <th id="actions">Curso</th>
         </tr>
       </thead>
       <tbody>
@@ -90,12 +91,13 @@
           <td>{{student.name | uppercase}}</td>
           <td class = "text-center">{{student.age}}</td>
           <td class = "text-center">{{student.disability | siNo}}</td>
+          <td class = "text-center">{{student.aproved | baptized}}</td>
           <!-- <td class = "text-center">{{student.phone1}}</td> -->
           <td class = "text-center">{{student.payment}}</td>
           <!-- <td class="text-center" id="status">{{student.payment | asignated}} </td> -->
-          <td class="text-center" id="btn-edit-voucher" *ngIf="student.payment != null"><button type="button" class="btn btn-warning actions" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="student.id" (click)="edit($event)">Editar Recibo</button></td>
-          <td class="text-center" id="btn-creater-voucher"*ngIf="student.payment == null"><button type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="student.id" (click)="edit($event)">Ingreso Recibo</button></td>
-          <td class="text-center"><button type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#modalCambioCurso" [name]="student.id" (click)="getShedule_edit($event)">Cambio de curso</button></td>
+          <td class="text-center" id="btn-edit-voucher" *ngIf="student.payment != null"><button type="button" class="btn btn-warning actions" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="student.id" (click)="edit($event)">Editar recibo</button></td>
+          <td class="text-center" id="btn-creater-voucher"*ngIf="student.payment == null"><button type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" [name]="student.id" (click)="edit($event)">Registrar</button></td>
+          <td class="text-center"><button type="button" class=" actions btn btn-primary " type="button" data-bs-toggle="modal" data-bs-target="#modalCambioCurso" [name]="student.id" (click)="getShedule_edit($event)">Cambiar curso</button></td>
         </tr>
       </tbody>
     </table>
