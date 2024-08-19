@@ -75,7 +75,7 @@ export class ApiService {
   };
   //FIX esta api es con el año especifico no all
     const response: any = await this.http
-      .get(`${this.apiUrl}/api/schedules/all`, options)
+      .get(`${this.apiUrl}/api/schedules/2024`, options)
       .toPromise();
     //Guarda el token en el local storage al iniciar sesion correctamente
     return response;

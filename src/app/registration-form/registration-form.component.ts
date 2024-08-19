@@ -83,7 +83,7 @@ consultar(){
             }})
           //window.location.reload();
         }else{
-    if(resp.data.student.Course.Schedule.id > 6 ){
+    if(resp.data.student.Course.Schedule.period === '2024' ){
       await Swal.fire({
         icon: 'error',
         text: 'El Usuario ya se encuentra matriculado',
@@ -94,7 +94,7 @@ consultar(){
       if(resp.data.student.aproved === false || resp.data.student.aproved === null ){
         await Swal.fire({
           icon: 'error',
-          text: 'El usuario registra nivel no aprobado, no tiene permitido matricularse, debe acercarse al Despacho parroquial',
+          text: 'El usuario registra nivel REPROBADO, no tiene permitido matricularse, debe acercarse al Despacho parroquial',
         })
         window.location.reload();
       } else {

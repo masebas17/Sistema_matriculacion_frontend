@@ -70,6 +70,7 @@ export class EnrollmentAdminComponent implements OnInit {
       this._ApiService.getStudent(this.FormIdentitynumber.get("identityNumber").value).subscribe((resp: any) =>{
       
         if (resp) {
+          //console.log('resp', resp)
           const myTimeout = setTimeout(async() => {
             const Toast = Swal.mixin({
               toast: false,
@@ -79,7 +80,7 @@ export class EnrollmentAdminComponent implements OnInit {
               timerProgressBar: true,
             })
             this.verificar_datos(resp.data.student)
-        if(resp.data.student.Course.Schedule.id > 6 ){
+        if(resp.data.student.Course.Schedule.period === '2024' ){
           await Swal.fire({
             icon: 'error',
             text: 'El Usuario ya se encuentra matriculado',
@@ -90,12 +91,12 @@ export class EnrollmentAdminComponent implements OnInit {
           if(resp.data.student.aproved === false || resp.data.student.aproved === null ){
             await Swal.fire({
               icon: 'error',
-              text: 'El usuario registra nivel del periodo 2022 como reprobado, no tiene permitido matricularse, para levantar impedimentos debe buscar con la cédula y cambiar el estado a "APROBADO" en editar información',
+              text: 'El usuario registra nivel del periodo anterior como reprobado, no tiene permitido matricularse, para levantar impedimentos debe buscar con la cédula y cambiar el estado a "APROBADO" en editar información',
             })
             window.location.reload();
           } else {
 
-            if(resp.data.student.Course.Schedule.id === 6){
+            if(resp.data.student.Course.Schedule.id === 6 || resp.data.student.Course.Schedule.id === 12 ){
               await Swal.fire({
                 icon: 'error',
                 text: 'El Usuario no puede matricularse porque el último nivel aprobado es confirmación, ya terminó la catequesis',

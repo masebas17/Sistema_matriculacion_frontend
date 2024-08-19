@@ -1,144 +1,400 @@
 <section class="Formulario">
-    <div class="letras">
-        <h1 class="titulo">Inscripción de un Nuevo Estudiante</h1>
+  <div class="letras">
+    <h1 class="titulo">Inscripción de un Nuevo Estudiante</h1>
+  </div>
+  <br />
+  <div class="contenedor">
+    <div class="row">
+      <div class="col-sm-4">
+        <label for="">Escoger el Nivel:</label>
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          name="Level"
+          [(ngModel)]="opcionSeleccionada"
+          (change)="capturar()"
+        >
+          <option *ngFor="let shedule of shedules.data" [ngValue]="shedule.id">
+            {{
+              shedule.Level.name +
+                " " +
+                "(" +
+                shedule.weekDay +
+                " " +
+                shedule.startTime +
+                " " +
+                "a" +
+                " " +
+                shedule.endTime +
+                ")"
+            }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label for="">Escoger el curso:</label>
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          name="course"
+          [(ngModel)]="seleccion_curso"
+          (change)="capturar_curso()"
+        >
+          <option selected>-- Escoja un Paralelo --</option>
+          <ng-container *ngFor="let course_selection of courses">
+            <option
+              *ngIf="course_selection.count < course_selection.maxStudents"
+              [ngValue]="course_selection.id"
+            >
+              {{ "Paralelo" + " " + course_selection.name }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
     </div>
-    <br>
-    <div class="contenedor">
-        <div class="row">
-            <div class="col-sm-4">
-                <label for="">Escoger el Nivel:</label>
-                <select class="form-select" aria-label="Default select example" name="Level" [(ngModel)]="opcionSeleccionada" (change)="capturar()" >
-                    <option *ngFor="let shedule of shedules.data" [ngValue]="shedule.id">{{shedule.Level.name + ' ' + "(" + shedule.weekDay + ' ' + shedule.startTime + ' ' + "a" +' '+ shedule.endTime + ")" }}</option>
-                </select>
+    <br />
+    <form
+      [formGroup]="Formstudent"
+      (ngSubmit)="enroll_student(Formstudent.value)"
+    >
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="">Número de Cédula:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="identityNumber"
+            placeholder="Ingrese el Número de Cédula del alumno"
+            name=""
+            [ngClass]="{
+              'is-invalid':
+                Formstudent.get('identityNumber')?.errors &&
+                Formstudent.get('identityNumber')?.touched
+            }"
+            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+            maxlength="10"
+          />
+          <div *ngIf="Formstudent.get('identityNumber')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('identityNumber')?.hasError('required') &&
+                Formstudent.get('identityNumber')?.touched
+              "
+            >
+              Ingrese un número de cédula válido
             </div>
-            <div class="col-sm-4">
-                <label for="">Escoger el curso:</label>
-                <select class="form-select" aria-label="Default select example" name="course" [(ngModel)]="seleccion_curso" (change)="capturar_curso()" >
-                    <ng-container *ngFor="let course_selection of courses">
-                    <option  *ngIf="course_selection.count < course_selection.maxStudents"  [ngValue]="course_selection.id">{{"Paralelo" + ' ' + course_selection.name}}</option>
-                    </ng-container>
-                </select>
+            <div
+              class="text-danger"
+              *ngIf="Formstudent.get('identityNumber')?.hasError('maxLength')"
+            >
+              Se debe llenar 10 dígitos
             </div>
+            <div
+              class="text-danger"
+              *ngIf="Formstudent.get('identityNumber')?.hasError('minLength')"
+            >
+              Se debe llenar 10 dígitos
+            </div>
+          </div>
         </div>
-        <br>
-    <form [formGroup]="Formstudent" (ngSubmit)="enroll_student(Formstudent.value)" >
-        <div class="row">
-            <div class="col-sm-4">
-                <label for="">Número de Cédula:</label>
-                <input type="text" class="form-control" formControlName="identityNumber" placeholder="Ingrese el Número de Cédula del alumno" name="" [ngClass]="{'is-invalid':Formstudent.get('identityNumber')?.errors && Formstudent.get('identityNumber')?.touched}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
-                <div *ngIf="Formstudent.get('identityNumber')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('identityNumber')?.hasError('required') && Formstudent.get('identityNumber')?.touched">Ingrese un número de cédula válido</div>
-                    <div class="text-danger" *ngIf="Formstudent.get('identityNumber')?.hasError('maxLength')">Se debe llenar 10 dígitos</div>
-                    <div class="text-danger" *ngIf="Formstudent.get('identityNumber')?.hasError('minLength')">Se debe llenar 10 dígitos</div>
-                </div>
-        </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-4">
-                <label for="">Apellidos:</label>
-                <input type="text" class="form-control" formControlName="lastName" placeholder="Ingrese dos apellidos" name="" [ngClass]="{'is-invalid':Formstudent.get('lastName')?.errors && Formstudent.get('lastName')?.touched}">
-                <div *ngIf="Formstudent.get('lastName')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('lastName')?.hasError('required') && Formstudent.get('lastName')?.touched">Se requiere el ingreso de los Apellidos</div>
-                </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="">Apellidos:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="lastName"
+            placeholder="Ingrese dos apellidos"
+            name=""
+            [ngClass]="{
+              'is-invalid':
+                Formstudent.get('lastName')?.errors &&
+                Formstudent.get('lastName')?.touched
+            }"
+          />
+          <div *ngIf="Formstudent.get('lastName')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('lastName')?.hasError('required') &&
+                Formstudent.get('lastName')?.touched
+              "
+            >
+              Se requiere el ingreso de los Apellidos
             </div>
-            <div class="col-sm-4">
-                <label for="">Nombres:</label>
-                <input type="text" class="form-control" formControlName="name" placeholder="Ingrese dos nombres" name="" [ngClass]="{'is-invalid':Formstudent.get('name')?.errors && Formstudent.get('name')?.touched}">
-                <div *ngIf="Formstudent.get('name')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('name')?.hasError('required') && Formstudent.get('name')?.touched">Se requiere el ingreso de los nombres</div>
-                </div>
-            </div>
+          </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-4">
-                <label for="">Escoger a edad:</label>
-                <select class="form-select" aria-label="Default select example" formControlName="age" [ngClass]="{'is-invalid':Formstudent.get('age')?.errors && Formstudent.get('age')?.touched}">
-                    <option value="7">7 años </option>
-                    <option value="8">8 años</option>
-                    <option value="9">9 años</option>
-                    <option value="10">10 años</option>
-                    <option value="11">11 años</option>
-                    <option value="12">12 años</option>
-                    <option value="13">13 años</option>
-                    <option value="14">14 años</option>
-                    <option value="15">15 años</option>
-                    <option value="16">16 años</option>
-                </select>
-                <div *ngIf="Formstudent.get('age')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('age')?.hasError('required') && Formstudent.get('age')?.touched">Debe escoger la edad</div>
-                </div>
+        <div class="col-sm-4">
+          <label for="">Nombres:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            placeholder="Ingrese dos nombres"
+            name=""
+            [ngClass]="{
+              'is-invalid':
+                Formstudent.get('name')?.errors &&
+                Formstudent.get('name')?.touched
+            }"
+          />
+          <div *ngIf="Formstudent.get('name')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('name')?.hasError('required') &&
+                Formstudent.get('name')?.touched
+              "
+            >
+              Se requiere el ingreso de los nombres
             </div>
-            <div class="col-sm-4">
-                <label for="">Nombre del Representante:</label>
-                <input type="text" class="form-control" formControlName="parentName" placeholder="Ingrese un nombre y un apellido" name="" [ngClass]="{'is-invalid':Formstudent.get('parentName')?.errors && Formstudent.get('parentName')?.touched}">
-                <div *ngIf="Formstudent.get('parentName')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('parentName')?.hasError('required') && Formstudent.get('parentName')?.touched">Debe ingresar el nombre del Representante</div>
-                </div>
-            </div>
+          </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-4">
-                <label for="">Teléfono de Contacto:</label>
-                <input type="text" class="form-control" formControlName="phone1" placeholder="Ingrese un numero de telefono de contacto" name="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" [ngClass]="{'is-invalid':Formstudent.get('phone1')?.errors && Formstudent.get('phone1')?.touched}">
-                <div *ngIf="Formstudent.get('phone1')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('phone1')?.hasError('required') && Formstudent.get('phone1')?.touched">Ingrese un número de contacto válido</div>
-                </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="">Escoger a edad:</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="age"
+            [ngClass]="{
+              'is-invalid':
+                Formstudent.get('age')?.errors &&
+                Formstudent.get('age')?.touched
+            }"
+          >
+            <option value="7">7 años</option>
+            <option value="8">8 años</option>
+            <option value="9">9 años</option>
+            <option value="10">10 años</option>
+            <option value="11">11 años</option>
+            <option value="12">12 años</option>
+            <option value="13">13 años</option>
+            <option value="14">14 años</option>
+            <option value="15">15 años</option>
+            <option value="16">16 años</option>
+          </select>
+          <div *ngIf="Formstudent.get('age')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('age')?.hasError('required') &&
+                Formstudent.get('age')?.touched
+              "
+            >
+              Debe escoger la edad
             </div>
-            <div class="col-sm-4">
-                <label for="">Correo Electrónico:</label>
-                <input type="email" class="form-control" formControlName="email" placeholder="Ingrese si tiene un correo electrónico" name="" [ngClass]="{'is-invalid':Formstudent.get('email')?.errors && Formstudent.get('email')?.touched}">
-                <div *ngIf="Formstudent.get('email')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('email')?.hasError('email') && Formstudent.get('phone1')?.touched">Ingrese un correo válido</div>
-                </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label for="">Nombre del Representante:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="parentName"
+            placeholder="Ingrese un nombre y un apellido"
+            name=""
+            [ngClass]="{
+              'is-invalid':
+                Formstudent.get('parentName')?.errors &&
+                Formstudent.get('parentName')?.touched
+            }"
+          />
+          <div *ngIf="Formstudent.get('parentName')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('parentName')?.hasError('required') &&
+                Formstudent.get('parentName')?.touched
+              "
+            >
+              Debe ingresar el nombre del Representante
             </div>
+          </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-8">
-                <label for="">Dirección: (Ciudad, Barrio, Calle Principal y Calle Secundaria)</label>
-                <input type="text" class="form-control" formControlName="address" placeholder="Ingrese la dirección completa de donde vive" name="" [ngClass]="{'is-invalid':Formstudent.get('address')?.errors && Formstudent.get('address')?.touched}">
-                <div *ngIf="Formstudent.get('address')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('address')?.hasError('required') && Formstudent.get('address')?.touched">Se requiere el ingreso de una dirección (Ciudad, Barrio-ciudadela, Calle Principal y Calle Secundaria)</div>
-                </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="">Teléfono de Contacto:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="phone1"
+            placeholder="Ingrese un numero de telefono de contacto"
+            name=""
+            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+            maxlength="10"
+            [ngClass]="{
+              'is-invalid':
+                Formstudent.get('phone1')?.errors &&
+                Formstudent.get('phone1')?.touched
+            }"
+          />
+          <div *ngIf="Formstudent.get('phone1')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('phone1')?.hasError('required') &&
+                Formstudent.get('phone1')?.touched
+              "
+            >
+              Ingrese un número de contacto válido
             </div>
+          </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-4 form-check">
-                <label for="">¿El Alumno está Bautizado?:</label><br>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="radio1" value="true" checked formControlName="baptized"> <p>Si</p>
-                    <input type="radio" class="form-check-input" id="radio2" value="false" checked formControlName="baptized"> <p>No</p>
-                </div>
-                <div *ngIf="Formstudent.get('baptized')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('baptized')?.hasError('required') && Formstudent.get('baptized')?.touched">Escoja una opción</div>
-                </div>
+        <div class="col-sm-4">
+          <label for="">Correo Electrónico:</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Ingrese si tiene un correo electrónico"
+            name=""
+            [ngClass]="{
+              'is-invalid':
+                Formstudent.get('email')?.errors &&
+                Formstudent.get('email')?.touched
+            }"
+          />
+          <div *ngIf="Formstudent.get('email')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('email')?.hasError('email') &&
+                Formstudent.get('phone1')?.touched
+              "
+            >
+              Ingrese un correo válido
             </div>
-            <div class="col-sm-4">
-            <label for="">¿El alumno tiene alguna Discapacidad?:</label><br>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="Disability1" value="true" checked formControlName="disability"> <p>Si</p>
-                    <input type="radio" class="form-check-input" id="Disability2" value="false" checked formControlName="disability"> <p>No</p>
-                </div>
-                <div *ngIf="Formstudent.get('disability')?.errors">
-                    <div class="text-danger" *ngIf="Formstudent.get('disability')?.hasError('required') && Formstudent.get('disability')?.touched">Escoja una opción</div>
-                </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-8">
+          <label for=""
+            >Dirección: (Ciudad, Barrio, Calle Principal y Calle
+            Secundaria)</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="address"
+            placeholder="Ingrese la dirección completa de donde vive"
+            name=""
+            [ngClass]="{
+              'is-invalid':
+                Formstudent.get('address')?.errors &&
+                Formstudent.get('address')?.touched
+            }"
+          />
+          <div *ngIf="Formstudent.get('address')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('address')?.hasError('required') &&
+                Formstudent.get('address')?.touched
+              "
+            >
+              Se requiere el ingreso de una dirección (Ciudad, Barrio-ciudadela,
+              Calle Principal y Calle Secundaria)
             </div>
-        <br>
+          </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-10">
-                <button [disabled]="Formstudent.invalid" type="submit" class="btn btn-success">Registrar nuevo estudiante</button>          
-                <a type="reset" href="/admin" class="btn btn-danger">Cancelar</a>
-                <!-- <a class="btn btn-primary">Generar Comprobante</a> -->
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-4 form-check">
+          <label for="">¿El Alumno está Bautizado?:</label><br />
+          <div class="form-check">
+            <input
+              type="radio"
+              class="form-check-input"
+              id="radio1"
+              value="true"
+              checked
+              formControlName="baptized"
+            />
+            <p>Si</p>
+            <input
+              type="radio"
+              class="form-check-input"
+              id="radio2"
+              value="false"
+              checked
+              formControlName="baptized"
+            />
+            <p>No</p>
+          </div>
+          <div *ngIf="Formstudent.get('baptized')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('baptized')?.hasError('required') &&
+                Formstudent.get('baptized')?.touched
+              "
+            >
+              Escoja una opción
+            </div>
+          </div>
         </div>
-            <!-- <button type="reset" class="btn btn-danger">Salir</button> -->
-            
+        <div class="col-sm-4">
+          <label for="">¿El alumno tiene alguna Discapacidad?:</label><br />
+          <div class="form-check">
+            <input
+              type="radio"
+              class="form-check-input"
+              id="Disability1"
+              value="true"
+              checked
+              formControlName="disability"
+            />
+            <p>Si</p>
+            <input
+              type="radio"
+              class="form-check-input"
+              id="Disability2"
+              value="false"
+              checked
+              formControlName="disability"
+            />
+            <p>No</p>
+          </div>
+          <div *ngIf="Formstudent.get('disability')?.errors">
+            <div
+              class="text-danger"
+              *ngIf="
+                Formstudent.get('disability')?.hasError('required') &&
+                Formstudent.get('disability')?.touched
+              "
+            >
+              Escoja una opción
+            </div>
+          </div>
         </div>
+        <br />
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-10">
+          <button
+            [disabled]="Formstudent.invalid"
+            type="submit"
+            class="btn btn-success"
+          >
+            Registrar nuevo estudiante
+          </button>
+          <a type="reset" href="/admin" class="btn btn-danger">Cancelar</a>
+          <!-- <a class="btn btn-primary">Generar Comprobante</a> -->
+        </div>
+        <!-- <button type="reset" class="btn btn-danger">Salir</button> -->
+      </div>
     </form>
-</div> 
+  </div>
 </section>

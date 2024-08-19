@@ -36,7 +36,7 @@ export class LevelFormSelectionComponent implements OnInit {
   ngOnInit(): void {
     this.checkIfMobile();
     // this.getShedule();
-    //this.getSheduleVerify();
+    this.getSheduleVerify();
   }
 
 checkIfMobile() {
@@ -75,9 +75,9 @@ reset_Form(){
 }
 
 getSheduleVerify(){
-  this._apiService.getShedule().subscribe((resp: datashedule[]) =>{
+  this._apiService.getShedule().subscribe((resp: any) =>{
     console.log(resp),
-    this.shedules = resp;
+    this.shedules = resp.data;
   })
 }
 
@@ -90,21 +90,17 @@ getSheduleVerify(){
 // }
 
 verify_level(){
-  this._apiService.getShedule().subscribe((resp: any) =>{
-    console.log(resp),
-    this.shedules = resp.data;
-  })
   const idbusqueda = 1;
   const auxshedule = this.shedules.find(
     (sheduleid) => sheduleid.Level.order === idbusqueda
   );
   
   if (auxshedule) {
-    //console.log('Objeto encontrado:', auxshedule);
+    console.log('Objeto encontrado:', auxshedule);
     this.current_shedule = auxshedule
-    if(this.current_shedule.id === 13){
-      localStorage.setItem("cs", '13')
-      this.router.navigate(['/course_selection', 13]) 
+    if(this.current_shedule.id === 7){
+      localStorage.setItem("cs", '7')
+      this.router.navigate(['/course_selection', 7]) 
     }
     else{
       Swal.fire({
@@ -114,8 +110,14 @@ verify_level(){
     }
   } else {
     console.log('Objeto no encontrado');
+    Swal.fire({
+      icon: 'error',
+      text: 'No están habilitados los dias de matriculación para este nivel, a partir del 20 de Agosto de habilitará el proceso de matriculación.',
+    })
   }
 }
+
+
 
 // verify_level() {
 //   this._apiService.getShedule().subscribe((resp: any) => {

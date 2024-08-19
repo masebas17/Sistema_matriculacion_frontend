@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { color } from 'html2canvas/dist/types/css/types/color';
 import { forkJoin, map, Observable } from 'rxjs';
 
 @Injectable({
@@ -21,7 +22,7 @@ export class PdfGeneratorService {
     pipe: any,
     formattedDate: string,
     documentType?: 'original' | 'copia',
-    qrCode?: string,
+    qrCode?: string
   ): Observable<any> {
     return forkJoin({
       header: this.loadImage('assets/pdf-images/header-pdf.txt'),
@@ -59,14 +60,11 @@ export class PdfGeneratorService {
                 {
                   stack: [
                     {
-                      text: [
-                        { text: 'Fecha: ', bold: true },
-                        formattedDate,
-                      ],
+                      text: [{ text: 'Fecha: ', bold: true }, formattedDate],
                     },
                     {
                       text: [
-                        { text: 'C.I.: ', bold: true  },
+                        { text: 'C.I.: ', bold: true },
                         student.identityNumber,
                       ],
                     },
@@ -78,19 +76,28 @@ export class PdfGeneratorService {
                     },
                     {
                       text: [
-                        { text: 'Nivel: ', bold: true  },
-                        student.Course.Schedule.Level.name,
+                        { text: 'Nivel: ', bold: true },
+                        { text: student.Course.Schedule.Level.name, bold: true},
                       ],
                     },
                     {
                       text: [
                         { text: 'Paralelo: ', bold: true },
-                        student.Course.name,
+                        {text: student.Course.name, bold: true},
                       ],
                     },
-                    
+                    {
+                      text: [
+                        {
+                          text: '\n *Nota: El curso escogido puede cambiar una vez terminado el proceso de matriculación, puesto que el sistema realiza una verificación de la edad o parámetros que puedan influir como el espacio físico.',
+                          fontSize: 6,
+                          italics: true,
+                          bold: true,
+                        },
+                      ],
+                    },
                   ],
-                  margin: [10, 5]
+                  margin: [10, 5],
                 },
                 {
                   stack: [
@@ -107,8 +114,8 @@ export class PdfGeneratorService {
             {
               text: [
                 'Yo' +
-                  ' ' +
-                  student.parentName +
+                  ' ',
+                  { text: student.parentName, bold: true},
                   ',' +
                   ' ' +
                   'como Padre/Madre/Representante de mi hijo/a, ',
