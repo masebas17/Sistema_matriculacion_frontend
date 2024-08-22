@@ -55,21 +55,33 @@ export class ClassroomSelectionComponent implements OnInit {
 
   async anunce(){
     await Swal.fire({
-       icon: 'info',
-       text: 'Estimado alumno/a, a continuación el proceso nos muestra los cursos disponibles para matricularnos, es importante que conozcas que el curso que se escoja al finalizar el proceso puede cambiar, esto es debido a que el sistema verifica al terminar las matrículas parámetros como la edad o si existe alguna limitante de imprevisto como el espacio físico.',
-       confirmButtonColor: '#1D71B8',
-       input: "checkbox",
-       inputValue: 1,
-       inputPlaceholder: `
-         Estoy de acuerdo con los términos y condiciones
-       `,
-       confirmButtonText: `
-         Continue&nbsp;<i class="fa fa-arrow-right"></i>
-       `,
-       inputValidator: (result) => {
-         return !result && "You need to agree with T&C";
-       }
-     });
+      icon: 'info',
+      title: 'Atención',
+      text: 'Estimados catequizandos y padres de familia, a continuación el proceso de registro nos muestra los cursos disponibles para matricularnos, es importante que tengamos en cuenta que el curso que se escoja al finalizar el proceso podría cambiar, esto es debido a que el sistema verifica al terminar las matrículas parámetros como la edad o si existe alguna limitante de imprevisto con el espacio físico. Agradecemos su comprensión.',
+      confirmButtonColor: '#1D71B8',
+      input: 'checkbox',
+      inputValue: 1,
+      inputPlaceholder: `
+        Estoy de acuerdo con los términos y condiciones
+      `,
+      confirmButtonText: `
+        Continuar&nbsp;<i class="fa fa-arrow-right"></i>
+      `,
+      inputValidator: (result) => {
+        return !result && 'You need to agree with T&C';
+      },
+      allowOutsideClick: () => {
+        const popup = Swal.getPopup() as HTMLElement;
+        popup.classList.remove('swal2-show');
+        setTimeout(() => {
+          popup.classList.add('animate__animated', 'animate__headShake');
+        });
+        setTimeout(() => {
+          popup.classList.remove('animate__animated', 'animate__headShake');
+        }, 500);
+        return false;
+      },
+    });
    }
 
 }

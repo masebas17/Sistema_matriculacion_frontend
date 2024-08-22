@@ -52,7 +52,7 @@ export class CourseSelectionComponent implements OnInit {
     await Swal.fire({
       icon: 'info',
       title: 'Atención',
-      text: 'Estimados catequizandos y padres de familia, a continuación el proceso de registro nos muestra los cursos disponibles para matricularnos, es importante que tengamos en cuenta que el curso que se escoja al finalizar el proceso podría cambiar, esto es debido a que el sistema verifica al terminar las matrículas parámetros como la edad o si existe alguna limitante de imprevisto con el espacio físico. Agradecemos su comprensión.',
+      text: 'Estimados padres de familia, a continuación el proceso de registro nos muestra los cursos disponibles para matricularnos, es importante que tengamos en cuenta que el curso que se escoja al finalizar el proceso podría cambiar, esto es debido a que el sistema verifica al terminar las matrículas parámetros como la edad o si existe alguna limitante de imprevisto con el espacio físico. Agradecemos su comprensión.',
       confirmButtonColor: '#1D71B8',
       input: 'checkbox',
       inputValue: 1,
