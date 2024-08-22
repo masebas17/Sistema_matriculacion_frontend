@@ -52,7 +52,7 @@ export class PayComponent implements OnInit {
         confirmButtonColor: '#1D71B8'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.student = resp.data
+          this.student = resp.data.student
         }
       })
 

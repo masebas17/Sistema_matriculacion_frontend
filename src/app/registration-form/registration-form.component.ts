@@ -59,64 +59,84 @@ export class RegistrationFormComponent implements OnInit {
     myTimeout;
 }
 
-consultar(){
-  this._ApiService.getStudent(this.FormIdentitynumber.get("identityNumber").value).subscribe((resp: any) =>{
-  
-    if (resp) {
-      const myTimeout = setTimeout(async() => {
-        const Toast = Swal.mixin({
-          toast: false,
-          position: 'center',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        this.verificar_datos(resp.data.student)
-        if(!this.validDate){
-          Swal.fire({
-            icon: 'error',
-            text: 'El Usuario no esta habilitado para la matriculación en este día, revise las fechas correspondientes',
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              this.router.navigate(['/level-form-selection'])
-            }})
-          //window.location.reload();
-        }else{
-    if(resp.data.student.Course.Schedule.period === '2024' ){
-      await Swal.fire({
-        icon: 'error',
-        text: 'El Usuario ya se encuentra matriculado',
-      })
-      window.location.reload();
-    }else{
+consultar() {
+  this._ApiService
+    .getStudent(this.FormIdentitynumber.get('identityNumber').value)
+    .subscribe((resp: any) => {
+      if (resp && resp.data && resp.data.student) {
+        //console.log('resp', resp.data.student);
 
-      if(resp.data.student.aproved === false || resp.data.student.aproved === null ){
-        await Swal.fire({
-          icon: 'error',
-          text: 'El usuario registra nivel REPROBADO, no tiene permitido matricularse, debe acercarse al Despacho parroquial',
-        })
-        window.location.reload();
+        const myTimeout = setTimeout(async () => {
+          const student = resp.data.student;
+
+          const Toast = Swal.mixin({
+            toast: false,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          });
+
+          if (student.Course.Schedule.period === '2024') {
+            await Swal.fire({
+              icon: 'error',
+              text: 'El Usuario ya se encuentra matriculado',
+            });
+            this.router.navigate(['/level-form-selection']);
+            return;
+          }
+
+          this.verificar_datos(student);
+
+          if (!this.validDate) {
+            await Swal.fire({
+              icon: 'error',
+              title: 'El Usuario no está habilitado para la matriculación en este día.',
+              text: 'Revise las fechas correspondientes',
+            });
+            this.router.navigate(['/level-form-selection']);
+            return;
+          }
+
+          // Validar si el periodo no es 2023
+          if (student.Course.Schedule.period !== '2023') {
+            await Swal.fire({
+              icon: 'error',
+              title: 'El usuario no se puede matricular.',
+              text: 'No registra matrícula en el periodo anterior 2023-2024.',
+              footer: 'Nota: Debe acercarse al Despacho Parroquial'
+            });
+            window.location.reload();
+            return;
+          }
+
+          // Validar si el usuario está aprobado
+          if (!student.aproved) {
+            await Swal.fire({
+              icon: 'error',
+              text: 'El usuario registra nivel REPROBADO, no tiene permitido matricularse.',
+              footer: 'Nota: Debe acercarse al Despacho parroquial',
+            });
+            window.location.reload();
+            return;
+          }
+
+          // Si todas las validaciones son correctas
+          await Toast.fire({
+            icon: 'success',
+            title: 'Datos del Estudiante encontrados',
+            text: 'Verificando el estado de matriculación',
+          });
+
+          this.datos_of_students = student;
+          console.log(this.datos_of_students);
+
+        }, 500);
+        myTimeout;
       } else {
-        await Toast.fire({
-          icon: 'success',
-          title: 'Datos del Estudiante encontrados',
-          text:' Verificando el estado de matriculación'
-        })
-        this.datos_of_students = resp.data.student
-        console.log(this.datos_of_students)
-        
+        this.router.navigate(['/home']);
       }
-      }
-      }
-    }, 500);
-      myTimeout;
-    }
-    else {
-      this.router.navigate(['/home'])
-    }
-  })
-
+    });
 }
 
 getShedule(){
@@ -136,6 +156,17 @@ verificar_datos(datos_of_students: any){
     // console.log('Objeto encontrado:', auxlevel);
     this.current_level = auxlevel
   } 
+
+  if(!auxlevel){
+    Swal.fire({
+      icon: 'error',
+      text: 'El Usuario no puede matricularse porque el último nivel aprobado es CONFIRMACION, ya terminó la catequesis',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/level-form-selection']);
+      }
+    })
+  }
 
   const auxDate = new Date();
 

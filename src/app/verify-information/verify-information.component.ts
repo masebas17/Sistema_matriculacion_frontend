@@ -77,7 +77,7 @@ export class VerifyInformationComponent implements OnInit {
   consultar() {
     this._apiService.getStudent(this.identity_Number).subscribe((resp: any) => {
       console.log(resp.data);
-      this.datos_of_students = resp.data;
+      this.datos_of_students = resp.data.student;
 
       this.Formstudent.patchValue({
         lastName: this.datos_of_students.lastName,
@@ -138,7 +138,7 @@ export class VerifyInformationComponent implements OnInit {
                 .getStudent(this.identity_Number)
                 .subscribe((resp_student: any) => {
                   console.log(resp_student.data);
-                  this.student = resp_student.data;
+                  this.student = resp_student.data.student;
                   this.formattedDate = this.formatUpdatedAt(this.student.updatedAt)
                   this.createPDF(false);
                   localStorage.clear();

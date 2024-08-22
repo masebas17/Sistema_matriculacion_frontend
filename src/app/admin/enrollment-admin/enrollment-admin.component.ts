@@ -66,74 +66,101 @@ export class EnrollmentAdminComponent implements OnInit {
       }
     )
 
-  consultar(){
-      this._ApiService.getStudent(this.FormIdentitynumber.get("identityNumber").value).subscribe((resp: any) =>{
-      
-        if (resp) {
-          //console.log('resp', resp)
-          const myTimeout = setTimeout(async() => {
-            const Toast = Swal.mixin({
-              toast: false,
-              position: 'center',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-            })
-            this.verificar_datos(resp.data.student)
-        if(resp.data.student.Course.Schedule.period === '2024' ){
-          await Swal.fire({
-            icon: 'error',
-            text: 'El Usuario ya se encuentra matriculado',
-          })
-          window.location.reload();
-        }else{
+    consultar() {
+      this._ApiService
+        .getStudent(this.FormIdentitynumber.get('identityNumber').value)
+        .subscribe((resp: any) => {
+          if (resp && resp.data && resp.data.student) {
+            console.log('resp', resp.data.student);
     
-          if(resp.data.student.aproved === false || resp.data.student.aproved === null ){
-            await Swal.fire({
-              icon: 'error',
-              text: 'El usuario registra nivel del periodo anterior como reprobado, no tiene permitido matricularse, para levantar impedimentos debe buscar con la cédula y cambiar el estado a "APROBADO" en editar información',
-            })
-            window.location.reload();
+            const myTimeout = setTimeout(async () => {
+              const student = resp.data.student;
+              const Toast = Swal.mixin({
+                toast: false,
+                position: 'center',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+              });
+
+              this.verificar_datos(student)
+    
+              // Verificar si el usuario ya está matriculado en el período 2024
+              if (student.Course.Schedule.period === '2024') {
+                await Swal.fire({
+                  icon: 'error',
+                  text: 'El Usuario ya se encuentra matriculado',
+                });
+                window.location.reload();
+                return;
+              }
+
+              if (student.Course.Schedule.period !== '2023') {
+                await Swal.fire({
+                  icon: 'error',
+                  title: 'El usuario no se puede matricular.',
+                  text: 'No registra matrícula en el periodo anterior 2023-2024.',
+                  footer: 'Nota: Revisar la información del alumno para ver cual fue el último periodo que se matriculó, se pueden cambiar sus datos desde el componente de editar información.'
+                });
+                window.location.reload();
+                return;
+              }
+    
+              // Verificar si el usuario está reprobado
+              if (student.aproved === false || student.aproved === null) {
+                await Swal.fire({
+                  icon: 'error',
+                  text: 'El usuario registra nivel del periodo anterior como reprobado, no tiene permitido matricularse. Para levantar impedimentos, debe buscar con la cédula y cambiar el estado a "APROBADO" en editar información',
+                });
+                window.location.reload();
+                return;
+              }
+    
+              // Verificar si el último nivel aprobado es confirmación
+              if (student.Course.Schedule.Level.name === 'Confirmación') {
+                await Swal.fire({
+                  icon: 'error',
+                  text: 'El Usuario no puede matricularse porque el último nivel aprobado es CONFIRMACION, ya terminó la catequesis',
+                });
+                window.location.reload();
+                return;
+              }
+              // Si todas las validaciones son correctas, mostrar éxito
+              await Toast.fire({
+                icon: 'success',
+                title: 'Datos del Estudiante encontrados',
+                text: 'Verificando el estado de matriculación',
+              });
+    
+              // Asignar datos al formulario
+              this.datos_of_students = student;
+              console.log(this.datos_of_students);
+    
+              this.Formstudent.patchValue({
+                lastName: student.lastName,
+                name: student.name,
+                age: student.age,
+                parentName: student.parentName,
+                phone1: student.phone1,
+                email: student.email,
+                address: student.address,
+                payment: null,
+              });
+    
+              // Llamar a la función getCourse
+              this.getCourse();
+    
+            }, 500);
+    
+            myTimeout;
+    
           } else {
-
-            if(resp.data.student.Course.Schedule.id === 6 || resp.data.student.Course.Schedule.id === 12 ){
-              await Swal.fire({
-                icon: 'error',
-                text: 'El Usuario no puede matricularse porque el último nivel aprobado es confirmación, ya terminó la catequesis',
-              })
-              window.location.reload();
-            }else {
-            await Toast.fire({
-              icon: 'success',
-              title: 'Datos del Estudiante encontrados',
-              text:' Verificando el estado de matriculación'
-            })
-            this.datos_of_students = resp.data.student
-            console.log(this.datos_of_students)
-
-            this.Formstudent.patchValue({
-    
-              lastName: this.datos_of_students.lastName,
-              name: this.datos_of_students.name,
-              age: this.datos_of_students.age,
-              parentName: this.datos_of_students.parentName,
-              phone1: this.datos_of_students.phone1,
-              email: this.datos_of_students.email,
-              address: this.datos_of_students.address,
-              payment: null
-          })
-          } 
+            // Si no se encuentra el estudiante, redirigir a la página de inicio
+            this.router.navigate(['/home']);
           }
-          }
-          this.getCourse()
-        }, 500);
-          myTimeout;
-        }
-        else {
-          this.router.navigate(['/home'])
-        }
-      })
+        });
     }
+    
   
       getShedule(){
         this._ApiService.getShedulebyYear().subscribe((resp: any) => {

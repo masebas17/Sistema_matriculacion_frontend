@@ -98,9 +98,9 @@ verify_level(){
   if (auxshedule) {
     console.log('Objeto encontrado:', auxshedule);
     this.current_shedule = auxshedule
-    if(this.current_shedule.id === 7){
-      localStorage.setItem("cs", '7')
-      this.router.navigate(['/course_selection', 7]) 
+    if(this.current_shedule.id === 13){
+      localStorage.setItem("cs", '13')
+      this.router.navigate(['/course_selection', 13]) 
     }
     else{
       Swal.fire({
@@ -116,7 +116,6 @@ verify_level(){
     })
   }
 }
-
 
 
 // verify_level() {
