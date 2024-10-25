@@ -112,7 +112,7 @@ verify_level(){
     console.log('Objeto no encontrado');
     Swal.fire({
       icon: 'error',
-      text: 'No están habilitados los dias de matriculación para este nivel, a partir del 20 de Agosto de habilitará el proceso de matriculación.',
+      text: 'No están habilitados los dias de matriculación para este nivel, todo proceso debe realizarse directamente en las oficinas del Despacho parroquial.',
     })
   }
 }

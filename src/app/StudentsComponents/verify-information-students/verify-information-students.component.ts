@@ -11,6 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class VerifyInformationStudentsComponent implements OnInit {
 
   datos_of_students: any;
+  period: string;
   public formattedDate: string;
 
   constructor(private _ApiService: ApiService,
@@ -27,8 +28,13 @@ export class VerifyInformationStudentsComponent implements OnInit {
 
       if (resp) {
         this.datos_of_students = resp.data.student
-        // console.log(this.datos_of_students) 
+        console.log(this.datos_of_students) 
         this.formattedDate = this.formatUpdatedAt(this.datos_of_students.updatedAt);
+        const currentYear = parseInt(
+          this.datos_of_students.Course.Schedule.period
+        );
+        const nextYear = currentYear + 1;
+        this.period = `${this.datos_of_students.Course.Schedule.period} - ${nextYear}`;
     }})
   }
 

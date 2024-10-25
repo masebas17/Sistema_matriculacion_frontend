@@ -43,6 +43,7 @@
                       <th >Cédula de Identidad</th>
                       <th>Apellidos</th>
                       <th>Nombres</th>
+                      <th>Periodo actual</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -50,6 +51,7 @@
                       <td class = "text-center" id="num_cedula">{{datos_of_students.identityNumber}}</td>
                       <td class = "text-center">{{datos_of_students.lastName | uppercase}}</td>
                       <td class = "text-center">{{datos_of_students.name | uppercase}}</td> 
+                      <td class = "text-center">{{this.period}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -139,7 +141,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="onCloseHandled()">Aceptar</button>
-          <button type="button" class="btn btn-warning" (click)="createPDF(true)">Generar Acta de Compromiso</button> 
+          <button type="button" class="btn btn-warning" (click)="generatePDF()">Generar Acta de Compromiso</button> 
           <!-- <button type="button" class="btn btn-primary">Understood</button> -->
         </div>
       </div>

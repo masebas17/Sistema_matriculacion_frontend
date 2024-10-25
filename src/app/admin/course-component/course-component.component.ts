@@ -171,7 +171,7 @@ export class CourseComponentComponent implements OnInit {
     this.period_parcial_name = filtershedule[0].period;
     const currentYear = parseInt(this.period_parcial_name);
     const nextYear = currentYear + 1;
-    this.period = `${this.period_parcial_name} - ${nextYear}`
+    this.period = `${this.period_parcial_name} - ${nextYear}`;
     this.students = filtercourse[0].Students;
     this.teachers = filtercourse[0].Teachers;
 
@@ -382,9 +382,7 @@ export class CourseComponentComponent implements OnInit {
 
       pdf.add(initialTxtLine3);
 
-      const initialTxtLine4 = new Txt(
-        `Periodo: ${this.period}\n\n`
-      )
+      const initialTxtLine4 = new Txt(`Periodo: ${this.period}\n\n`)
         .fontSize(12)
         .bold().end;
 
@@ -566,12 +564,10 @@ export class CourseComponentComponent implements OnInit {
             this.level.endTime +
             ' )',
           this.classroom.name,
-          this.teachers[0].lastName.toUpperCase() +
-            ' ' +
-            this.teachers[0].name.toUpperCase(),
-          this.teachers[1].lastName.toUpperCase() +
-            ' ' +
-            this.teachers[1].name.toUpperCase(),
+          `${this.teachers[0].lastName.toUpperCase()} ${this.teachers[0].name.toUpperCase()}`,
+          this.teachers[1]
+            ? `${this.teachers[1].lastName.toUpperCase()} ${this.teachers[1].name.toUpperCase()}`
+            : '',
         ];
       } else {
         this.data1 = [
@@ -585,7 +581,7 @@ export class CourseComponentComponent implements OnInit {
             this.level.endTime +
             ' )',
           this.classroom.name,
-          'No asignado'
+          'No asignado',
         ];
       }
       // Convierte los datos de la respuesta de la API a un formato adecuado para xlsx
@@ -600,7 +596,13 @@ export class CourseComponentComponent implements OnInit {
         item.payment,
       ]);
 
-      const headers = ['Periodo','Nivel', 'Horario', 'Paralelo', 'Catequista(s)'];
+      const headers = [
+        'Periodo',
+        'Nivel',
+        'Horario',
+        'Paralelo',
+        'Catequista(s)',
+      ];
 
       const headers2 = [
         'Cédula',

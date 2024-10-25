@@ -12,9 +12,9 @@
                 width="200"
               />
             </div>
-            <h5 class="my-3">
-              Verificación de Matrícula Catequesis Parroquial de Machachi - 2024
-            </h5>
+            <h6 class="my-3">
+              Verificación de Matrícula Catequesis Parroquial de Machachi
+            </h6>
             <div style="height: 400px; overflow-y: auto">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -29,6 +29,12 @@
                       <td class="text-center">Fecha de Registro</td>
                       <td class="text-center">
                         {{ formattedDate }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">Periodo actual</td>
+                      <td class="text-center">
+                        {{ period }}
                       </td>
                     </tr>
                     <!-- Datos Personales -->
@@ -53,6 +59,18 @@
                       <td class="text-center">Nombres</td>
                       <td class="text-center">
                         {{ datos_of_students.name | uppercase }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Representante</td>
+                      <td class="text-center">
+                        {{ datos_of_students.parentName | uppercase }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="datos_of_students != null">
+                      <td class="text-center">Contacto</td>
+                      <td class="text-center">
+                        {{ datos_of_students.phone1 | uppercase }}
                       </td>
                     </tr>
 
